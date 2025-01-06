@@ -1,0 +1,261 @@
+@use "./vars";
+
+body {
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 14.4px;
+    font-weight: 500;
+    color: vars.$text-color;
+    background-color: vars.$body-bg;
+    transition: background-color 0.05s ease-in;
+}
+
+a {
+    cursor: pointer;
+}
+
+.card-bg-2 {
+    background-color: vars.$card-bg-2;
+}
+
+.btn-active {
+    border: none;
+    background: linear-gradient(93.93deg, #008080 0% 100%);
+    color:  #fff;
+    min-width: 50px;
+    &.btn {
+        font-size: 16px;
+        padding: 7px;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+
+    position: relative;
+    overflow: hidden;
+    transition: 0.5s;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+    &:before {
+        content: "";
+        position: absolute;
+        left: -2em;
+        width: 2em;
+        height: 100%;
+        top: 0;
+        transition: transform 1.5s ease-in-out;
+        background: linear-gradient(to right, transparent 1%, rgba(255, 255, 255, 0.1) 90%, rgba(102, 101, 101, 0.1) 80%, transparent 100%);
+    }
+
+    &:hover:before {
+        transform: translateX(30em);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+.text-active {
+    color: vars.$active-color;
+}
+.text-color-1 {
+    color: vars.$text-color !important;
+}
+
+.text-color-2 {
+    color: vars.$text-color-2;
+}
+.text-color-3 {
+    color: vars.$text-color-3-light;
+}
+.bg-active {
+    background-color: vars.$active-color;
+}
+
+.bg-color-2 {
+    background-color: vars.$body-bg-1;
+}
+.bg-color-1 {
+    background-color: vars.$body-bg;
+}
+.border-color-1 {
+    border-color: vars.$border-color-1;
+}
+
+.icon-prefix-input {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    img,
+    svg:not(.v3dp__popout svg) {
+        margin-left: 9px;
+        margin-right: -28px;
+        position: absolute;
+        width: 20px !important;
+        z-index: 1;
+        color: #64748B;
+        font-size: 20px;
+    }
+
+    input,
+    select {
+        padding-left: 32px;
+    }
+
+    &.has-info {
+
+        input,
+        select {
+            padding-right: 32px;
+
+            &.is-invalid {
+                background: none;
+            }
+        }
+
+        .info {
+            right: 0;
+            margin-right: 50px;
+            z-index: 3;
+        }
+    }
+
+    .required {
+        position: absolute;
+        margin-left: -10px;
+        color: #dc3545;
+    }
+}
+
+.btn-default {
+    padding: 7px 12px;
+    border: 1px solid vars.$text-color-1;
+    background: linear-gradient(93.93deg, #008080 0% 100%);
+    color:  #fff;
+    min-width: 50px;
+    &.btn {
+        font-size: 16px;
+        padding: 7px;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+
+    position: relative;
+    overflow: hidden;
+    transition: 0.5s;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+    &:before {
+        content: "";
+        position: absolute;
+        left: -2em;
+        width: 2em;
+        height: 100%;
+        top: 0;
+        transition: transform 1.5s ease-in-out;
+        background: linear-gradient(to right, transparent 1%, rgba(255, 255, 255, 0.1) 90%, rgba(102, 101, 101, 0.1) 80%, transparent 100%);
+    }
+
+    &:hover:before {
+        transform: translateX(30em);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+.form-control {
+    border-radius: 6px;
+    border-color: vars.$border-color-1;
+    background-color: transparent;
+
+    &:focus {
+        background-color: transparent;
+    }
+
+    &::placeholder {
+        color: #64748b;
+    }
+
+    &.has-bg {
+        background-color: #fff;
+    }
+
+    &[readonly],
+    &:disabled {
+        background: transparent;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    &.is-invalid {
+        border-color: #DC3545 !important;
+    }
+}
+.rounded-l-none {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+.input-group>.form-control {
+    border-radius: 8px;
+}
+
+.fd-card {
+    background-color: vars.$card-bg-dark;
+    color: vars.$text-color-dark;
+    .fd-card-header {
+      border-bottom-color: rgba(255, 255, 255, 0.2);
+      .fd-card-title {
+        font-weight: 400;
+      }
+    }
+    .count {
+        color: vars.$text-color-dark-1 !important;
+    }    
+}
+
+.dropdown-menu {
+    padding: 16px;
+    background-color: #fff;
+    border: solid 1px vars.$border-color-1;
+    border-radius: 12px;
+
+    .dropdown-item {
+        color: #64748b;
+        padding-left: 0;
+        padding-right: 0;
+        font-weight: 500;
+
+        &:hover {
+            background: unset;
+        }
+    }
+}
+
+.dropdown-item:hover {
+    background-color: #e2e3e5;
+}
+.card-height {
+    height: 100%;
+    @media screen and (min-width: 768px) {
+        height:430px;
+    }
+}
