@@ -32,6 +32,7 @@ export const useCategories = () => {
   };
 
   fetchCategories();
+  console.log("categoryLoading ::: ", categoryLoading.value)
 
   return { categories, categoryLoading };
 };
@@ -76,8 +77,10 @@ export const useSelectedAds = async () => {
 
   const fetchAds = async () => {
     try {
+      
       const { data } = await axios.post(url, filterObject.value);
-      ads.value = data.data;
+      console.log("useSelectedAds :::", data.data.data)
+      ads.value = data.data.data;
     } catch (error) {
       console.error("Error fetching ads:", error);
     } finally {
@@ -86,6 +89,6 @@ export const useSelectedAds = async () => {
   };
 
   fetchAds();
-
+  console.log("adsLoading ::: ", adsLoading.value)
   return { ads, adsLoading };
 };

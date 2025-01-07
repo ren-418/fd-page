@@ -13,7 +13,6 @@
   
   const loadIcon = async (iconName: string) => {
     try {
-      console.log("Loading icon:", iconName);
       const module = await import(`../assets/images/icons/${iconName}.svg?raw`);
       iconComponent.value = module.default;
     } catch (error) {
