@@ -4,7 +4,6 @@
       <div class="nav-item text-color-1">
         <NuxtLink
           class="nav-link flex flex-col justify-center items-center"
-          href="javascript:;"
           to="/"
         >
           <Icon
@@ -19,7 +18,6 @@
         <NuxtLink
           class="nav-link flex flex-col justify-center items-center"
           :class="{ active: route.name === 'ads' }"
-          href="javascript:;"
           to="/business"
         >
           <img src="../assets/images/briefcase.png" alt="" class="w-6" />
@@ -46,7 +44,6 @@
       </div>
       <div class="nav-item" to="/learn">
         <NuxtLink
-          href="javascript:;"
           class="nav-link flex flex-col justify-center items-center"
           :class="{ active: route.name === 'topic' }"
         >
@@ -58,7 +55,6 @@
         <NuxtLink
           class="nav-link more flex flex-col justify-center items-center"
           :class="{ active: route.name === 'more' }"
-          href="javascript:;"
           to="/login"
         >
           <Icon name="user-plus" class="w-6" :class="{ 'text-active': route.name === 'login' }" />

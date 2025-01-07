@@ -4,7 +4,7 @@ import { useRuntimeConfig } from "#app";
 interface FilterObject {
   location: string | null;
   keyword: string;
-  category_id: string;
+  category_id:  number | string;
   sub_categories: any;
   is_automotive: string;
   automotive_categories: any;
@@ -32,7 +32,7 @@ export const useCategories = () => {
   };
 
   fetchCategories();
-  console.log("categoryLoading ::: ", categoryLoading.value)
+  console.log("categoryLoading ::: ", categoryLoading.value);
 
   return { categories, categoryLoading };
 };
@@ -58,11 +58,35 @@ export const useFilterObject = () => {
     status: "active",
     sub_categories: [],
   }));
+  const { category } = useSelectCategory();
 
-  const setFilterObject = () => {
-    const { category } = useSelectCategory();
-    filterObject.value.category_id = category.id;
+  const setFilterObject = (newVal:any) => {
+    if (typeof filterObject.value !== 'object') {
+      filterObject.value = {
+        automotive_categories: [],
+        category_id: "",
+        is_automotive: "",
+        keyword: "",
+        location: null,
+        page: 1,
+        status: "active",
+        sub_categories: [],
+      };
+    }
+    if ( newVal==="all") {
+      filterObject.value.category_id = "";
+    } else {
+      filterObject.value.category_id = newVal.id;
+    }
   };
+
+  watch(
+    () => category.value,
+    (newVal) => {
+      setFilterObject(newVal);
+    },
+    { deep: true }
+  );
 
   return { filterObject, setFilterObject };
 };
@@ -77,9 +101,9 @@ export const useSelectedAds = async () => {
 
   const fetchAds = async () => {
     try {
-      
+      console.log("callled ::: fetch ads", filterObject.value)
       const { data } = await axios.post(url, filterObject.value);
-      console.log("useSelectedAds :::", data.data.data)
+      console.log("useSelectedAds :::", data.data.data);
       ads.value = data.data.data;
     } catch (error) {
       console.error("Error fetching ads:", error);
@@ -87,8 +111,16 @@ export const useSelectedAds = async () => {
       adsLoading.value = false;
     }
   };
+  watch(
+    () => filterObject.value,
+    async () => {
+      adsLoading.value= true;
+      await fetchAds();
+    },
+    { deep: true }
+  );
 
-  fetchAds();
-  console.log("adsLoading ::: ", adsLoading.value)
-  return { ads, adsLoading };
+  await fetchAds();
+  console.log("adsLoading ::: ", adsLoading.value);
+  return { ads, adsLoading, fetchAds };
 };
