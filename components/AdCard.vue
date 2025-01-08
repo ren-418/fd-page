@@ -27,21 +27,22 @@ import Icon from "./Icon.vue";
 const card_data = defineProps<{
   title: string;
   slug: string;
-  service_provider: string;
-  cost: number | null;
-  city: string;
+  service_provider: string | null;
+  cost: string | null;
+  city: string | null;
   created_at: string;
   image: string;
-  category: any;
-  job_title: string;
-  house_type: string;
-  trainer_institute: string;
-  rent_lease_item: string;
+  category: any | null;
+  job_title: string | null;
+  house_type: string | null;
+  trainer_institute: string | null;
+  rent_lease_item: string | null;
   sub_category: any;
-  breed_species_type: string;
+  breed_species_type: string | null;
 }>();
 
 const post_title = computed(() => {
+  
   if (!card_data.category) return null;
   if (card_data.category.name === "Jobs")
     return card_data.job_title ? card_data.job_title : "Local Jobs";

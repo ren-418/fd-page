@@ -9,7 +9,11 @@ export default {
     "./nuxt.config.{js,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'xsm': '400px',
+      },
+    },
     container: {
       padding: {
         DEFAULT: '1rem',
