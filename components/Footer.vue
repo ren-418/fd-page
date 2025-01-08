@@ -5,6 +5,7 @@
         <NuxtLink
           class="nav-link flex flex-col justify-center items-center"
           to="/"
+          :class="{ 'text-active': route.name === 'index' }"
         >
           <Icon
             name="home"
@@ -17,7 +18,7 @@
       <div class="nav-item">
         <NuxtLink
           class="nav-link flex flex-col justify-center items-center"
-          :class="{ active: route.name === 'ads' }"
+          :class="{ 'text-active': route.name === 'business' }"
           to="/business"
         >
           <img src="../assets/images/briefcase.png" alt="" class="w-6" />
@@ -45,7 +46,7 @@
       <div class="nav-item" to="/learn">
         <NuxtLink
           class="nav-link flex flex-col justify-center items-center"
-          :class="{ active: route.name === 'topic' }"
+          :class="{ 'text-active': route.name === 'learn' }"
         >
           <Icon name="learn" class="w-6" />
           <span class="nav-title">Learn</span>
@@ -54,11 +55,11 @@
       <div class="nav-item">
         <NuxtLink
           class="nav-link more flex flex-col justify-center items-center"
-          :class="{ active: route.name === 'more' }"
+          :class="{ 'text-active': route.name === 'login' }"
           to="/login"
         >
-          <Icon name="user-plus" class="w-6" :class="{ 'text-active': route.name === 'login' }" />
-          <span class="nav-title" :class="{ 'text-active': route.name === 'login' }">Login</span>
+          <Icon name="user-plus" class="w-6"  />
+          <span class="nav-title" >Login</span>
         </NuxtLink>
       </div>
     </div>
@@ -72,6 +73,7 @@ import Icon from "./Icon.vue";
 // Use Vue Router and Vuex
 const router = useRouter();
 const route = useRoute();
+console.log("route name :::", route.name)
 </script>
 
 <style lang="scss" scoped>
