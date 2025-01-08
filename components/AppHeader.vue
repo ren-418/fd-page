@@ -3,7 +3,7 @@
     <div class="container mx-0 lg:mx-auto pt-3 pb-3">
       <div class="flex justify-between items-center">
         <NuxtLink to="/" class="text-2xl logo">Logo</NuxtLink>
-          
+
         <div class="flex items-center gap-8">
           <div>
 
@@ -15,7 +15,8 @@
             </div>
             <div class="flex items-center gap-1.5">
               <img src="../assets/images/briefcase.png" alt="" width="16" />
-              <span class="text-base">Business</span>
+              <NuxtLink to="business" class="text-base cursor-pointer">Business</NuxtLink>
+              
             </div>
             <button class="btn btn-active">+ POST AD</button>
           </div>
