@@ -44,7 +44,7 @@
       </div>
       <div class="flex flex-col gap-5">
         <div
-          class="grid grid-cols-2 xsm:grid-cols-4 lg:grid-cols-8 overflow-x-auto"
+          class="grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 overflow-x-auto"
         >
           <div
             v-for="option in optionData"
@@ -57,7 +57,7 @@
         <div>
           <div class="flex flex-wrap">
             <template v-for="(ad, index) in ads" :key="`ad-${index}`">
-              <div class="w-[50%] lg:w-[25%] md:lg:w-[50%] ">
+              <div class="w-[50%] lg:w-[25%] md:lg:w-[50%]">
                 <div class="p-2">
                   <AdCard
                     :title="ad.title"
@@ -136,10 +136,9 @@ const adsThreshold = computed(() =>
 const bannerCount = computed(() => {
   if (screenWidth.value && screenWidth.value <= 640) {
     return 1;
-  } else if(screenWidth.value && screenWidth.value <= 850) {
+  } else if (screenWidth.value && screenWidth.value <= 850) {
     return 2;
-  }
-  else {
+  } else {
     return 3;
   }
 });

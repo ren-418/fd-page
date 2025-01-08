@@ -259,3 +259,53 @@ a {
         height:430px;
     }
 }
+
+.p-galleria-nav-button {
+    background-color: #fff !important;
+    /* Customize button color */
+    color: #64748B !important;
+    /* Customize button text/icon color */
+    border-radius: 50% !important;
+    /* Make buttons circular */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+    /* Add shadow */
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.p-galleria-next-button{
+    margin-right: 15px !important;
+}
+
+.p-galleria-prev-button{
+    margin-left: 15px !important;
+}
+
+.p-galleria-nav-button:hover {
+    background-color:#64748B  !important;
+    color: white !important;
+}
+
+.p-galleria-thumbnail-next-button{
+    display: none !important;
+}
+
+.p-galleria-thumbnail-prev-button{
+    display: none !important;
+}
+
+.p-galleria-content{
+    gap: 15px;
+}
+
+.p-galleria{
+    border-color: none !important;
+}
+
+.p-galleria-thumbnail-items{
+    gap: 10px !important;
+}
+
+.p-galleria-thumbnails-viewport{
+    max-width: 1024px;
+}

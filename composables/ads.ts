@@ -32,7 +32,6 @@ export const useCategories = () => {
   };
 
   fetchCategories();
-  console.log("categoryLoading ::: ", categoryLoading.value);
 
   return { categories, categoryLoading };
 };
@@ -121,6 +120,31 @@ export const useSelectedAds = async () => {
   );
 
   await fetchAds();
-  console.log("adsLoading ::: ", adsLoading.value);
   return { ads, adsLoading, fetchAds };
 };
+
+export const useSelectedDetail = async (id:string) => {
+  const detail = useState<any>("detail", () => []);
+  const runtimeConfig = useRuntimeConfig();
+  const url = `${runtimeConfig.public.adsApiUrl}/post/get_detail`;
+  const params = {
+    slug:id
+  }
+  const detailLoading = ref(true);
+
+  const fetchDetail = async () => {
+    try {
+      const { data } = await axios.post(url, params);
+      detail.value = data.data;
+    } catch (error) {
+      console.error("Error fetching ads:", error);
+    } finally {
+      detailLoading.value = false;
+    }
+  };
+
+  await fetchDetail();
+
+  return { detail, detailLoading, fetchDetail };
+};
+
