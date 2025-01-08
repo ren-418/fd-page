@@ -12,24 +12,24 @@ export default defineNuxtConfig({
     components: {
       include: '*',
       exclude: ['Galleria', 'Carousel']
-  }
+    }
   },
   css: ["~/assets/styles/app.scss",
   ],
 
   postcss: {
-    plugins: 
+    plugins:
     {
       tailwindcss: {},
       autoprefixer: {},
-  
+
     },
-    
+
   },
   runtimeConfig: {
     public: {
       adsApiUrl: process.env.VITE_ADS_API_URL,
-      authApiUrl:process.env.VITE_AUTH_API_URL
+      authApiUrl: process.env.VITE_AUTH_API_URL
     },
   },
   vite: {

@@ -3,29 +3,32 @@
     <div class="container mx-0 lg:mx-auto pt-3 pb-3">
       <div class="flex justify-between items-center">
         <NuxtLink to="/" class="text-2xl logo">Logo</NuxtLink>
+          
         <div class="flex items-center gap-8">
+          <div>
+
+          </div>
           <div class="hidden md:flex items-center gap-8">
             <div class="flex items-center gap-1.5">
               <img src="../assets/images/arrow_down.png" alt="" width="16" />
               <span class="text-base">Learn</span>
-              
             </div>
             <div class="flex items-center gap-1.5">
               <img src="../assets/images/briefcase.png" alt="" width="16" />
               <span class="text-base">Business</span>
-              
             </div>
             <button class="btn btn-active">+ POST AD</button>
           </div>
           <div class="hidden md:flex items-center gap-1">
-            <NuxtLink to="login"
+            <NuxtLink
+              to="login"
               class="cursor-pointer"
               :class="routeName == 'login' && 'text-active'"
               >Login
             </NuxtLink>
             <span> | </span>
             <NuxtLink
-            to="register"
+              to="register"
               class="cursor-pointer"
               :class="routeName == 'register' && 'text-active'"
               >Sign Up</NuxtLink
