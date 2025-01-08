@@ -2,12 +2,26 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
-  css: ["~/assets/styles/app.scss"],
+  modules: [
+    '@primevue/nuxt-module'
+  ],
+  primevue: {
+    components: {
+      include: '*',
+      exclude: ['Galleria', 'Carousel']
+  }
+  },
+  css: ["~/assets/styles/app.scss",
+  ],
+
   postcss: {
-    plugins: {
+    plugins: 
+    {
       tailwindcss: {},
       autoprefixer: {},
+  
     },
+    
   },
   runtimeConfig: {
     public: {

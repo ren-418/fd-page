@@ -3,43 +3,29 @@
     <div class="flex gap-4 text-base w-full">
       <div class="flex flex-col gap-3">
         <div
-          class="hidden sm:flex flex-col justify-start gap-2 bg-color-2 px-3 pr-10 py-3 border-color-1 border h-max w-auto"
-        >
-          <div
-            class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b"
-            :class="
-              typeof selectedCategory == 'string' && selectedCategory == 'all'
-                ? 'text-active'
-                : ''
-            "
-            @click="selectCategory('all')"
-          >
+          class="hidden sm:flex flex-col justify-start gap-2 bg-color-2 px-3 pr-10 py-3 border-color-1 border h-max w-auto">
+          <div class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b" :class="typeof selectedCategory == 'string' && selectedCategory == 'all'
+              ? 'text-active'
+              : ''
+            " @click="selectCategory('all')">
             <Icon name="all_categories" class="w-6" />
             All Categories
           </div>
-          <div
-            class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b"
-          >
+          <div class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b">
             <Icon name="automotive" class="w-6" />
             Automotives
           </div>
-          <div
-            v-for="category in categories"
-            :key="category.id"
-            class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b"
-            :class="
-              typeof selectedCategory == 'object' &&
-              selectedCategory.id == category.id
+          <div v-for="category in categories" :key="category.id"
+            class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b" :class="typeof selectedCategory == 'object' &&
+                selectedCategory.id == category.id
                 ? 'text-active'
                 : ''
-            "
-            @click="selectCategory(category)"
-          >
+              " @click="selectCategory(category)">
             <Icon :name="`ads-${category.slug}`" class="w-6" />
             {{ category.name }}
           </div>
         </div>
-        <NuxtLink class="hidden sm:flex"><img :src="VerticalAdData.image" alt=""/></NuxtLink>
+        <NuxtLink class="hidden sm:flex"><img :src="VerticalAdData.image" alt="" /></NuxtLink>
       </div>
       <div class="flex flex-col gap-5">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-8 overflow-x-auto">
@@ -47,27 +33,13 @@
             <Option :image="option.image" :title="option.title" />
           </div>
         </div>
-        <div
-          v-if="ads.length > 0 && !adsLoading"
-          class="grid grid-cols-2 md:grid-cols-4 gap-4"
-        >
+        <div v-if="ads.length > 0 && !adsLoading" class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div v-for="ad in ads">
-            <AdCard
-              :title="ad.title"
-              :slug="ad.slug"
-              :city="ad.location.city"
-              :cost="ad.cost"
-              :service_provider="ad.service_provider"
-              :created_at="ad.created_at"
-              :image="ad.image"
-              :category="ad.category"
-              :job_title="ad.job_title"
-              :house_type="ad.house_type"
-              :trainer_institute="ad.trainer_institute"
-              :rent_lease_item="ad.rent_lease_item"
-              :sub_category="ad.sub_category"
-              :breed_species_type="ad.breed_species_type"
-            />
+            <AdCard :title="ad.title" :slug="ad.slug" :city="ad.location.city" :cost="ad.cost"
+              :service_provider="ad.service_provider" :created_at="ad.created_at" :image="ad.image"
+              :category="ad.category" :job_title="ad.job_title" :house_type="ad.house_type"
+              :trainer_institute="ad.trainer_institute" :rent_lease_item="ad.rent_lease_item"
+              :sub_category="ad.sub_category" :breed_species_type="ad.breed_species_type" />
           </div>
 
         </div>

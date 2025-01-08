@@ -73,7 +73,6 @@ import Icon from "./Icon.vue";
 // Use Vue Router and Vuex
 const router = useRouter();
 const route = useRoute();
-console.log("route name :::", route.name)
 </script>
 
 <style lang="scss" scoped>
