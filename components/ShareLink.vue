@@ -1,7 +1,12 @@
 <template>
     <div v-show="isVisible"
-        class="w-full h-full fixed top-0 left-0 bg-[#00000078] flex justify-center items-center modal">
-        <div class="flex flex-col max-w-[500px] w-full bg-white rounded-md border-color-1 border-solid border relative z-10">
+        class="w-full h-full fixed top-0 left-0 bg-[#00000078] flex justify-center items-center modal"
+        >
+        <div class="absolute w-screen h-screen" @click="handleLinkClick">
+
+        </div>
+        <div
+            class="flex flex-col max-w-[500px] w-full bg-white rounded-md border-color-1 border-solid border relative z-10">
             <!-- Close Button -->
             <p class="text-[22px] text-black absolute top-4 right-4 z-1 cursor-pointer" @click="handleLinkClick">
                 <Icon name="close-1" class="w-5" />
@@ -22,25 +27,29 @@
                             <span class="flex w-[48px] h-[48px] rounded-md items-center justify-center">
                                 <img src="../assets//images//download.png" width="100%" height="100%" />
                             </span>
-                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[14px]">FlickerPage</p>
+                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[14px]">
+                                FlickerPage</p>
                         </div>
                         <div class="flex flex-col gap-2 items-center justify-center cursor-pointer">
                             <span class="flex w-[48px] h-[48px] bg-[#25d366] rounded-md items-center justify-center">
                                 <Icon name="whatsapp" class="w-6" />
                             </span>
-                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[14px]">Whatsapp</p>
+                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[14px]">
+                                Whatsapp</p>
                         </div>
                         <div class="flex flex-col gap-2 items-center justify-center cursor-pointer">
                             <span class="flex w-[48px] h-[48px] bg-[#3a76f0] rounded-md items-center justify-center">
                                 <Icon name="sms" class="w-6" />
                             </span>
-                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[14px]">SMS</p>
+                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[14px]">SMS
+                            </p>
                         </div>
                         <div class="flex flex-col gap-2 items-center justify-center cursor-pointer">
                             <span class="flex w-[48px] h-[48px] bg-[#c3c3c3] rounded-md items-center justify-center">
                                 <Icon name="gmail" class="w-6" />
                             </span>
-                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[14px]">Gmail</p>
+                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[14px]">
+                                Gmail</p>
                         </div>
                     </div>
                 </div>
@@ -49,12 +58,11 @@
                         Or copy link
                     </label>
                     <div class="flex flex-row bg-[#0080805c] justify-between rounded-md p-1">
-                        <input ref="urlInput" type="text" class="py-2 px-4 rounded w-full max-w-[355px] bg-transparent" :value="url"
-                            readonly />
+                        <input ref="urlInput" type="text" class="py-2 px-4 rounded w-full max-w-[355px] bg-transparent"
+                            :value="url" readonly />
 
                         <!-- Copy Button -->
-                        <button class="btn btn-active"
-                            @click="copyToClipboard">
+                        <button class="btn btn-active" @click="copyToClipboard">
                             <p class="px-3">Copy</p>
                         </button>
                     </div>

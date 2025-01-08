@@ -136,25 +136,31 @@
             </div>
         </div>
     </div>
-    <div v-show="showModal" class="image-modal">
-        <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="5"
-            containerStyle="max-width: 100%; border:none" :showItemNavigators="true">
-            <template #item="slotProps">
-                <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt"
-                    class="w-auto block h-[300px] sm:h-[450px] md:h-[600px]" />
-            </template>
-            <template #thumbnail="slotProps" class="gap-3">
-                <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt"
-                    class="w-[180px] h-[100px] block rounded-md" />
-            </template>
-        </Galleria>
-        <button @click="showModal = false"
-            class="absolute top-[20px] right-[20px] bg-white p-2 rounded-md cursor-pointer">
-            <Icon name="close-1" class="w-5" />
-        </button>
-    </div>
-    <ReportModal v-show="showReportModal" @close="showReportModal = false" :is-visible="showReportModal" />
-    <ShareLink v-show="showLinkModal" @close="showLinkModal = false" :is-visible="showLinkModal" />
+    <transition name="modal-fade">
+        <div v-show="showModal" class="image-modal">
+            <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="5"
+                containerStyle="max-width: 100%; border:none" :showItemNavigators="true">
+                <template #item="slotProps">
+                    <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt"
+                        class="w-auto block h-[300px] sm:h-[450px] md:h-[600px]" />
+                </template>
+                <template #thumbnail="slotProps" class="gap-3">
+                    <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt"
+                        class="w-[180px] h-[100px] block rounded-md" />
+                </template>
+            </Galleria>
+            <button @click="showModal = false"
+                class="absolute top-[20px] right-[20px] bg-white p-2 rounded-md cursor-pointer">
+                <Icon name="close-1" class="w-5" />
+            </button>
+        </div>
+    </transition>
+    <transition name="modal-fade">
+        <ReportModal v-show="showReportModal" @close="showReportModal = false" :is-visible="showReportModal" />
+    </transition>
+    <transition name="modal-fade">
+        <ShareLink v-show="showLinkModal" @close="showLinkModal = false" :is-visible="showLinkModal" />
+    </transition>
 </template>
 
 <script lang="ts" setup>
@@ -282,5 +288,16 @@ onMounted(async () => {
     justify-content: center;
     align-items: center;
     z-index: 10;
+}
+
+/* Smooth fade-in and fade-out transition */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+    opacity: 0;
 }
 </style>
