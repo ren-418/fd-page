@@ -5,35 +5,24 @@
         <div
           class="hidden sm:flex flex-col justify-start gap-2 bg-color-2 px-3 pr-10 py-3 border-color-1 border h-max w-auto"
         >
-          <div
-            class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b"
-            :class="{
-              'text-active':
-                typeof selectedCategory == 'string' &&
-                selectedCategory == 'all',
-            }"
-            @click="selectCategory('all')"
-          >
+          <div class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b" :class="{
+            'text-active':
+              typeof selectedCategory == 'string' &&
+              selectedCategory == 'all',
+          }" @click="selectCategory('all')">
             <Icon name="all_categories" class="w-6" />
             All Categories
           </div>
-          <div
-            class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b"
-          >
+          <div class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b">
             <Icon name="automotive" class="w-6" />
             Automotives
           </div>
-          <div
-            v-for="category in categories"
-            :key="category.id"
-            class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b"
-            :class="{
+          <div v-for="category in categories" :key="category.id"
+            class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b" :class="{
               'text-active':
                 typeof selectedCategory == 'object' &&
                 selectedCategory.id == category.id,
-            }"
-            @click="selectCategory(category)"
-          >
+            }" @click="selectCategory(category)">
             <Icon :name="`ads-${category.slug}`" class="w-6" />
             {{ category.name }}
           </div>
@@ -43,14 +32,8 @@
         </NuxtLink>
       </div>
       <div class="flex flex-col gap-5">
-        <div
-          class="grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 overflow-x-auto"
-        >
-          <div
-            v-for="option in optionData"
-            :key="option.title"
-            style="font-size: 14px"
-          >
+        <div class="grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 overflow-x-auto">
+          <div v-for="option in optionData" :key="option.title" style="font-size: 14px">
             <Option :image="option.image" :title="option.title" />
           </div>
         </div>
@@ -59,41 +42,21 @@
             <template v-for="(ad, index) in ads" :key="`ad-${index}`">
               <div class="w-[50%] lg:w-[25%] md:lg:w-[50%]">
                 <div class="p-2">
-                  <AdCard
-                    :title="ad.title"
-                    :slug="ad.slug"
-                    :city="ad.location.city"
-                    :cost="ad.cost"
-                    :service_provider="ad.service_provider"
-                    :created_at="ad.created_at"
-                    :image="ad.image"
-                    :category="ad.category"
-                    :job_title="ad.job_title"
-                    :house_type="ad.house_type"
-                    :trainer_institute="ad.trainer_institute"
-                    :rent_lease_item="ad.rent_lease_item"
-                    :sub_category="ad.sub_category"
-                    :breed_species_type="ad.breed_species_type"
-                  />
+                  <AdCard :title="ad.title" :slug="ad.slug" :city="ad.location.city" :cost="ad.cost"
+                    :service_provider="ad.service_provider" :created_at="ad.created_at" :image="ad.image"
+                    :category="ad.category" :job_title="ad.job_title" :house_type="ad.house_type"
+                    :trainer_institute="ad.trainer_institute" :rent_lease_item="ad.rent_lease_item"
+                    :sub_category="ad.sub_category" :breed_species_type="ad.breed_species_type" />
                 </div>
               </div>
               <template v-if="isBannerPosition(index + 1)">
                 <div class="w-full my-4 p-2">
-                  <div
-                    class="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1"
-                  >
-                    <div
-                      v-for="(banner, bannerIndex) in getBannersForPosition(
-                        index + 1
-                      )"
-                      :key="`banner-item-${index}-${bannerIndex}`"
-                    >
+                  <div class="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+                    <div v-for="(banner, bannerIndex) in getBannersForPosition(
+                      index + 1
+                    )" :key="`banner-item-${index}-${bannerIndex}`">
                       <NuxtLink :to="banner.link">
-                        <img
-                          :src="banner.image"
-                          alt="Banner"
-                          class="w-full rounded-md"
-                        />
+                        <img :src="banner.image" alt="Banner" class="w-full rounded-md" />
                       </NuxtLink>
                     </div>
                   </div>

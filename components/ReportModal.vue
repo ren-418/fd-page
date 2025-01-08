@@ -1,6 +1,6 @@
 <template>
   <div v-show="isVisible"
-    class="w-full h-full fixed top-0 left-0 bg-[#00000078] flex justify-center items-center modal">
+    class="w-full h-full fixed top-0 left-0 bg-[#00000078] flex justify-center items-center modal z-20">
     <div class="absolute w-screen h-screen" @click="handleReportClick">
 
     </div>
