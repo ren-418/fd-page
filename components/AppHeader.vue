@@ -41,13 +41,13 @@
                       {{ category.title }}
                     </p>
                   </div>
-                  <router-link to="/learn" class="flex justify-center items-center px-3 py-2 hover:bg-gray-100 text-color-2">( Read More )</router-link>
+                  <router-link to="/learn?category=1" class="flex justify-center items-center px-3 py-2 hover:bg-gray-100 text-color-2">( Read More )</router-link>
                 </div>
               </transition>
             </div>
             <div class="flex items-center gap-1.5">
               <img src="../assets/images/briefcase.png" alt="" width="16" />
-              <router-link to="business" class="text-base cursor-pointer">Business</router-link>
+              <router-link to="/business" class="text-base cursor-pointer">Business</router-link>
 
             </div>
             <button class="btn btn-active">+ POST AD</button>
