@@ -1,37 +1,39 @@
 <template>
-  <div class="header shadow-lg">
+  <div class="header shadow-lg ">
     <div class="container mx-0 lg:mx-auto pt-3 pb-3">
-      <div class="flex justify-between items-center">
-        <button @click="toggleDrawer" class="sm:hidden">
-          <svg class="h-8 w-8 fill-current text-black" fill="none" stroke-linecap="round" stroke-linejoin="round"
-            stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg> 
-        </button>
-        <NuxtLink to="/" class="text-2xl logo ">Logo</NuxtLink>
+      <div class="flex flex-row justify-between px-2">
+        <router-link to="/" class="text-2xl logo ">Logo</router-link>
+        <div @click="toggleDrawer" class="sm:hidden">
+          <div class="flex gap-1 items-center cursor-pointer" :class="{
+            'text-active':
+              typeof selectedCategory == 'string' &&
+              selectedCategory == 'all',
+          }" @click="selectCategory('all')">
+            <Icon name="all_categories" class="w-6" />
+            All Categories
+          </div>
+        </div>
 
-        <div class="flex items-center gap-8">
-          <!-- <div>
-
-          </div> -->
+        <div class="items-center gap-8 hidden sm:flex">
+          
           <div class="hidden md:flex items-center gap-8">
-            <div class="flex items-center gap-1.5">
+            <router-link to="/learn" class="flex items-center gap-1.5 cursor-pointer">
               <img src="../assets/images/arrow_down.png" alt="" width="16" />
               <span class="text-base">Learn</span>
-            </div>
+            </router-link>
             <div class="flex items-center gap-1.5">
               <img src="../assets/images/briefcase.png" alt="" width="16" />
-              <NuxtLink to="business" class="text-base cursor-pointer">Business</NuxtLink>
+              <router-link to="business" class="text-base cursor-pointer">Business</router-link>
 
             </div>
             <button class="btn btn-active">+ POST AD</button>
           </div>
           <div class="hidden md:flex items-center gap-1">
-            <NuxtLink to="login" class="cursor-pointer" :class="routeName == 'login' && 'text-active'">Login
-            </NuxtLink>
+            <router-link to="/login" class="cursor-pointer" :class="routeName == 'login' && 'text-active'">Login
+            </router-link>
             <span> | </span>
-            <NuxtLink to="register" class="cursor-pointer" :class="routeName == 'register' && 'text-active'">Sign Up
-            </NuxtLink>
+            <router-link to="/register" class="cursor-pointer" :class="routeName == 'register' && 'text-active'">Sign Up
+            </router-link>
           </div>
         </div>
 
@@ -42,30 +44,11 @@
             <div @click="isOpen = false" class="absolute inset-0 bg-black opacity-50" tabindex="0"></div>
           </div>
         </transition>
-        <aside
-          class="transform top-[57px] left-0 w-64 bg-white fixed h-full overflow-auto ease-in-out transition-all duration-300 z-[1001]"
-          :class="isOpen ? 'translate-x-0' : '-translate-x-full'">
+        <aside class="transform top-[57px] right-0 w-35 bg-white fixed h-auto overflow-auto overflow-y-scroll ease-in-out transition-all
+        duration-300 z-[1001]" :class="isOpen ? 'translate-x-0' : 'translate-x-full'">
 
-          <div class="close">
-            <button class="absolute top-0 right-0 mt-4 mr-4" @click=" isOpen = false">
-              <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-          </div>
-
-          <span @click="isOpen = false" class="flex w-full items-center p-4">
-            <div
-              class="flex flex-col w-full h-full justify-start gap-2 bg-color-2 pt-8">
-              <div class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b" :class="{
-                'text-active':
-                  typeof selectedCategory == 'string' &&
-                  selectedCategory == 'all',
-              }" @click="selectCategory('all')">
-                <Icon name="all_categories" class="w-6" />
-                All Categories
-              </div>
+          <span @click="isOpen = false" class="flex w-full items-center p-2">
+            <div class="flex flex-col w-full h-full justify-start gap-2 bg-color-2">
               <div class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b">
                 <Icon name="automotive" class="w-6" />
                 Automotives
@@ -97,7 +80,7 @@ import Icon from "./Icon.vue";
 const route = useRoute();
 const routeName = computed(() => route.name);
 const selectedCategory = ref<any>("all");
-  const selectCategory = (newVal: any) => {
+const selectCategory = (newVal: any) => {
   selectedCategory.value = newVal;
 };
 const { categories, categoryLoading } = (await useCategories()) as any;

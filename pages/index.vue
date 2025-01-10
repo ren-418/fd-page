@@ -1,10 +1,9 @@
 <template>
   <div class="md:container mx-0 lg:mx-auto pt-5">
-    <div class="flex gap-4 text-base w-full">
+    <div class="flex gap-0 text-base w-full sm:gap-4">
       <div class="flex flex-col gap-3">
         <div
-          class="hidden sm:flex flex-col justify-start gap-2 bg-color-2 px-3 pr-10 py-3 border-color-1 border h-max w-auto"
-        >
+          class="hidden md:flex flex-col justify-start gap-2 bg-color-2 px-3 pr-10 py-3 border-color-1 border h-max w-auto">
           <div class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b" :class="{
             'text-active':
               typeof selectedCategory == 'string' &&
@@ -13,7 +12,8 @@
             <Icon name="all_categories" class="w-6" />
             All Categories
           </div>
-          <div class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b">
+          <div class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b"
+            :class="{ 'text-active': selectedCategory === 'automotive' }" @click="selectCategory('automotive')">
             <Icon name="automotive" class="w-6" />
             Automotives
           </div>
@@ -27,45 +27,57 @@
             {{ category.name }}
           </div>
         </div>
-        <NuxtLink class="hidden sm:flex">
+        <router-link to="#" class="hidden md:flex">
           <img :src="VerticalAdData.image" alt="" />
-        </NuxtLink>
+        </router-link>
       </div>
-      <div class="flex flex-col gap-5">
-        <div class="grid grid-cols-2 xsm:grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 overflow-x-auto">
-          <div v-for="option in optionData" :key="option.title" style="font-size: 14px">
-            <Option :image="option.image" :title="option.title" />
-          </div>
+      <div class="flex flex-col gap-5 w-full overflow-hidden">
+        <div class="w-full flex ucarousel-inteface">
+          <UCarousel v-slot="{ item, index }" :items="items" :ui="{ item: 'snap-start' }" class="w-full px-5">
+            <router-link to="#" class="router-link-active router-link-exact-active flex flex-col items-center px-2">
+              <img :src="item.image" :alt="item.title || 'Item image'" />
+              <p class="text-[13px]">{{ item.title }}</p>
+            </router-link>
+          </UCarousel>
         </div>
-        <div>
-          <div class="flex flex-wrap">
-            <template v-for="(ad, index) in ads" :key="`ad-${index}`">
-              <div class="w-[50%] lg:w-[25%] md:lg:w-[50%]">
-                <div class="p-2">
-                  <AdCard :title="ad.title" :slug="ad.slug" :city="ad.location.city" :cost="ad.cost"
-                    :service_provider="ad.service_provider" :created_at="ad.created_at" :image="ad.image"
-                    :category="ad.category" :job_title="ad.job_title" :house_type="ad.house_type"
-                    :trainer_institute="ad.trainer_institute" :rent_lease_item="ad.rent_lease_item"
-                    :sub_category="ad.sub_category" :breed_species_type="ad.breed_species_type" />
-                </div>
+       
+        <div class="flex w-full" v-if="selectedCategory === 'automotive'">
+          <UCarousel v-slot="{ item }" :items="ads_item" :ui="{ item: 'snap-start' }"
+            class="w-full px-5 gap-3 ucarousel-surface">
+            <p class="flex w-auto text-[13px] border-color-1 min-h-[38px] text-center justify-center items-center border rounded-2xl px-4 cursor-pointer"
+              :class="{ 'btn-active': selectedItem === item.title }" @click="selectItem(item.title)">
+              {{ item.title }}
+            </p>
+          </UCarousel>
+        </div>
+
+        <div class="flex flex-wrap">
+          <template v-for="(ad, index) in ads" :key="`ad-${index}`">
+            <div class="w-[50%] lg:w-[25%] md:lg:w-[50%]">
+              <div class="p-2">
+                <AdCard :title="ad.title" :slug="ad.slug" :city="ad.location.city" :cost="ad.cost"
+                  :service_provider="ad.service_provider" :created_at="ad.created_at" :image="ad.image"
+                  :category="ad.category" :job_title="ad.job_title" :house_type="ad.house_type"
+                  :trainer_institute="ad.trainer_institute" :rent_lease_item="ad.rent_lease_item"
+                  :sub_category="ad.sub_category" :breed_species_type="ad.breed_species_type" />
               </div>
-              <template v-if="isBannerPosition(index + 1)">
-                <div class="w-full my-4 p-2">
-                  <div class="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-                    <div v-for="(banner, bannerIndex) in getBannersForPosition(
-                      index + 1
-                    )" :key="`banner-item-${index}-${bannerIndex}`">
-                      <NuxtLink :to="banner.link">
-                        <img :src="banner.image" alt="Banner" class="w-full rounded-md" />
-                      </NuxtLink>
-                    </div>
+            </div>
+
+            <template v-if="isBannerPosition(index + 1)">
+              <div class="w-full my-4 p-2">
+                <div class="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+                  <div v-for="(banner, bannerIndex) in getBannersForPosition(
+                    index + 1
+                  )" :key="`banner-item-${index}-${bannerIndex}`">
+                    <router-link :to="banner.link">
+                      <img :src="banner.image" alt="Banner" class="w-full rounded-md" />
+                    </router-link>
                   </div>
                 </div>
-              </template>
+              </div>
             </template>
-          </div>
+          </template>
         </div>
-        <div v-if="adsLoading" class="">Loading...</div>
       </div>
     </div>
   </div>
@@ -89,6 +101,48 @@ import HorizonAd from "~/assets/images/Rectangle 16.png";
 
 const screenWidth = ref<number | null>(null);
 
+interface AdItem {
+  title: string;
+  // add other properties if they exist
+}
+
+const ads_item = [
+  {
+    title: "All",
+  },
+  {
+    title: "New/Used Parts",
+  },
+  {
+    title: "ATV/UTV",
+  },
+  {
+    title: "2-Wheels/Bicycles",
+  },
+  {
+    title: "Boats/Streamers",
+  },
+  {
+    title: "Cars/Trucks/SUV",
+  },
+  {
+    title: "Electric Vehicles/Inventions",
+  },
+  {
+    title: "Motorbikes/Scooters",
+  },
+  {
+    title: "RV/Campers/Trailers",
+  },
+];
+
+const selectedItem = ref(ads_item[0]?.title || '') // Set first item as default
+
+// Add this method
+const selectItem = (title: string): void => {
+  selectedItem.value = title
+}
+
 onMounted(() => {
   screenWidth.value = window.innerWidth;
 });
@@ -106,7 +160,7 @@ const bannerCount = computed(() => {
   }
 });
 
-const optionData = [
+const items = [
   {
     image: Rectangle4,
     title: "Contractors",
@@ -140,6 +194,8 @@ const optionData = [
     title: "Service Providers",
   },
 ];
+
+
 
 const VerticalAdData = {
   link: "",
@@ -201,13 +257,13 @@ const HorizonAdData = [
 const { categories, categoryLoading } = (await useCategories()) as any;
 const { ads, adsLoading } = await useSelectedAds();
 
-const selectedCategory = ref<any>("all");
+const selectedCategory = ref<string>('')
+
+const selectCategory = (category: string): void => {
+  selectedCategory.value = category
+}
 
 const { category, setCategory } = useSelectCategory();
-
-const selectCategory = (newVal: any) => {
-  selectedCategory.value = newVal;
-};
 
 const isBannerPosition = (index: number): boolean => {
   return index % adsThreshold.value === 0;

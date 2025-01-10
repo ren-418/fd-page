@@ -83,9 +83,7 @@ const detail_data = ref<any>();
 
 const url = computed(() => `https://flickerpage.com/ads/detail/${id.value}`);
 
-// Function to copy text to clipboard
 const copyToClipboard = () => {
-    // Use navigator.clipboard to copy the text
     navigator.clipboard
         .writeText(url.value)
         .then(() => {
@@ -97,7 +95,6 @@ const copyToClipboard = () => {
         });
 };
 
-// Modal visibility state
 defineProps({
     isVisible: {
         type: Boolean,

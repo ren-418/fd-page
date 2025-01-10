@@ -11,7 +11,7 @@
         </h1>
       </div>
       <div
-        class="w-full bg-none md:bg-white p-5 rounded-xl flex flex-col gap-5 md:shadow-xl card-height"
+        class="w-full h-auto bg-none md:bg-white p-5 rounded-xl flex flex-col gap-5 md:shadow-xl card-height"
       >
         <h1 class="text-2xl">
           Welcome to <span class="text-active underline">FlickerAds</span>

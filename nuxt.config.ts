@@ -1,35 +1,35 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import vueInspector from 'vite-plugin-vue-inspector';
+import vueInspector from "vite-plugin-vue-inspector";
 export default defineNuxtConfig({
   ssr: false,
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
-  modules: [
-    '@primevue/nuxt-module'
+  modules: ["@primevue/nuxt-module",
+    "@nuxt/ui"
   ],
+  ui: {
+    global: true
+  },
   primevue: {
     components: {
-      include: '*',
-      exclude: ['Galleria', 'Carousel']
-    }
+      include: "*",
+      exclude: ["Galleria", "Carousel", "UCarousel", 'VDropdown','VDropdownItem'],
+    },
   },
-  css: ["~/assets/styles/app.scss",
-  ],
+  css: ["~/assets/styles/app.scss"],
 
   postcss: {
-    plugins:
-    {
+    plugins: {
       tailwindcss: {},
       autoprefixer: {},
-
     },
-
   },
   runtimeConfig: {
     public: {
       adsApiUrl: process.env.VITE_ADS_API_URL,
-      authApiUrl: process.env.VITE_AUTH_API_URL
+      authApiUrl: process.env.VITE_AUTH_API_URL,
+      googleClientId: process.env.VITE_PUBLIC_GOOGLE_CLIENT_ID,
     },
   },
   vite: {

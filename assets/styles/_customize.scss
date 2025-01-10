@@ -303,9 +303,23 @@ a {
 }
 
 .p-galleria-thumbnail-items{
-    gap: 10px !important;
+    gap: 5px !important;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .p-galleria-thumbnails-viewport{
     max-width: 1024px;
+}
+
+.p-galleria-thumbnail-item{
+    flex: none !important;
+}
+
+.ucarousel-inteface > div {
+    padding: 0px !important;
+}
+
+.ucarousel-surface > div {
+    gap: 20px !important;
 }

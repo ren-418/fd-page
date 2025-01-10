@@ -18,21 +18,21 @@
                 <p v-if="detail_data" class="text-color-1 text-lg">{{ detail_data.title }}</p>
                 <div class="flex flex-col w-full gap-10 lg:flex-row">
                     <div class="flex flex-col w-full gap-2 lg:w-[calc(100%-340px)] relative">
-                        <div class="flex w-[40px] h-[40px] bg-white absolute top-[20px] right-[20px] rounded-md justify-center items-center text-center cursor-pointer"
+                        <div class="flex w-[40px] h-[40px] bg-white absolute top-[20px] right-[20px] rounded-md justify-center items-center text-center cursor-pointer border border-color-1"
                             style="z-index: 1;" @click="showModal = true">
                             <p>
                                 <Icon name="plus" class="w-6 text-color-3" />
                             </p>
                         </div>
-                        <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="4"
+                        <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="5"
                             containerStyle="max-width: 100%; border:none" :showItemNavigators="true">
                             <template #item="slotProps">
                                 <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt"
-                                    class="w-full block h-[300px] sm:h-[450px] md:h-[600px]" />
+                                    class="w-full block h-auto" />
                             </template>
                             <template #thumbnail="slotProps" class="gap-3">
                                 <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt"
-                                    class="w-[180px] h-[100px] block rounded-md" />
+                                    class="w-[160px] h-[100px] block rounded-md" />
                             </template>
                         </Galleria>
                         <div class="flex flex-col w-full gap-2 p-5">
@@ -59,9 +59,9 @@
                             <div class="flex flex-col gap-2">
                                 <div class="flex">
                                     <p v-if="detail_data">Posted by {{ detail_data.user.name }}(
-                                        <NuxtLink to="/" class="text-color-2" style="text-decoration: underline;">
+                                        <router-link to="/" class="text-color-2" style="text-decoration: underline;">
                                             View all Ads
-                                        </NuxtLink>
+                                        </router-link>
                                         )
                                     </p>
                                 </div>
@@ -122,7 +122,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-row gap-10 items-center">
+                <div class="flex flex-row gap-3 items-center">
                     <p v-if="detail_data" class="text-color-3 text-md">Post ID : {{ detail_data.id }}</p>
                     <p class="flex flex-row text-color-3 text-md cursor-pointer" @click="handleReportClick">
                         <Icon name="report" class="w-5" />
@@ -216,7 +216,7 @@ const responsiveOptions = ref([
     },
 ]);
 
-const avatar_image = ref<any[]>([]);
+const avatar_image = ref<string>('');
 onMounted(async () => {
     try {
         id.value = route.params.id
