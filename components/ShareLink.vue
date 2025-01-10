@@ -22,33 +22,33 @@
                     <label class="text-[14px]">
                         Share this link via
                     </label>
-                    <div class="flex flex-row flex-wrap gap-10">
-                        <div class="flex flex-col gap-2 items-center justify-center cursor-pointer">
+                    <div class="flex flex-row flex-wrap gap-8">
+                        <div class="flex flex-col gap-2 items-center justify-center cursor-pointer w-[75px]">
                             <span class="flex w-[48px] h-[48px] rounded-md items-center justify-center">
                                 <img src="../assets//images//download.png" width="100%" height="100%" />
                             </span>
-                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[14px]">
+                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[13px]">
                                 FlickerPage</p>
                         </div>
-                        <div class="flex flex-col gap-2 items-center justify-center cursor-pointer">
+                        <div class="flex flex-col gap-2 items-center justify-center cursor-pointer w-[75px]">
                             <span class="flex w-[48px] h-[48px] bg-[#25d366] rounded-md items-center justify-center">
                                 <Icon name="whatsapp" class="w-6" />
                             </span>
-                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[14px]">
+                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[13px]">
                                 Whatsapp</p>
                         </div>
-                        <div class="flex flex-col gap-2 items-center justify-center cursor-pointer">
+                        <div class="flex flex-col gap-2 items-center justify-center cursor-pointer w-[75px]">
                             <span class="flex w-[48px] h-[48px] bg-[#3a76f0] rounded-md items-center justify-center">
                                 <Icon name="sms" class="w-6" />
                             </span>
-                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[14px]">SMS
+                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[13px]">SMS
                             </p>
                         </div>
-                        <div class="flex flex-col gap-2 items-center justify-center cursor-pointer">
+                        <div class="flex flex-col gap-2 items-center justify-center cursor-pointer w-[75px]">
                             <span class="flex w-[48px] h-[48px] bg-[#c3c3c3] rounded-md items-center justify-center">
                                 <Icon name="gmail" class="w-6" />
                             </span>
-                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[14px]">
+                            <p class="w-full flex text-center items-center justify-center text-gray-400 text-[13px]">
                                 Gmail</p>
                         </div>
                     </div>

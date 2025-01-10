@@ -25,20 +25,20 @@
           <div class="flex w-[45%] flex-col gap-2">
             <label class="text-[14px]">Name <span class="text-[#dc3545]">&nbsp;*</span></label>
             <input type="text"
-              class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
+              class="py-3 px-4 block w-full bg-white border-gray-200 outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
               placeholder="Enter Full Name" />
           </div>
           <div class="flex w-[45%] flex-col gap-2">
             <label class="text-[14px]">Email <span class="text-[#dc3545]">&nbsp;*</span></label>
             <input type="text"
-              class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
+              class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
               placeholder="Enter Email Address" />
           </div>
         </div>
         <div class="flex flex-col w-full gap-2">
           <label class="text-[14px]">Message <span class="text-[#dc3545]">&nbsp;*</span></label>
           <textarea
-            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none min-h-[135px] border border-color-1"
+            class="py-3 px-4 block w-full border-gray-200 rounded-lg bg-white outline-none text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none min-h-[135px] border border-color-1"
             rows="3" placeholder="Enter Short Message"></textarea>
         </div>
         <div class="flex w-full justify-center items-center">

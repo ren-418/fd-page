@@ -3,12 +3,16 @@
         <div class="flex flex-row gap-4 text-base w-full">
             <Category v-model="currentCategory" @category-changed="handleCategoryChange" />
             <div class="hidden md:flex flex-col gap-5 w-full h-full justify-start bg-white rounded-md self-start p-4">
-                <p class="text-[24px]">
-                    {{ currentCategory.title }}
-                </p>
-                <div class="flex text-[14px] whitespace-pre-line text-[#64748b]">
-                    {{ categoryContent[currentCategory.id] || 'Content not available.' }}
-                </div>
+                <Transition name="fade" mode="out-in">
+                    <div :key="currentCategory.id">
+                        <p class="text-[24px]">
+                            {{ currentCategory.title }}
+                        </p>
+                        <div class="flex text-[14px] whitespace-pre-line text-[#64748b] mt-5">
+                            {{ categoryContent[currentCategory.id] || 'Content not available.' }}
+                        </div>
+                    </div>
+                </Transition>
             </div>
         </div>
     </div>
@@ -204,28 +208,38 @@ const handleCategoryChange = (category: CategoryType) => {
 };
 
 watch(
-  () => route.query.category,
-  (newCategoryId) => {
-    if (newCategoryId) {
-      const category = categories.find(c => c.id === newCategoryId);
-      if (category) {
-        currentCategory.value = category;
-      }
-    }
-  },
-  { immediate: true }
+    () => route.query.category,
+    (newCategoryId) => {
+        if (newCategoryId) {
+            const category = categories.find(c => c.id === newCategoryId);
+            if (category) {
+                currentCategory.value = category;
+            }
+        }
+    },
+    { immediate: true }
 );
 
 onMounted(() => {
-  const categoryId = route.query.category as string;
-  if (categoryId) {
-    const category = categories.find(c => c.id === categoryId);
-    if (category) {
-      currentCategory.value = category;
+    const categoryId = route.query.category as string;
+    if (categoryId) {
+        const category = categories.find(c => c.id === categoryId);
+        if (category) {
+            currentCategory.value = category;
+        }
     }
-  }
 });
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+</style>
