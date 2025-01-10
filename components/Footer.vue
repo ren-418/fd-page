@@ -7,7 +7,7 @@
           <Category v-model="currentCategory" @category-changed="handleCategoryChange"
             class="category-block overflow-y-scroll" />
         </div>
-        <div class="flex flex-col gap-5 w-full h-full justify-start bg-white rounded-md self-start p-4">
+        <div class="flex md:hidden flex-col gap-5 w-full h-full justify-start bg-white rounded-md self-start p-4">
           <p class="text-[24px]">
             {{ currentCategory.title }}
           </p>
