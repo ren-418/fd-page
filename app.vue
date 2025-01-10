@@ -1,14 +1,14 @@
 <template>
   <NuxtLayout>
-    <Transition name="page" mode="out-in">
+    <!-- <Transition name="page" mode="out-in"> -->
       <NuxtPage />
-    </Transition>
+    <!-- </Transition> -->
   </NuxtLayout>
   <NuxtLoadingIndicator />
 </template>
 
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
 
 .page-enter-active,
 .page-leave-active {
@@ -24,4 +24,4 @@
   opacity: 0;
   transform: translateY(-20px);
 }
-</style>
+</style> -->

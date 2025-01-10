@@ -19,10 +19,12 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter(); // Add this
 const emit = defineEmits(['categoryChanged', 'update:modelValue']);
+
 const props = defineProps({
     modelValue: {
         type: Object,
-        required: true
+        required: false,  // Changed from true to false
+        default: () => ({})  // Add a default empty object
     }
 });
 const selectCategory = (newVal: any) => {

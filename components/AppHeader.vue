@@ -87,7 +87,6 @@
                 {{ category.name }}
               </div>
             </div>
-            <Tailwind />
           </span>
 
         </aside>
@@ -113,7 +112,8 @@ const selectCategory = (newVal: any) => {
 const props = defineProps({
   modelValue: {
     type: Object,
-    required: true
+    required: false,  // Changed from true to false
+    default: () => ({})  // Add a default value
   }
 });
 
