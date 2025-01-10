@@ -2,12 +2,15 @@
   <div>
     <Transition name="fade">
       <div>
+        <!-- Only show this div when route is 'learn' -->
         <div v-if="showOverlay && route.name === 'learn'"
           class="fixed inset-0 top-[57px] w-screen h-[calc(100vh-57px)] z-[1] overlay" @click="toggleOverlay">
           <Category v-model="currentCategory" @category-changed="handleCategoryChange"
             class="category-block overflow-y-scroll" />
         </div>
-        <div class="flex md:hidden flex-col gap-5 w-full h-full justify-start bg-white rounded-md self-start p-4">
+        <!-- Add v-if here to only show content on learn route -->
+        <div v-if="route.name === 'learn'"
+          class="flex md:hidden flex-col gap-5 w-full h-full justify-start bg-white rounded-md self-start p-4">
           <p class="text-[24px]">
             {{ currentCategory.title }}
           </p>
