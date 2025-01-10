@@ -3,22 +3,25 @@
 import vueInspector from "vite-plugin-vue-inspector";
 export default defineNuxtConfig({
   ssr: false,
-  compatibilityDate: "2024-11-01",
+  compatibilityDate: "2025-01-11",
   devtools: { enabled: true },
-  modules: ["@primevue/nuxt-module",
-    "@nuxt/ui"
-  ],
+  modules: ["@primevue/nuxt-module", "@nuxt/ui"],
   ui: {
-    global: true
+    icons: ['lucide']
   },
   primevue: {
     components: {
       include: "*",
-      exclude: ["Galleria", "Carousel", "UCarousel", 'VDropdown','VDropdownItem'],
+      exclude: [
+        "Galleria",
+        "Carousel",
+        "UCarousel",
+        "VDropdown",
+        "VDropdownItem",
+      ],
     },
   },
   css: ["~/assets/styles/app.scss"],
-
   postcss: {
     plugins: {
       tailwindcss: {},

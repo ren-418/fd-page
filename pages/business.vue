@@ -4,7 +4,6 @@
             <div class="flex flex-col gap-4 text-base bg-white rounded-md">
                 <p class="text-lg font-semibold text-center">Business Portfolio</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                    <!-- Use v-for to render the cards -->
                     <template v-for="(card, index) in card_data" :key="`card-${index}`">
                         <BusinessCard :image_url="card.image_url" :content="card.content"
                             :btn_content="card.btn_content" />
