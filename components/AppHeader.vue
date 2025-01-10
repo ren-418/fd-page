@@ -112,8 +112,8 @@ const selectCategory = (newVal: any) => {
 const props = defineProps({
   modelValue: {
     type: Object,
-    required: false,  // Changed from true to false
-    default: () => ({})  // Add a default value
+    required: true,
+    default: () => ({})
   }
 });
 

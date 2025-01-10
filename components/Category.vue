@@ -23,8 +23,8 @@ const emit = defineEmits(['categoryChanged', 'update:modelValue']);
 const props = defineProps({
     modelValue: {
         type: Object,
-        required: false,  // Changed from true to false
-        default: () => ({})  // Add a default empty object
+        required: true,
+        default: () => ({})
     }
 });
 const selectCategory = (newVal: any) => {
