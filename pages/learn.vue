@@ -25,6 +25,11 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute();
 
+definePageMeta({
+  middleware:['auth'],
+  requiresAuth: 'high'
+});
+
 interface CategoryType {
     id: string;
     title: string;

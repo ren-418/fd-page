@@ -49,7 +49,7 @@
             </div>
             <div class="icon-prefix-input text-base">
               <Icon name="lock" />
-              <input v-model="form.password" class="form-control font-normal border w-full p-2" type="text"
+              <input v-model="form.password" class="form-control font-normal border w-full p-2" type="password"
                 name="password" autocomplete="username" placeholder="Enter password" maxlength="128" required />
             </div>
           </div>
@@ -57,7 +57,7 @@
         <div class="flex gap-3 flex-col md:flex-row justify-between">
           <button
             class="flex btn-default rounded-lg items-center gap-3 justify-center bg-active text-white w-full md:w-45"
-            @click.prevent="handleLogin">
+            @click="handleLogin">
             <Icon name="sign-in" />
             Sign In
           </button>
@@ -73,12 +73,25 @@
 </template>
 <script setup lang="ts">
 import Icon from "~/components/Icon.vue";
+import axios from "axios";
+import { useRuntimeConfig } from "#app";
+import { useCookie } from '#app'
+
+
+const useToken = useCookie('auth_token');
+
+const setToken = (val: any) => {
+  useToken.value = val;
+}
+
 const config = useRuntimeConfig();
 
 const form = ref({
   username: "",
   password: "",
 });
+
+const { user, setUser } = useUserData();
 
 // const handleGoogleLogin = () => {
 //   const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${config.public.googleClientId}&redirect_uri=${encodeURIComponent(
@@ -104,6 +117,7 @@ const form = ref({
 //   }, 500);
 // };
 
+
 const handleGoogleLogin = () => {
   const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${config.public.googleClientId}&redirect_uri=${encodeURIComponent(
     `${window.location.origin}`
@@ -127,7 +141,7 @@ const handleGoogleLogin = () => {
     }
   }, 500);
 
-  // Listen for the message from the popup
+
   window.addEventListener("message", (event) => {
     if (event.origin !== window.location.origin) {
       console.warn("Invalid origin:", event.origin);
@@ -137,25 +151,31 @@ const handleGoogleLogin = () => {
     const { code, error } = event.data;
     if (code) {
       console.log("Authorization code received:", code);
-      // Handle the code (e.g., send it to the server to exchange for an access token)
+
     } else if (error) {
       console.error("Error during Google login:", error);
     }
   });
 };
 
+const handleLogin = async () => {
 
-const handleLogin = () => {
-  console.log("login called");
+  try {
+    console.log("form.value ::", form.value)
+    const res = await axios.post('login', form.value)
+    console.log("res . status", res.data.status)
+    if (res.data.status === "Success") {
+      setToken(res.data.data.token);
+      setUser(res.data.data.user);
+      alert("Logged in successfully")
+      navigateTo('/')
+    } else {
+      
+    }
+  } catch (err: any) {
 
-  if (form.value.username === "") {
-    alert("Please input username");
-    return;
-  }
+    console.log("eroror ", err.message)
 
-  if (form.value.password === "") {
-    alert("Please input password");
-    return;
   }
 };
 </script>
