@@ -2,11 +2,9 @@
     <div class="hidden md:flex flex-col justify-start gap-1 bg-color-2 pt-5 px-3 rounded-lg h-max w-[255px]">
         <!-- Add v-model binding to sync with parent component -->
         <div v-for="category in categories" :key="category.id"
-            class="flex gap-1 items-center border-color-1 py-[5px] cursor-pointer border-b" 
-            :class="{
+            class="flex gap-1 items-center border-color-1 py-[5px] cursor-pointer border-b" :class="{
                 'text-active': modelValue?.id === category.id
-            }" 
-            @click="selectCategory(category)">
+            }" @click="selectCategory(category)">
             <Icon :name="category.icon" class="w-6" />
             <p class='text-[14px]'>
                 {{ category.title }}
@@ -17,7 +15,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Icon from "~/components/Icon.vue";
+import { useRouter } from 'vue-router';
 
+const router = useRouter(); // Add this
 const emit = defineEmits(['categoryChanged', 'update:modelValue']);
 const props = defineProps({
     modelValue: {
@@ -25,6 +25,14 @@ const props = defineProps({
         required: true
     }
 });
+const selectCategory = (newVal: any) => {
+    emit('update:modelValue', newVal);
+    emit('categoryChanged', newVal);
+    router.push({
+        path: '/learn',
+        query: { category: newVal.id }
+    });
+};
 
 const categories = [
     {
@@ -132,11 +140,5 @@ const categories = [
 ];
 
 const selectedCategory = ref(categories[0]);
-
-const selectCategory = (newVal: any) => {
-    emit('update:modelValue', newVal);
-    emit('categoryChanged', newVal);
-};
-
 
 </script>

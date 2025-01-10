@@ -15,12 +15,36 @@
         </div>
 
         <div class="items-center gap-8 hidden sm:flex">
-          
+
           <div class="hidden md:flex items-center gap-8">
-            <router-link to="/learn" class="flex items-center gap-1.5 cursor-pointer">
+            <!-- <router-link to="/learn" class="flex items-center gap-1.5 cursor-pointer">
               <img src="../assets/images/arrow_down.png" alt="" width="16" />
               <span class="text-base">Learn</span>
-            </router-link>
+            </router-link> -->
+            <div class="relative flex items-center gap-1.5 cursor-pointer" @click.prevent="toggleLearnMenu">
+              <img src="../assets/images/arrow_down.png" alt="" width="16" />
+              <span class="text-base">Learn</span>
+
+              <!-- Wrap dropdown in transition -->
+              <transition enter-active-class="transition duration-200 ease-out"
+                enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100"
+                leave-active-class="transition duration-200 ease-in" leave-from-class="transform scale-100 opacity-100"
+                leave-to-class="transform scale-95 opacity-0">
+                <div v-if="showLearnMenu"
+                  class="z-[100] absolute top-full left-0 mt-1 bg-white shadow-lg rounded-md py-2 min-w-[200px] origin-top border border-color-1 px-3">
+                  <div v-for="category in categories_list" :key="category.id"
+                    class="flex gap-1 items-center border-color-1 py-[5px] cursor-pointer"
+                    :class="{ 'text-active': modelValue?.id === category.id }" @click="navigateToLearn(category)">
+                    <!-- Changed this line -->
+                    <Icon :name="category.icon" class="w-6" />
+                    <p class='text-[14px]'>
+                      {{ category.title }}
+                    </p>
+                  </div>
+                  <router-link to="/learn" class="flex justify-center items-center px-3 py-2 hover:bg-gray-100 text-color-2">( Read More )</router-link>
+                </div>
+              </transition>
+            </div>
             <div class="flex items-center gap-1.5">
               <img src="../assets/images/briefcase.png" alt="" width="16" />
               <router-link to="business" class="text-base cursor-pointer">Business</router-link>
@@ -44,7 +68,7 @@
             <div @click="isOpen = false" class="absolute inset-0 bg-black opacity-50" tabindex="0"></div>
           </div>
         </transition>
-        <aside class="transform top-[57px] right-0 w-35 bg-white fixed h-auto overflow-auto overflow-y-scroll ease-in-out transition-all
+        <aside class="transform top-[57px] right-0 w-35 bg-white fixed h-auto overflow-auto ease-in-out transition-all
         duration-300 z-[1001]" :class="isOpen ? 'translate-x-0' : 'translate-x-full'">
 
           <span @click="isOpen = false" class="flex w-full items-center p-2">
@@ -74,18 +98,91 @@
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { ref, watch, onMounted } from "vue";
+import { ref, watch, onMounted, onUnmounted } from "vue";
 import Icon from "./Icon.vue";
 
 const route = useRoute();
+const router = useRouter();
+
 const routeName = computed(() => route.name);
 const selectedCategory = ref<any>("all");
 const selectCategory = (newVal: any) => {
   selectedCategory.value = newVal;
 };
+
+const props = defineProps({
+  modelValue: {
+    type: Object,
+    required: true
+  }
+});
+
 const { categories, categoryLoading } = (await useCategories()) as any;
 const { category, setCategory } = useSelectCategory();
 
+const showLearnMenu = ref(false);
+
+const toggleLearnMenu = (event: Event) => {
+  event.stopPropagation();
+  showLearnMenu.value = !showLearnMenu.value;
+};
+
+// Add click outside handler
+onMounted(() => {
+  document.addEventListener('click', () => {
+    showLearnMenu.value = false;
+  });
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', () => {
+    showLearnMenu.value = false;
+  });
+});
+
+const navigateToLearn = async (category: any) => {
+  await router.push({
+    path: '/learn',
+    query: { category: category.id }
+  });
+  // Force a reload of the component
+  if (route.path === '/learn') {
+  }
+  showLearnMenu.value = false;
+};
+
+const categories_list = [
+  {
+    id: '1',
+    title: 'About',
+    icon: 'user'
+  },
+  {
+    id: '2',
+    title: 'Services & Features',
+    icon: 'user'
+  },
+  {
+    id: '3',
+    title: 'Platform Terms',
+    icon: 'user'
+  },
+  {
+    id: '4',
+    title: 'Safety Guid',
+    icon: 'user'
+  },
+  {
+    id: '5',
+    title: 'You & FlickerPage',
+    icon: 'user'
+  },
+  {
+    id: '6',
+    title: 'Terms Of Use',
+    icon: 'user'
+  }
+];
 // Reactive variable for drawer state
 const isOpen = ref(false);
 
