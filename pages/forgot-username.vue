@@ -100,6 +100,7 @@
 import Icon from "~/components/Icon.vue";
 const isEmailUse = ref(true);
 const email = ref("");
+const { $swal } = useNuxtApp();
 const phoneNumberObj = ref({
   country_id: 231,
   code: "+1",
@@ -108,11 +109,17 @@ const phoneNumberObj = ref({
 
 const send = () => {
   if (email.value === "" && !!isEmailUse.value) {
-    alert("Please input email");
+    $swal.fire({
+        text: 'Please input email',
+        icon: 'warning'
+      })
     return;
   }
   if (phoneNumberObj.value.number === "" && !isEmailUse.value) {
-    alert("Please input your phonr number");
+    $swal.fire({
+        text: 'Please input your phonr number',
+        icon: 'warning'
+      })
     return;
   }
 };

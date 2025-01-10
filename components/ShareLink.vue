@@ -1,7 +1,6 @@
 <template>
     <div v-show="isVisible"
-        class="w-full h-full fixed top-0 left-0 bg-[#00000078] flex justify-center items-center modal z-20"
-        >
+        class="w-full h-full fixed top-0 left-0 bg-[#00000078] flex justify-center items-center modal z-20">
         <div class="absolute w-screen h-screen" @click="handleLinkClick">
 
         </div>
@@ -80,6 +79,7 @@ import Icon from "~/components/Icon.vue";
 const route = useRoute();
 const id = ref();
 const detail_data = ref<any>();
+const { $swal } = useNuxtApp();
 
 const url = computed(() => `https://flickerpage.com/ads/detail/${id.value}`);
 
@@ -87,7 +87,10 @@ const copyToClipboard = () => {
     navigator.clipboard
         .writeText(url.value)
         .then(() => {
-            alert("URL copied to clipboard!");
+            $swal.fire({
+                text: 'URL copied to clipboard!',
+                icon: 'success'
+            })
             emit("close");
         })
         .catch((err) => {

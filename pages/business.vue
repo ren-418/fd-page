@@ -17,6 +17,11 @@
 <script setup lang="ts">
 import BusinessCard from "~/components/BusinessCard.vue";
 
+definePageMeta({
+  middleware:['auth'],
+  requiresAuth: 'high'
+});
+
 // Define card data
 const card_data = ref([
     {

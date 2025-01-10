@@ -98,6 +98,8 @@ import Rectangle9 from "~/assets/images/Rectangle 9.png";
 import Rectangle10 from "~/assets/images/Rectangle 10.png";
 import Rectangle11 from "~/assets/images/Rectangle 11.png";
 import HorizonAd from "~/assets/images/Rectangle 16.png";
+import { _required } from '../.nuxt/types/tailwind.config';
+
 
 const screenWidth = ref<number | null>(null);
 
@@ -150,6 +152,7 @@ onMounted(() => {
 const adsThreshold = computed(() =>
   screenWidth.value && screenWidth.value >= 1024 ? 12 : 8
 );
+
 const bannerCount = computed(() => {
   if (screenWidth.value && screenWidth.value <= 640) {
     return 1;
@@ -195,7 +198,10 @@ const items = [
   },
 ];
 
-
+definePageMeta({
+  middleware: ['auth'],
+  requiresAuth: 'low'
+})
 
 const VerticalAdData = {
   link: "",
@@ -257,7 +263,7 @@ const HorizonAdData = [
 const { categories, categoryLoading } = (await useCategories()) as any;
 const { ads, adsLoading } = await useSelectedAds();
 
-const selectedCategory = ref<string>('')
+const selectedCategory = ref<any>('')
 
 const selectCategory = (category: string): void => {
   selectedCategory.value = category
@@ -278,8 +284,10 @@ const getBannersForPosition = (index: number): Array<any> => {
   );
 };
 
+const {user} = useUserData();
+
 onMounted(() => {
-  console.log("Loading categories...");
+  console.log("user Data :::", user.value)
 });
 
 watch(

@@ -3,7 +3,7 @@
     <div class="container mx-0 lg:mx-auto pt-3 pb-3">
       <div class="flex flex-row justify-between px-2">
         <router-link to="/" class="text-2xl logo ">Logo</router-link>
-        <div @click="toggleDrawer" class="sm:hidden">
+        <div @click="toggleDrawer" class="md:hidden">
           <div class="flex gap-1 items-center cursor-pointer" :class="{
             'text-active':
               typeof selectedCategory == 'string' &&
@@ -14,18 +14,14 @@
           </div>
         </div>
 
-        <div class="items-center gap-8 hidden sm:flex">
+        <div class="items-center gap-8 hidden md:flex">
 
           <div class="hidden md:flex items-center gap-8">
-            <!-- <router-link to="/learn" class="flex items-center gap-1.5 cursor-pointer">
-              <img src="../assets/images/arrow_down.png" alt="" width="16" />
-              <span class="text-base">Learn</span>
-            </router-link> -->
+
             <div class="relative flex items-center gap-1.5 cursor-pointer" @click.prevent="toggleLearnMenu">
               <img src="../assets/images/arrow_down.png" alt="" width="16" />
               <span class="text-base">Learn</span>
 
-              <!-- Wrap dropdown in transition -->
               <transition enter-active-class="transition duration-200 ease-out"
                 enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100"
                 leave-active-class="transition duration-200 ease-in" leave-from-class="transform scale-100 opacity-100"
@@ -35,13 +31,14 @@
                   <div v-for="category in categories_list" :key="category.id"
                     class="flex gap-1 items-center border-color-1 py-[5px] cursor-pointer"
                     :class="{ 'text-active': modelValue?.id === category.id }" @click="navigateToLearn(category)">
-                    <!-- Changed this line -->
                     <Icon :name="category.icon" class="w-6" />
                     <p class='text-[14px]'>
                       {{ category.title }}
                     </p>
                   </div>
-                  <router-link to="/learn?category=1" class="flex justify-center items-center px-3 py-2 hover:bg-gray-100 text-color-2">( Read More )</router-link>
+                  <router-link to="/learn?category=1"
+                    class="flex justify-center items-center px-3 py-2 hover:bg-gray-100 text-color-2">( Read More
+                    )</router-link>
                 </div>
               </transition>
             </div>
@@ -53,11 +50,47 @@
             <button class="btn btn-active">+ POST AD</button>
           </div>
           <div class="hidden md:flex items-center gap-1">
-            <router-link to="/login" class="cursor-pointer" :class="routeName == 'login' && 'text-active'">Login
-            </router-link>
-            <span> | </span>
-            <router-link to="/register" class="cursor-pointer" :class="routeName == 'register' && 'text-active'">Sign Up
-            </router-link>
+            <template v-if="!user_info">
+              <router-link to="/login" class="cursor-pointer" :class="routeName == 'login' && 'text-active'">Login
+              </router-link>
+              <span> | </span>
+              <router-link to="/register" class="cursor-pointer" :class="routeName == 'register' && 'text-active'">Sign
+                Up
+              </router-link>
+            </template>
+            <template v-else>
+              <div class="relative flex items-center gap-1 cursor-pointer" @click.prevent="toggleUserMenu">
+                <img :src="user?.photo_url || '../assets/images/user_avatar.png'" alt="user_avatar"
+                  class="w-[40px] h-[40px] rounded-md" />
+                <div class="flex flex-col">
+                  <p class="text-[13px]">{{ (user?.first_name && user?.last_name) ? `${user.first_name}
+                    ${user.last_name}` : 'User' }}</p>
+                  <p class="text-[12px] text-gray-500">{{ user?.username }}</p>
+                </div>
+
+                <transition enter-active-class="transition duration-200 ease-out"
+                  enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100"
+                  leave-active-class="transition duration-200 ease-in"
+                  leave-from-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
+                  <div v-if="showUserMenu"
+                    class="z-[100] absolute top-full right-0 mt-1 bg-white shadow-lg rounded-md py-2 min-w-[200px] origin-top border border-color-1 px-3">
+                    <div v-for="item in userMenuItems" :key="item.id"
+                      class="flex gap-3 items-center border-color-1 py-[5px] cursor-pointer"
+                      @click.stop="handleUserMenuClick(item)">
+                      <Icon :name="item.icon" class="w-6" />
+                      <p class='text-[14px]'>
+                        {{ item.title }}
+                      </p>
+                    </div>
+                    <div class="flex w-full gap-1 border-color-1 py-[5px] cursor-pointer justify-center items-center">
+                      <span class="text-[14px] px-4 py-1 border-color-1 border rounded-md" @click.stop="handleLogout">
+                        <Icon name="logout" class="w-6" /> Logout
+                      </span>
+                    </div>
+                  </div>
+                </transition>
+              </div>
+            </template>
           </div>
         </div>
 
@@ -97,11 +130,88 @@
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { ref, watch, onMounted, onUnmounted } from "vue";
+import { ref, watch, onMounted, onUnmounted, computed } from "vue";
+import { useUserData } from '~/composables/user';
+
 import Icon from "./Icon.vue";
 
 const route = useRoute();
 const router = useRouter();
+const { $swal } = useNuxtApp()
+
+const { user } = useUserData();
+const user_info = computed(() => user.value)
+
+const handleLogout = () => {
+  document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+  $swal.fire({
+    text: 'Logged out successfully',
+    icon: 'success'
+  })
+  router.push('/login');
+  user.value = null
+}
+
+const showUserMenu = ref(false);
+const userMenuItems = [
+  {
+    id: '1',
+    title: 'Profile',
+    icon: 'user',
+  },
+  {
+    id: '2',
+    title: 'My Listings',
+    icon: 'settings',
+  },
+  {
+    id: '3',
+    title: 'Manage Business',
+    icon: 'logout',
+  },
+  {
+    id: '4',
+    title: 'Settings',
+    icon: 'setting',
+  },
+  {
+    id: '3',
+    title: 'Password',
+    icon: 'password',
+  },
+  {
+    id: '3',
+    title: 'Activity & Privacy',
+    icon: 'logout',
+  }
+];
+
+const toggleUserMenu = (event: Event) => {
+  event.stopPropagation();
+  showUserMenu.value = !showUserMenu.value;
+};
+
+const handleUserMenuClick = (item: any) => {
+  showUserMenu.value = false;
+
+  // Map menu titles to tab IDs
+  const menuToTabMapping: { [key: string]: string } = {
+    'Profile': 'profile',
+    'My Listings': 'listings',
+    'Manage Business': 'business',
+    'Settings': 'settings',
+    'Password': 'password',
+    'Activity & Privacy': 'privacy'
+  };
+
+  const tabId = menuToTabMapping[item.title];
+  if (tabId) {
+    router.push({
+      path: '/profile',
+      query: { tab: tabId }
+    });
+  }
+};
 
 const routeName = computed(() => route.name);
 const selectedCategory = ref<any>("all");
@@ -126,16 +236,17 @@ const toggleLearnMenu = (event: Event) => {
   event.stopPropagation();
   showLearnMenu.value = !showLearnMenu.value;
 };
-
-// Add click outside handler
 onMounted(() => {
   document.addEventListener('click', () => {
+    showLearnMenu.value = false;
+    showUserMenu.value = false;
     showLearnMenu.value = false;
   });
 });
 
 onUnmounted(() => {
   document.removeEventListener('click', () => {
+    showUserMenu.value = false;
     showLearnMenu.value = false;
   });
 });
@@ -183,15 +294,13 @@ const categories_list = [
     icon: 'user'
   }
 ];
-// Reactive variable for drawer state
+
 const isOpen = ref(false);
 
-// Method to toggle the drawer
 const toggleDrawer = () => {
   isOpen.value = !isOpen.value;
 };
 
-// Watch for changes in `isOpen` to handle overflow styling
 watch(isOpen, (newValue) => {
   if (typeof window !== "undefined") {
     if (newValue) {
@@ -207,8 +316,6 @@ watch(
     setCategory(newVal);
   }
 );
-
-// Add event listener for "Escape" key
 onMounted(() => {
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Escape" && isOpen.value) {

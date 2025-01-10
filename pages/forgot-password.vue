@@ -68,6 +68,7 @@
 <script setup lang="ts">
 import Icon from "~/components/Icon.vue";
 import PhoneNumber from "~/components/PhoneNumber.vue";
+const { $swal } = useNuxtApp();
 const isEmailUse = ref(true);
 const email = ref("");
 const phoneNumberObj = ref({
@@ -78,12 +79,18 @@ const phoneNumberObj = ref({
 
 const send = () => {
   if (email.value === "" && !!isEmailUse.value) {
-    alert("Please input email");
+    $swal.fire({
+      text: 'Please input email',
+      icon: 'warning'
+    })
     return;
   }
 
   if (phoneNumberObj.value.number === "" && !isEmailUse.value) {
-    alert("Please input your phonr number");
+    $swal.fire({
+      text: 'Please input your phonr number',
+      icon: 'warning'
+    })
     return;
   }
 };

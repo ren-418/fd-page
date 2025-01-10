@@ -1,14 +1,12 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-
 import vueInspector from "vite-plugin-vue-inspector";
 export default defineNuxtConfig({
   ssr: false,
   compatibilityDate: "2025-01-11",
   devtools: { enabled: true },
-  modules: ["@primevue/nuxt-module", "@nuxt/ui"],
-  ui: {
-    icons: ['lucide']
-  },
+  modules: [
+    '@primevue/nuxt-module',
+    '@nuxt/ui',
+  ],
   primevue: {
     components: {
       include: "*",
