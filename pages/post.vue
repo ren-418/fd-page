@@ -6,8 +6,8 @@
                     <div class="flex flex-col items-center min-w-[160px] relative step-container">
                         <div :class="[
                             'step-circle w-5 h-5 flex items-center justify-center rounded-full border-2 relative',
-                            currentStep > index ? 'bg-pink-500 border-pink-500 text-white' :
-                                currentStep === index ? 'bg-white border-pink-500 text-pink-500' :
+                            currentStep > index ? 'bg-pink-500 border-[#008080] text-white' :
+                                currentStep === index ? 'bg-white border-[#008080] text-pink-500' :
                                     'bg-gray-300 border-gray-300 text-gray-500'
                         ]">
                             <span v-if="currentStep > index" class="font-bold text-[10px] text-white">✔</span>
@@ -18,7 +18,7 @@
 
                         <span v-if="index !== steps.length - 1"
                             class="absolute top-[10px] -right-[80px] h-[5px] w-[40px] step-line" :style="{
-                                '--line-color': currentStep > index ? '#f472b6' : '#d1d5db'
+                                '--line-color': currentStep > index ? '#008080' : '#d1d5db'
                             }"></span>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ function submit() {
 }
 
 .bg-pink-500 {
-    background-color: #ec4899;
+    background-color: #008080;
 }
 
 .bg-gray-300 {
@@ -156,12 +156,12 @@ function submit() {
 
 
 .step-line.active {
-    background-color: #f472b6;
+    background-color: #008080;
     transition: all 0.4s ease-in-out;
 }
 
 .step-line.completed::before {
-    background-color: #f472b6;
+    background-color: #008080;
     transition: all 0.4s ease-in-out;
 }
 
