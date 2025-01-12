@@ -47,7 +47,7 @@
               <router-link to="/business" class="text-base cursor-pointer">Business</router-link>
 
             </div>
-            <button class="btn btn-active">+ POST AD</button>
+            <router-link to="/post" class="btn btn-active">+ POST AD</router-link>
           </div>
           <div class="hidden md:flex items-center gap-1">
             <template v-if="!user_info">

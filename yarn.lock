@@ -306,6 +306,30 @@
   resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.24.2.tgz"
   integrity sha512-7VTgWzgMGvup6aSqDPLiW5zHaxYJGTO4OokMjIlrCtf+VpEL+cXKtCvg723iguPYI5oaUNdS+/V7OU2gvXVWEg==
 
+"@fortawesome/fontawesome-common-types@6.7.2":
+  version "6.7.2"
+  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.7.2.tgz"
+  integrity sha512-Zs+YeHUC5fkt7Mg1l6XTniei3k4bwG/yo3iFUtZWd/pMx9g3fdvkSK9E0FOC+++phXOka78uJcYb8JaFkW52Xg==
+
+"@fortawesome/fontawesome-svg-core@^6.7.2", "@fortawesome/fontawesome-svg-core@~1 || ~6":
+  version "6.7.2"
+  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.7.2.tgz"
+  integrity sha512-yxtOBWDrdi5DD5o1pmVdq3WMCvnobT0LU6R8RyyVXPvFRd2o79/0NCuQoCjNTeZz9EzA9xS3JxNWfv54RIHFEA==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.7.2"
+
+"@fortawesome/free-solid-svg-icons@^6.7.2":
+  version "6.7.2"
+  resolved "https://registry.npmjs.org/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-6.7.2.tgz"
+  integrity sha512-GsBrnOzU8uj0LECDfD5zomZJIjrPhIlWU82AHwa2s40FKH+kcxQaBvBo3Z4TxyZHIyX8XTDxsyA33/Vx9eFuQA==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.7.2"
+
+"@fortawesome/vue-fontawesome@^3.0.8":
+  version "3.0.8"
+  resolved "https://registry.npmjs.org/@fortawesome/vue-fontawesome/-/vue-fontawesome-3.0.8.tgz"
+  integrity sha512-yyHHAj4G8pQIDfaIsMvQpwKMboIZtcHTUvPqXjOHyldh1O1vZfH4W03VDPv5RvI9P6DLTzJQlmVgj9wCf7c2Fw==
+
 "@headlessui/tailwindcss@^0.2.1":
   version "0.2.1"
   resolved "https://registry.npmjs.org/@headlessui/tailwindcss/-/tailwindcss-0.2.1.tgz"
@@ -317,6 +341,11 @@
   integrity sha512-JzdCNqurrtuu0YW6QaDtR2PIYCKPUWq28csDyMvN4zmGccmE7lz40Is6hc3LA4HFeCI7sekZ/PQMTNmn9I/4Wg==
   dependencies:
     "@tanstack/vue-virtual" "^3.0.0-beta.60"
+
+"@heroicons/vue@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/@heroicons/vue/-/vue-2.2.0.tgz"
+  integrity sha512-G3dbSxoeEKqbi/DFalhRxJU4mTXJn7GwZ7ae8NuEQzd1bqdd0jAbdaBZlHPcvPD2xI1iGzNVB4k20Un2AguYPw==
 
 "@iconify-json/heroicons@^1.2.1":
   version "1.2.2"
@@ -457,6 +486,11 @@
     nopt "^8.0.0"
     semver "^7.5.3"
     tar "^7.4.0"
+
+"@mdi/font@^7.4.47":
+  version "7.4.47"
+  resolved "https://registry.npmjs.org/@mdi/font/-/font-7.4.47.tgz"
+  integrity sha512-43MtGpd585SNzHZPcYowu/84Vz2a2g31TvPMTm9uTiCSWzaheQySUcSyUH/46fPnuPQWof2yd0pGBtzee/IQWw==
 
 "@netlify/functions@^2.8.2":
   version "2.8.2"
@@ -1319,7 +1353,17 @@
   dependencies:
     upath "^2.0.1"
 
-"@vueuse/core@^12.0.0", "@vueuse/core@12.3.0":
+"@vueuse/core@^12.0.0", "@vueuse/core@^12.4.0":
+  version "12.4.0"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-12.4.0.tgz"
+  integrity sha512-XnjQYcJwCsyXyIafyA6SvyN/OBtfPnjvJmbxNxQjCcyWD198urwm5TYvIUUyAxEAN0K7HJggOgT15cOlWFyLeA==
+  dependencies:
+    "@types/web-bluetooth" "^0.0.20"
+    "@vueuse/metadata" "12.4.0"
+    "@vueuse/shared" "12.4.0"
+    vue "^3.5.13"
+
+"@vueuse/core@12.3.0":
   version "12.3.0"
   resolved "https://registry.npmjs.org/@vueuse/core/-/core-12.3.0.tgz"
   integrity sha512-cnV8QDKZrsyKC7tWjPbeEUz2cD9sa9faxF2YkR8QqNwfofgbOhmfIgvSYmkp+ttSvfOw4E6hLcQx15mRPr0yBA==
@@ -1350,6 +1394,11 @@
   version "12.3.0"
   resolved "https://registry.npmjs.org/@vueuse/metadata/-/metadata-12.3.0.tgz"
   integrity sha512-M/iQHHjMffOv2npsw2ihlUx1CTiBwPEgb7DzByLq7zpg1+Ke8r7s9p5ybUWc5OIeGewtpY4Xy0R2cKqFqM8hFg==
+
+"@vueuse/metadata@12.4.0":
+  version "12.4.0"
+  resolved "https://registry.npmjs.org/@vueuse/metadata/-/metadata-12.4.0.tgz"
+  integrity sha512-AhPuHs/qtYrKHUlEoNO6zCXufu8OgbR8S/n2oMw1OQuBQJ3+HOLQ+EpvXs+feOlZMa0p8QVvDWNlmcJJY8rW2g==
 
 "@vueuse/shared@12.3.0":
   version "12.3.0"
@@ -1933,6 +1982,11 @@ copy-anything@^3.0.2:
   integrity sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==
   dependencies:
     is-what "^4.1.8"
+
+core-js@^3.8.3:
+  version "3.40.0"
+  resolved "https://registry.npmjs.org/core-js/-/core-js-3.40.0.tgz"
+  integrity sha512-7vsMc/Lty6AGnn7uFpYT56QesI5D2Y/UkgKounk87OP9Z2H9Z8kj6jzcSGAxFmUtDOS0ntK6lbQz+Nsa0Jj6mQ==
 
 core-util-is@~1.0.0:
   version "1.0.3"
@@ -5766,7 +5820,7 @@ vue-sweetalert2@^5.0.11:
   dependencies:
     sweetalert2 "11.4.4"
 
-vue@*, "vue@^2.7.0 || ^3.0.0", "vue@^2.7.0 || ^3.2.25", vue@^3.0.0, vue@^3.2.0, vue@^3.2.25, vue@^3.2.37, vue@^3.3.0, vue@^3.3.4, vue@^3.5.13, "vue@>=2.7 || >=3", vue@>=3, vue@>=3.2.0, "vue@2 || 3", vue@3.5.13:
+vue@*, "vue@^2.7.0 || ^3.0.0", "vue@^2.7.0 || ^3.2.25", vue@^3.0.0, vue@^3.2.0, vue@^3.2.13, vue@^3.2.25, vue@^3.2.37, vue@^3.3.0, vue@^3.3.4, vue@^3.5.13, "vue@>= 3", "vue@>= 3.0.0 < 4", "vue@>=2.7 || >=3", vue@>=3, vue@>=3.2.0, "vue@2 || 3", vue@3.5.13:
   version "3.5.13"
   resolved "https://registry.npmjs.org/vue/-/vue-3.5.13.tgz"
   integrity sha512-wmeiSMxkZCSc+PM2w2VRsOYAZC8GdipNFRTsLSfodVqI9mbejKeXEGr8SckuLnrQPGe3oJN5c3K0vpoU9q/wCQ==
@@ -5776,6 +5830,14 @@ vue@*, "vue@^2.7.0 || ^3.0.0", "vue@^2.7.0 || ^3.2.25", vue@^3.0.0, vue@^3.2.0, 
     "@vue/runtime-dom" "3.5.13"
     "@vue/server-renderer" "3.5.13"
     "@vue/shared" "3.5.13"
+
+vue3-stepper@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/vue3-stepper/-/vue3-stepper-0.1.0.tgz"
+  integrity sha512-TyMtfgHKsleC5Rwh0iid3L/7eMC+r3ziCH4qyv6MpMyQ7VmPKZ+Y94/vsoaen83WeF+9JggDEmL/ObesvIY8/A==
+  dependencies:
+    core-js "^3.8.3"
+    vue "^3.2.13"
 
 vue3-toastify@^0.2.8:
   version "0.2.8"
@@ -5787,7 +5849,7 @@ vue3-touch-events@^4.2.0:
   resolved "https://registry.npmjs.org/vue3-touch-events/-/vue3-touch-events-4.2.0.tgz"
   integrity sha512-DgZJo8/QE72ilEDJ5+01SJ2JH7Aj55k0PidGLDU1jHewIG3GOW25azFuDsJ6nIXrfN8kMXBRR8PDx0GuNbIXhw==
 
-vuetify@^3.0.0, vuetify@^3.7.6:
+vuetify@^3.0.0:
   version "3.7.6"
   resolved "https://registry.npmjs.org/vuetify/-/vuetify-3.7.6.tgz"
   integrity sha512-lol0Va5HtMIqZfjccSD5DLv5v31R/asJXzc6s7ULy51PHr1DjXxWylZejhq0kVpMGW64MiV1FmA/p8eYQfOWfQ==

@@ -22,9 +22,10 @@ a {
     background: linear-gradient(93.93deg, #008080 0% 100%);
     color:  #fff;
     min-width: 50px;
+    text-align: center;
     &.btn {
         font-size: 16px;
-        padding: 7px;
+        padding: 7px 15px;
 
         &:hover {
             color: #fff;

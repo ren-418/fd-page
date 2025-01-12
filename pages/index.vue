@@ -98,7 +98,7 @@ import Rectangle9 from "~/assets/images/Rectangle 9.png";
 import Rectangle10 from "~/assets/images/Rectangle 10.png";
 import Rectangle11 from "~/assets/images/Rectangle 11.png";
 import HorizonAd from "~/assets/images/Rectangle 16.png";
-import { _required } from '../.nuxt/types/tailwind.config';
+// import { _required } from '../.nuxt/types/tailwind.config';
 
 
 const screenWidth = ref<number | null>(null);

@@ -45,7 +45,7 @@ export default {
         }
       })
     },
-    require('tailwindcss-primeui')
+    // require('tailwindcss-primeui')
   ],
 }
 

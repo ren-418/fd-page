@@ -20,6 +20,9 @@ export default defineNuxtConfig({
     },
   },
   css: ["~/assets/styles/app.scss"],
+  colorMode: {
+    preference: 'light'
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
