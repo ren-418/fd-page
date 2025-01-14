@@ -4,7 +4,7 @@ import { useRuntimeConfig } from "#app";
 interface FilterObject {
   location: string | null;
   keyword: string;
-  category_id:  number | string;
+  category_id: number | string;
   sub_categories: any;
   is_automotive: string;
   automotive_categories: any;
@@ -36,6 +36,40 @@ export const useCategories = () => {
   return { categories, categoryLoading };
 };
 
+export const useSubCategories = () => {
+  // State to hold categories and loading status
+  const categories = ref([]);
+  const categoryLoading = ref(true);
+  const location = reactive({ country: "US" }); // example, replace with actual location source
+
+  const runtimeConfig = useRuntimeConfig();
+  const url = `${runtimeConfig.public.adsApiUrl}/category/get_sub_categories`;
+
+  // Method to fetch subcategories based on category_id and country
+  const getSubCategories = async (category_id: number) => {
+    const params = {
+      category_id: "5",
+      country_code: "",
+    };
+
+    try {
+      categoryLoading.value = true;
+      const { data } = await axios.post(url, params);
+      categories.value = data.data; // Update the categories with the response data
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    } finally {
+      categoryLoading.value = false; // Stop loading once done
+    }
+  };
+
+  // To trigger fetching of subcategories, use getSubCategories with a valid category_id
+  // For example:
+  // getSubCategories(5); // Replace with an actual category_id
+
+  return { categories, categoryLoading, getSubCategories };
+};
+
 export const useSelectCategory = () => {
   const category: any = useState<any>("category", () => {});
 
@@ -59,8 +93,8 @@ export const useFilterObject = () => {
   }));
   const { category } = useSelectCategory();
 
-  const setFilterObject = (newVal:any) => {
-    if (typeof filterObject.value !== 'object') {
+  const setFilterObject = (newVal: any) => {
+    if (typeof filterObject.value !== "object") {
       filterObject.value = {
         automotive_categories: [],
         category_id: "",
@@ -72,7 +106,7 @@ export const useFilterObject = () => {
         sub_categories: [],
       };
     }
-    if ( newVal==="all") {
+    if (newVal === "all") {
       filterObject.value.category_id = "";
     } else {
       filterObject.value.category_id = newVal.id;
@@ -100,7 +134,7 @@ export const useSelectedAds = async () => {
 
   const fetchAds = async () => {
     try {
-      console.log("callled ::: fetch ads", filterObject.value)
+      console.log("callled ::: fetch ads", filterObject.value);
       const { data } = await axios.post(url, filterObject.value);
       console.log("useSelectedAds :::", data.data.data);
       ads.value = data.data.data;
@@ -113,7 +147,7 @@ export const useSelectedAds = async () => {
   watch(
     () => filterObject.value,
     async () => {
-      adsLoading.value= true;
+      adsLoading.value = true;
       await fetchAds();
     },
     { deep: true }
@@ -123,13 +157,13 @@ export const useSelectedAds = async () => {
   return { ads, adsLoading, fetchAds };
 };
 
-export const useSelectedDetail = async (id:string) => {
+export const useSelectedDetail = async (id: string) => {
   const detail = useState<any>("detail", () => []);
   const runtimeConfig = useRuntimeConfig();
   const url = `${runtimeConfig.public.adsApiUrl}/post/get_detail`;
   const params = {
-    slug:id
-  }
+    slug: id,
+  };
   const detailLoading = ref(true);
 
   const fetchDetail = async () => {
@@ -147,4 +181,3 @@ export const useSelectedDetail = async (id:string) => {
 
   return { detail, detailLoading, fetchDetail };
 };
-

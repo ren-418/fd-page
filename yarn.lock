@@ -330,6 +330,11 @@
   resolved "https://registry.npmjs.org/@fortawesome/vue-fontawesome/-/vue-fontawesome-3.0.8.tgz"
   integrity sha512-yyHHAj4G8pQIDfaIsMvQpwKMboIZtcHTUvPqXjOHyldh1O1vZfH4W03VDPv5RvI9P6DLTzJQlmVgj9wCf7c2Fw==
 
+"@googlemaps/js-api-loader@^1.16.8":
+  version "1.16.8"
+  resolved "https://registry.npmjs.org/@googlemaps/js-api-loader/-/js-api-loader-1.16.8.tgz"
+  integrity sha512-CROqqwfKotdO6EBjZO/gQGVTbeDps5V7Mt9+8+5Q+jTg5CRMi3Ii/L9PmV3USROrt2uWxtGzJHORmByxyo9pSQ==
+
 "@headlessui/tailwindcss@^0.2.1":
   version "0.2.1"
   resolved "https://registry.npmjs.org/@headlessui/tailwindcss/-/tailwindcss-0.2.1.tgz"
@@ -5191,10 +5196,10 @@ svgo@^3.3.2:
     csso "^5.0.5"
     picocolors "^1.0.0"
 
-sweetalert2@^11.15.10:
-  version "11.15.10"
-  resolved "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.15.10.tgz"
-  integrity sha512-Sjiwcd5mWiz8X0JFkHsso2EPVQHrLCjVv+xR6Ry2LKf4KY6kSi4U5pM0Tgmn1c7SMfkyDqPal2NWqwj6vck8bw==
+sweetalert2@^11.6.13:
+  version "11.6.13"
+  resolved "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.6.13.tgz"
+  integrity sha512-n5yVF0FNx1lm4XzpPyb1HIaiptzODfVyeCzmB809tpK+1bPdoKoevKOxYjrtId75DV7xuIp4r6cjn8xUAB8dPQ==
 
 sweetalert2@11.4.4:
   version "11.4.4"

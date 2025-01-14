@@ -1,27 +1,33 @@
 <template>
     <div class="flex flex-col w-full gap-10">
         <div class="flex flex-col justify-between gap-10 w-full md:flex-row md:gap-0">
-            <div class="flex flex-col w-full gap-3 md:w-[45%]">
+            <div v-if="user_info" class="flex flex-col w-full gap-3 md:w-[45%]">
                 <div class="flex flex-col">
                     <p class="text-lg">Choose Post Location</p>
                 </div>
                 <div class="flex flex-col w-full h-auto px-5 py-8 border-color-1 border rounded-md gap-5">
                     <div class="flex w-full flex-col gap-2">
                         <label class="text-[14px]">Address</label>
-                        <input type="text"
+                        <input type="text" :value="user?.location?.address"
                             class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                             placeholder="Ex. 123 Main Street" />
+
+                        <!-- <div :class="'required-input-container'">
+                            <gmap-autocomplete :value="user?.location?.address" class="form-control w-100"
+                                :placeholder="'Enter street address (Optional)}'" style="max-width: 100%"
+                                @keypress.enter="$event.preventDefault()"></gmap-autocomplete>
+                        </div> -->
                     </div>
                     <div class="flex flex-row justify-between gap-5">
                         <div class="flex w-full flex-col gap-2 sm:w-[45%]">
                             <label class="text-[14px]">Zip Code <span class="text-[#dc3545]">&nbsp;*</span></label>
-                            <input type="text"
+                            <input type="text" :value="user?.location?.zipcode"
                                 class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                                 placeholder="Ex. 92126" />
                         </div>
                         <div class="flex w-full flex-col gap-2 sm:w-[45%]">
                             <label class="text-[14px]">City <span class="text-[#dc3545]">&nbsp;*</span></label>
-                            <input type="text"
+                            <input type="text" :value="user?.location?.city"
                                 class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                                 placeholder="Ex. San Diego" />
                         </div>
@@ -29,13 +35,13 @@
                     <div class="flex flex-row justify-between gap-5">
                         <div class="flex w-full flex-col gap-2 sm:w-[45%]">
                             <label class="text-[14px]">State<span class="text-[#dc3545]">&nbsp;*</span></label>
-                            <input type="text"
+                            <input type="text" :value="user?.location?.state"
                                 class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                                 placeholder="CA" />
                         </div>
                         <div class="flex w-full flex-col gap-2 sm:w-[45%]">
-                            <label class="text-[14px]">County<span class="text-[#dc3545]">&nbsp;*</span></label>
-                            <input type="text"
+                            <label class="text-[14px]">Country<span class="text-[#dc3545]">&nbsp;*</span></label>
+                            <input type="text" :value="user?.location?.country"
                                 class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                                 placeholder="San Diego" />
                         </div>
@@ -51,19 +57,19 @@
                         <label class="text-[14px]">Email<span class="text-[#008080] text-sm">&nbsp;&nbsp;*We will not
                                 disclose your
                                 email</span></label>
-                        <input type="text"
+                        <input type="text" v-model="contactEmail"
                             class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                             placeholder="Email(Optional)" />
                     </div>
                     <div class="flex w-full flex-col gap-2">
                         <label class="text-[14px]">Phone</label>
-                        <input type="text"
+                        <input type="text" v-model="contactPhone"
                             class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                             placeholder="Phone(Optional)" />
                     </div>
                     <div class="flex w-full flex-col gap-2">
                         <label class="text-[14px]">Web Link</label>
-                        <input type="text"
+                        <input type="text" v-model="webLink"
                             class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                             placeholder="Any web links(Optional)" />
                     </div>
@@ -93,7 +99,51 @@
 </template>
 
 <script lang="ts" setup>
-// import Icon from "./Icon.vue";
+import { defineProps, defineEmits, computed, ref, watch } from "vue";
+import { useUserData } from '~/composables/user';
+const { user } = useUserData();
+const user_info = computed(() => user.value);
+
+const props = defineProps<{
+    contactEmail: string | null;
+    contactPhone: string | null;
+    webLink: string | null;
+    location?: Array<any> | null;
+    user?: Array<any> | null;
+}>();
+
+const emit = defineEmits<{
+    (event: 'ContactData', data: { contactEmail: string | null; contactPhone: string | null; webLink: string | null, location: Array<any> | [], user: Array<any> | [] }): void;
+}>();
+
+const contactEmail = ref<string | null>(props.contactEmail);
+const contactPhone = ref<string | null>(props.contactPhone);
+const webLink = ref<string | null>(props.webLink);
+const Location = ref<Array<any> | null>(user.value?.location ?? null);
+const User = ref<Array<any> | null>(user.value);
+
+watch(
+    [contactEmail, contactPhone, webLink, Location, User],
+    ([newContactEmail, newContactPhone, newWebLink, newLocation, newUser]) => {
+        if (
+            newContactEmail !== props.contactEmail ||
+            newContactPhone !== props.contactPhone ||
+            newWebLink !== props.webLink ||
+            newLocation !== props.location ||
+            newUser !== props.user
+        ) {
+            emit('ContactData', {
+                contactEmail: newContactEmail,
+                contactPhone: newContactPhone,
+                webLink: newWebLink,
+                location: newLocation ?? [],
+                user: newUser ?? []
+            });
+        }
+    },
+    { immediate: true }
+);
+
 </script>
 
 <style lang="scss" scoped>

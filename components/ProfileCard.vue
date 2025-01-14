@@ -7,20 +7,20 @@
                     <div class="flex w-full flex-col gap-2 sm:w-[45%]">
                         <label class="text-[14px]">Username <span class="text-[#dc3545]">&nbsp;*</span></label>
                         <input type="text"
-                            class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
-                            placeholder="Enter Username" />
+                            class="py-3 px-4 block w-full bg-white outline-none rounded-lg text-sm border border-color-1 cursor-not-allowed"
+                            disabled :value="user_info.username" />
                     </div>
                     <div class="flex w-full flex-col gap-2 sm:w-[45%]">
                         <label class="text-[14px]">First Name <span class="text-[#dc3545]">&nbsp;*</span></label>
                         <input type="text"
-                            class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
-                            placeholder="Enter First Name" />
+                            class="py-3 px-4 block w-full bg-white outline-none rounded-lg text-sm border border-color-1 cursor-not-allowed"
+                            disabled :value="user_info.first_name" />
                     </div>
                     <div class="flex w-full flex-col gap-2 sm:w-[45%]">
                         <label class="text-[14px]">Last Name <span class="text-[#dc3545]">&nbsp;*</span></label>
                         <input type="text"
-                            class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
-                            placeholder="Enter Last Name" />
+                            class="py-3 px-4 block w-full bg-white outline-none rounded-lg text-sm border border-color-1 cursor-not-allowed"
+                            disabled :value="user_info.last_name" />
                     </div>
                 </div>
                 <div class="flex flex-col justify-between gap-5 sm:flex-row">
@@ -28,19 +28,20 @@
                         <label class="text-[14px]">Email <span class="text-[#dc3545]">&nbsp;*</span></label>
                         <input type="text"
                             class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
-                            placeholder="Enter Email Address" />
+                            :value="user_info.email" />
                     </div>
                     <div class="flex w-full flex-col gap-2 sm:w-[45%]">
                         <label class="text-[14px]">Phone Number <span class="text-[#dc3545]">&nbsp;*</span></label>
                         <div class="phone-number-input has-info">
-                            <PhoneNumber v-model="phoneNumberObj" :placeholder="'Phone Number'" />
+                            <PhoneNumber v-model="phoneNumberObj" :placeholder="'Phone Number'"
+                                :value="user_info.phone_number" />
                         </div>
                     </div>
                     <div class="flex w-full flex-col gap-2 sm:w-[45%]">
                         <label class="text-[14px]">Occupation <span class="text-[#dc3545]">&nbsp;*</span></label>
                         <input type="text"
                             class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
-                            placeholder="Enter Last Name" />
+                            placeholder="Enter Occupation" />
                     </div>
                 </div>
             </div>
@@ -58,7 +59,7 @@
                             <label class="text-[14px]">Zip <span class="text-[#dc3545]">&nbsp;*</span></label>
                             <input type="text"
                                 class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
-                                placeholder="Zip Code" />
+                                placeholder="Zip Code" :value="user_info.location.zipcode" />
                         </div>
                     </div>
                     <div class="flex flex-row gap-5 w-full justify-evenly">
@@ -66,13 +67,13 @@
                             <label class="text-[14px]">City <span class="text-[#dc3545]">&nbsp;*</span></label>
                             <input type="text"
                                 class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
-                                placeholder="City Name" />
+                                placeholder="City Name" :value="user_info.location.city" />
                         </div>
                         <div class="flex w-[35%] flex-col gap-2">
                             <label class="text-[14px]">State<span class="text-[#dc3545]">&nbsp;*</span></label>
                             <input type="text"
                                 class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
-                                placeholder="State" />
+                                placeholder="State" :value="user_info.location.sta" />
                         </div>
                     </div>
                 </div>
@@ -89,6 +90,9 @@
 <script setup lang="ts">
 import PhoneNumber from './PhoneNumber.vue';
 import { ref } from 'vue';
+
+const { user } = useUserData();
+const user_info = computed(() => user.value)
 
 const phoneNumberObj = ref({
     country_id: 231,
