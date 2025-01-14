@@ -1,10 +1,10 @@
 <template>
-    <div class="md:container mx-0 lg:mx-auto pt-5">
+    <div class="md:container mx-0 lg:mx-auto pt-5 pb-[100px]">
         <div class="flex flex-col gap-4 w-full">
             <!-- Step Indicator -->
-            <div class="flex items-center w-full justify-center">
+            <div class="hidden items-center w-full justify-center sm:flex">
                 <div v-for="(step, index) in steps" :key="index" class="relative flex items-center">
-                    <div class="flex flex-col items-center min-w-[160px] relative step-container">
+                    <div class="flex flex-col items-center min-w-[80px] lg:min-w-[160px] relative step-container">
                         <div :class="[
                             'step-circle w-5 h-5 flex items-center justify-center rounded-full border-2 relative',
                             currentStep > index ? 'bg-pink-500 border-[#008080] text-white' :
@@ -17,23 +17,27 @@
                             {{ step.title }}
                         </div>
                         <span v-if="index !== steps.length - 1"
-                            class="absolute top-[10px] -right-[80px] h-[5px] w-[40px] step-line" :style="{
+                            class="hidden absolute top-[10px] -right-[45px] h-[5px] step-line w-[45px] lg:w-[80px] sm:block lg:-right-[80px]"
+                            :style="{
                                 '--line-color': currentStep > index ? '#008080' : '#d1d5db'
                             }"></span>
                     </div>
                 </div>
             </div>
-
+            <div class="flex flex-col w-full justify-center items-center h-auto sm:hidden">
+                <p class="text-lg text-[#008080]">{{ steps[currentStep].title }}</p>
+            </div>
             <div class="mt-6">
                 <div v-for="(step, index) in steps" :key="step.title" v-show="currentStep === index">
                     <component :is="steps[currentStep].content" @updatePostData="handlePostData"
                         :updateCategory="updateCategory" :updateSubCategory="updateSubCategory"
                         :currentCategory="form.category" :currentSubcategory="form.subcategory" :postTitle="form.title"
                         :postDescription="form.description" :businessName="form.businessName" :services="form.services"
-                        :imageData="form.imageData" :openHours="form.openHours" @updateOtherDetails="updateOtherDetails"
-                        @imageData="imageData" :contactEmail="form.contactEmail" :contactPhone="form.contactPhone"
-                        :webLink="form.webLink" :location="form.location" :user="form.user" @ContactData="ContactData"
-                        :formData="form" />
+                        :imageData="form.imageData" @updateFormImages="updateFormImages" :openHours="form.openHours"
+                        @updateOtherDetails="updateOtherDetails" @imageData="imageData"
+                        :contactEmail="form.contactEmail" :contactPhone="form.contactPhone" :webLink="form.webLink"
+                        :user="form.user" @ContactData="ContactData" :formData="form"
+                        @termsAccepted="updateTermsAccepted" />
                 </div>
 
                 <div class=" mt-4 flex w-full justify-center items-center gap-4">
@@ -44,7 +48,8 @@
                     <div v-if="currentStep < steps.length - 1" @click="nextStep" class="btn btn-active">
                         Next
                     </div>
-                    <div v-else @click="submit" class="btn btn-active">
+                    <div v-else @click="termsAccepted ? submit() : showTermsWarning()"
+                        :class="['btn btn-active', termsAccepted ? '' : '']">
                         Submit
                     </div>
                 </div>
@@ -54,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, markRaw } from 'vue';
 import SelectCategory from '~/components/Post/SelectCategory.vue';
 import Gallery from '~/components/Post/Gallery.vue';
 import LocationContact from '~/components/Post/LocationContact.vue';
@@ -87,12 +92,12 @@ definePageMeta({
 });
 
 const steps = ref<Step[]>([
-    { title: 'Select Category', content: SelectCategory },
-    { title: 'Post Details', content: PostDetail },
-    { title: 'Other Details', content: OtherDetail },
-    { title: 'Gallery', content: Gallery },
-    { title: 'Location & Contact', content: LocationContact },
-    { title: 'Submit', content: Submit }
+    { title: 'Select Category', content: markRaw(SelectCategory) },
+    { title: 'Post Details', content: markRaw(PostDetail) },
+    { title: 'Other Details', content: markRaw(OtherDetail) },
+    { title: 'Gallery', content: markRaw(Gallery) },
+    { title: 'Location & Contact', content: markRaw(LocationContact) },
+    { title: 'Submit', content: markRaw(Submit) }
 ]);
 
 // Form state management
@@ -108,7 +113,6 @@ const form = ref<{
     contactEmail: string;
     contactPhone: string;
     webLink: string;
-    location: any;
     user: any;
 }>({
     category: null,
@@ -122,7 +126,6 @@ const form = ref<{
     contactEmail: "",
     contactPhone: "",
     webLink: "",
-    location: [],
     user: []
 });
 
@@ -132,6 +135,12 @@ function updateOtherDetails(data: { businessName: string | null; services: strin
     form.value.services = data.services || [];
     form.value.openHours = data.openHours || "";
 }
+
+function updateFormImages(newImages: Array<any>) {
+    form.value.imageData = newImages;
+    console.log("Updated form images:", form.value.imageData);
+}
+
 function imageData(data: { imageData: any }) {
     // Ensure that data.imageData is an array if multiple images are expected
     if (Array.isArray(data.imageData)) {
@@ -143,24 +152,34 @@ function imageData(data: { imageData: any }) {
     console.log("Updated form.value.imageData:", form.value.imageData);
 }
 
-// Handle the post data received from PostDetail
 function handlePostData(data: { title: string | null, description: string | null }) {
     form.value.title = data.title || "";
     form.value.description = data.description || "";
 }
 
+const termsAccepted = ref(false);
 
-function ContactData(data: { contactEmail: string | null; contactPhone: string | null; webLink: string | null, location: Array<any> | [], user: Array<any> | [] }) {
+function updateTermsAccepted(value: boolean) {
+    termsAccepted.value = value;
+}
+
+function showTermsWarning() {
+    $swal.fire({
+        text: 'Please accept the Terms of Use and Privacy Policy to continue.',
+        icon: 'warning',
+    });
+}
+
+
+function ContactData(data: { contactEmail: string | null; contactPhone: string | null; webLink: string | null, user: Array<any> | [] }) {
     form.value.contactEmail = data.contactEmail || "";
     form.value.contactPhone = data.contactPhone || "";
     form.value.webLink = data.webLink || "";
-    form.value.location = data.location || [];
     form.value.user = data.user || [];
 }
 
 const currentStep = ref(0);
 
-// To handle updated category and subcategory from SelectCategory.vue
 function updateCategory(category: Category | null) {
     form.value.category = category || null;
 }
@@ -171,72 +190,216 @@ function updateSubCategory(subcategory: SubCategory | null) {
 }
 
 function nextStep() {
-    if (currentStep.value === 0 && !form.value.category) {
-        // Display a message to the user
-        $swal.fire({
-            text: 'Please select a category to proceed.',
-            icon: 'warning',
-        });
-        return;
-    }
-    if (currentStep.value === 1 && (!form.value.title || !form.value.description)) {
-        if (!form.value.title && !form.value.description) {
+    try {
+        if (currentStep.value === 0 && !form.value.category) {
+            $swal.fire({
+                text: 'Please select a category to proceed.',
+                icon: 'warning',
+            });
+            return;
+        }
+        if (currentStep.value === 3 && form.value.imageData.length === 0) {
+            $swal.fire({
+                text: 'Please add at least one image to proceed.',
+                icon: 'warning',
+            });
+            return;
+        }
+
+        if (currentStep.value === 1 && (!form.value.title && !form.value.description)) {
             $swal.fire({
                 text: 'Please input at least a title or description for your post',
                 icon: 'warning',
             });
             return;
         }
+
+        setTimeout(() => {
+            if (currentStep.value < steps.value.length - 1) {
+                currentStep.value++;
+            }
+        }, 100);
+    } catch (error) {
+        console.error('Navigation error:', error);
     }
 
-    // Proceed to the next step if validation passes
-    if (currentStep.value < steps.value.length - 1) {
-        currentStep.value++;
-    }
-
-    console.log(form, ':: form data');
-    console.log(form.value.subcategory, ':: sub category');
-    console.log(form.value.category, ':: category');
+    console.log(form.value, " :: imageData ");
 
 }
 
+const getCookie = (name: any) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+
+    if (parts.length === 2) {
+        const part = parts.pop();
+        if (part !== undefined) {
+            return part.split(';').shift() || '';
+        }
+    }
+
+    return '';
+
+};
+
 async function submit() {
     try {
-        // Create a new FormData object
-        const formData = new FormData();
 
-        // Append all form values to the FormData object
-        formData.append("category", JSON.stringify(form.value.category));
-        formData.append("subcategory", JSON.stringify(form.value.subcategory));
-        formData.append("title", form.value.title);
-        formData.append("description", form.value.description);
-        formData.append("businessName", form.value.businessName);
-        formData.append("openHours", form.value.openHours);
-        formData.append("contactEmail", form.value.contactEmail);
-        formData.append("contactPhone", form.value.contactPhone);
-        formData.append("webLink", form.value.webLink);
-        formData.append("location", JSON.stringify(form.value.location));
-        formData.append("user", JSON.stringify(form.value.user));
+        console.log(form.value.imageData, ': const data');
 
-        // Add images to FormData
-        form.value.imageData.forEach((image: { url: string; file: File }, index: number) => {
-            formData.append(`imageData[${index}]`, image.file);
-        });
+        const data = {
+            accommodation_amenities: [],
+            accommodation_properties: [],
+            address: "RT Nagar",
+            automotive_color: "",
+            automotive_make_manufacturer: "",
+            automotive_model: "",
+            automotive_year: "",
+            available_from: "",
+            available_from_today: false,
+            bath_rooms: "",
+            bed_rooms: "",
+            benefits: [],
+            breed_species_type: "",
+            business_address: "",
+            business_city: "",
+            business_full_address: "",
+            business_hours: "testing post",
+            business_location: {
+                country: "",
+                city: "",
+                state: "",
+                county: "",
+                zipcode: "",
+                address: "",
+                full_address: "",
+                latitude: "",
+                longitude: "",
+            },
+            business_state: "",
+            business_zipcode: "",
+            category: {
+                id: 1,
+                name: "Services",
+                slug: "services",
+                description: null,
+                price: null,
+                order: 1,
+                image: null,
+            },
+            category_id: 1,
+            city: "Bengaluru",
+            client_recruiter: "",
+            compensation: "",
+            compensation_unit: "Month",
+            condition: "",
+            contact_email: null,
+            contact_phone_number: null,
+            contact_weblink: "",
+            cost: "",
+            cost_unit: "Month",
+            description: "testing post",
+            diff_time: "just now",
+            employement_types: [],
+            enable_chat: false,
+            full_address: null,
+            furnished: "",
+            house_type: "",
+            id: "",
+            images: form.value.imageData,
+            interview_mode: "",
+            isAccepted: true,
+            job_options: [],
+            job_title: "",
+            license: "",
+            location: {
+                address: "RT Nagar",
+                city: "Bengaluru",
+                country: "IN",
+                county: null,
+                full_address: null,
+                latitude: 13.0247291,
+                longitude: 77.5947532,
+                state: "KA",
+                zipcode: "560032"
+            },
+            locations: [],
+            manufacturer: "",
+            model: "",
+            no_reply_to_this_post: false,
+            pet_age: "",
+            pet_characteristics: "",
+            pet_color: "",
+            pet_sex: "",
+            pet_size_weight: "",
+            pets_allowed: "",
+            property_area: "",
+            property_area_unit: "Sq.ft",
+            realtor: "",
+            remote_work_from_home: "",
+            rent_lease_cost: "",
+            rent_lease_item: "",
+            rent_lease_term: "",
+            rent_lease_unit: "for rent",
+            rent_other_utilities: "",
+            rent_other_utilities_unit: "Month",
+            sale_by: "",
+            service_provider: "testing post",
+            services: ["testing post"],
+            smoking_allowed: "",
+            state: "KA",
+            stay_available_for: [],
+            sub_category: {
+                id: 21,
+                name: "Travel/Hosting/Vacation",
+                category_id: 1,
+                order: 0,
+            },
+            sub_category_id: 21,
+            title: "testing post",
+            trainer_institute: "",
+            training_courses: [],
+            training_fee: "",
+            training_modes: [],
+            user: form.value.user,
+            user_id: null,
+            work_authorizations: [],
+            zipcode: "560032",
+        };
 
-        // Add services as an array
-        form.value.services.forEach((service: string, index: number) => {
-            formData.append(`services[${index}]`, service);
-        });
+        const token = getCookie('auth_token');
+        if (!token) {
+            $swal.fire({
+                text: 'Authentication token not found. Please log in.',
+                icon: 'error',
+            });
+            return;
+        }
 
-        const response = await axios.post(`${import.meta.env.VITE_ADS_API_URL}/post/store`, formData);
+        const response = await axios.post(
+            'https://ads-post.flickerpage.com/api/v01/post/store', // Your server URL
+            data,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
         if (response.data.status === "Success") {
             $swal.fire({
                 text: 'Form Submitted Successfully!',
+                icon: 'success',
+            });
+            navigateTo('/');
+        } else {
+            $swal.fire({
+                text: 'Unexpected response from the server.',
+                icon: 'warning',
             });
         }
     } catch (error) {
-        // Handle errors during submission
         console.error("Error submitting form:", error);
         $swal.fire({
             text: 'Submission failed!',
@@ -245,17 +408,18 @@ async function submit() {
     }
 }
 
-
 function prevStep() {
-    if (currentStep.value > 0) {
-        currentStep.value--;
+    try {
+        // Add delay to allow proper component cleanup
+        setTimeout(() => {
+            if (currentStep.value > 0) {
+                currentStep.value--;
+            }
+        }, 100);
+    } catch (error) {
+        console.error('Navigation error:', error);
     }
-
-    console.log(form, ':: form data');
-    console.log(form.value.subcategory, ':: sub category');
-    console.log(form.value.category, ':: category');
 }
-
 </script>
 
 <style scoped>
@@ -290,7 +454,6 @@ function prevStep() {
 
 .step-line {
     position: absolute;
-    width: 80px;
     height: 2px;
     background-color: var(--line-color, gray);
     z-index: 5;

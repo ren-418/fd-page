@@ -1,7 +1,7 @@
 <template>
     <div class="flex w-full">
-        <div class="flex flex-col w-full h-auto items-start px-[100px] gap-5">
-            <div class="flex flex-row w-full h-auto gap-5">
+        <div class="flex flex-col w-full h-auto items-start px-[30px] lg:px-[100px] gap-5">
+            <div class="flex flex-col w-full h-auto gap-5 sm:flex-row">
                 <div class="flex flex-col w-full h-full gap-2">
                     <div class="flex flex-col w-full gap-2 pb-[50px] pt-2">
                         <label class="text-[14px]">

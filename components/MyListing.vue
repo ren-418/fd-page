@@ -1,8 +1,8 @@
 <template>
     <div class="flex flex-col w-full">
-        <div class="relative overflow-x-auto p-5 shadow-md sm:rounded-lg">
-            <div class="flex flex-row justify-between w-full pb-4">
-                <div class="flex flex-row gap-4 items-center justify-center">
+        <div class="w-full p-5 shadow-md sm:rounded-lg">
+            <div class="flex flex-col justify-between w-full gap-3 pb-4 lg:flex-row lg:gap-0 mx-20px">
+                <div class="flex flex-row w-full gap-4 items-center justify-between sm:justify-center">
                     <p>Manage Listing</p>
                     <div class=" bg-white">
                         <label for="table-search" class="sr-only">Search</label>
@@ -16,13 +16,13 @@
                                 </svg>
                             </div>
                             <input type="text" id="table-search"
-                                class="flex text-center p-2 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-white outline-none"
+                                class="flex text-center p-2 text-sm text-gray-900 border border-gray-300 rounded-lg w-25 sm:w-80 bg-white outline-none"
                                 placeholder="Search for items">
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-row gap-7 items-center justify-center">
-                    <div class="flex flex-row gap-4 items-center justify-center">
+                <div class="flex flex-col gap-3 items-center justify-center w-full sm:gap-7 sm:flex-row">
+                    <div class="flex w-full flex-row gap-4 items-center justify-between sm:justify-center">
                         <p>Location</p>
                         <div class=" bg-white">
                             <label for="table-search" class="sr-only">Search</label>
@@ -32,12 +32,12 @@
                                     <Icon name="location" class="w-4 h-4 text-gray-500" />
                                 </div>
                                 <input type="text" id="table-search"
-                                    class="flex text-center p-2 text-sm text-gray-900 border border-gray-300 rounded-lg w-30 bg-white outline-none"
+                                    class="flex text-center p-2 text-sm text-gray-900 border border-gray-300 rounded-lg w-25 bg-white outline-none"
                                     placeholder="Enter City Name">
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-row gap-4 items-center justify-center">
+                    <div class="flex w-full flex-row gap-4 items-center justify-between sm:justify-center">
                         <p>Status</p>
                         <div class=" bg-white">
                             <select
@@ -52,65 +52,83 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-white bg-[#008080]">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Subject
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Category
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Location
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Posted
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Expires
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Status
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="bg-white border-b hover:bg-gray-50">
-                        <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-color-2">
-                            Microsoft Surface Pro
-                        </th>
-                        <td class="px-6 py-4">
-                            White
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop PC
-                        </td>
-                        <td class="px-6 py-4">
-                            $1999
-                        </td>
-                        <td class="px-6 py-4">
-                            $1999
-                        </td>
-                        <td class="px-6 py-4">
-                            $1999
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                <Icon name="trash" class="w-5 h-5" />
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="flex w-full overflow-auto lg:overflow-hidden">
+                <table class="text-sm text-left w-full rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-white bg-[#008080]">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Subject
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Category
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Location
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Posted
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Expires
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Status
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-color-2">
+                                Microsoft Surface Pro
+                            </th>
+                            <td class="px-6 py-4">
+                                White
+                            </td>
+                            <td class="px-6 py-4">
+                                Laptop PC
+                            </td>
+                            <td class="px-6 py-4">
+                                $1999
+                            </td>
+                            <td class="px-6 py-4">
+                                $1999
+                            </td>
+                            <td class="px-6 py-4">
+                                $1999
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                    <Icon name="trash" class="w-5 h-5" />
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="flex w-full justify-end pt-8 text-[12px]">
-                <UPagination v-model="page" :prev-button="{ icon: 'arrow-left', label: 'Prev', color: 'gray' }"
-                    :next-button="{ icon: 'arrow-right', trailing: true, label: 'Next', color: 'gray' }" :total="100" />
+                <nav class="flex items-center gap-x-1" aria-label="Pagination">
+                    <button type="button" class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-1.5 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10" aria-label="Previous">
+                      <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15 18-6-6 6-6"></path>
+                      </svg>
+                      <span>Previous</span>
+                    </button>
+                    <div class="flex items-center gap-x-1">
+                      <button type="button" class="min-h-[38px] min-w-[38px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10" aria-current="page">1</button>
+                      <button type="button" class="min-h-[38px] min-w-[38px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">2</button>
+                      <button type="button" class="min-h-[38px] min-w-[38px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">3</button>
+                    </div>
+                    <button type="button" class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-1.5 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10" aria-label="Next">
+                      <span>Next</span>
+                      <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"></path>
+                      </svg>
+                    </button>
+                  </nav>
             </div>
         </div>
     </div>

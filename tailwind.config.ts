@@ -1,5 +1,7 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+import type { Config } from 'tailwindcss'
+import typography from '@tailwindcss/typography'
+
+export default <Partial<Config>>{
   content: [
     "./app.vue",
     "./components/**/*.{vue,js,ts}",
@@ -23,6 +25,7 @@ export default {
     },
   },
   plugins: [
+    typography(),
     function ({ addComponents }) {
       addComponents({
         '.container': {

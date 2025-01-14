@@ -1,5 +1,5 @@
 <template>
-  <div class="upload-container border-2 border-dashed border-[#008080] rounded-lg p-4 bg-purple-50">
+  <div class="upload-container border-2 border-dashed border-[#008080] rounded-lg p-4 mx-[20px] bg-purple-50">
     <!-- Make this div clickable -->
     <div class="empty-state flex flex-col items-center justify-center text-center py-4 cursor-pointer"
       @click="triggerFileInput">
@@ -40,7 +40,7 @@
           <circle class="back" cx="17" cy="17" r="14"></circle>
           <circle class="front" cx="17" cy="17" r="14"></circle>
         </svg>
-        <div class="text" data-text="Uploading"></div>
+        <div class="text" data-text="Loading"></div>
       </div>
     </div>
   </div>
@@ -61,13 +61,15 @@ const props = defineProps<{
   imageData: Array<any> | null;
 }>();
 
+const { $swal } = useNuxtApp()
+
 const imageData = ref<Array<any> | null>(props.imageData);
 
 const emit = defineEmits<{
   (event: 'imageData', data: { imageData: Array<any> | null }): void;
+  (event: 'updateFormImages', images: Array<any>): void;
 }>();
 
-// Calculate remaining images allowed
 const remainingImages = computed(() => maxImages - (props.imageData?.length ?? 0));
 
 watch([imageData], ([newImageData]) => {
@@ -76,23 +78,34 @@ watch([imageData], ([newImageData]) => {
   });
 });
 
-
 const handleFileChange = async (event: Event) => {
-  // Prevent new uploads if an existing upload is ongoing
-  if (!uploadingImage.value) {
-    const target = event.target as HTMLInputElement;
-    const files = target.files;
+  if (remainingImages.value <= 0) {
+    $swal.fire({
+      text: 'Maximum number of images reached.',
+      icon: 'warning'
+    })
+    return;
+  }
 
-    if (files && images.value.length < maxImages) {
-      Array.from(files).forEach((file) => {
-        const url = URL.createObjectURL(file);
-        images.value.push({ url, file });
-        uploadImage({ url, file });
-      });
-      target.value = '';
-    }
-  } else {
-    alert('Please wait until the current image upload completes.');
+  if (uploadingImage.value) {
+    $swal.fire({
+      text: 'Please wait until the current image upload completes.',
+      icon: 'warning'
+    })
+    return;
+  }
+
+  const target = event.target as HTMLInputElement;
+  const files = target.files;
+
+  if (files) {
+    const filesToUpload = Array.from(files).slice(0, remainingImages.value);
+    filesToUpload.forEach((file) => {
+      const url = URL.createObjectURL(file);
+      images.value.push({ url, file });
+      uploadImage({ url, file });
+    });
+    target.value = '';
   }
 };
 
@@ -136,8 +149,40 @@ const uploadImage = async (image: { url: string; file: File }) => {
   }
 };
 
-const removeImage = (index: number) => {
-  images.value.splice(index, 1);
+const removeImage = async (index: number) => {
+  try {
+    if (!props.imageData || !props.imageData[index]) {
+      throw new Error('No image data available');
+    }
+
+    // Set loading state
+    uploadingImage.value = true;
+    form.value.progress = { percentage: 0 };
+
+    const imageId = props.imageData[index].id;
+
+    const response = await axios.delete(`${import.meta.env.VITE_ADS_API_URL}/post/image/delete/${imageId}`);
+    console.log('Delete response:', response);
+
+    const newImageData = props.imageData.filter((_, i) => i !== index);
+
+    emit('imageData', { imageData: newImageData });
+    emit('updateFormImages', newImageData);
+    $swal.fire({
+      text: 'Deleted image successfully',
+      icon: 'success'
+    });
+
+  } catch (error) {
+    console.error('Error removing image:', error);
+    $swal.fire({
+      text: 'Failed to remove image',
+      icon: 'error'
+    });
+  } finally {
+    uploadingImage.value = false;
+    form.value!.progress = null;
+  }
 };
 </script>
 

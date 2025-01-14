@@ -67,11 +67,11 @@ const route = useRoute();
 
 const tabs = [
     { id: 'profile', name: 'Profile', icon: 'user' },
-    { id: 'listings', name: 'My Listings', icon: 'user' },
-    { id: 'business', name: 'Manage Business', icon: 'user' },
+    { id: 'listings', name: 'My Listings', icon: 'calendar' },
+    { id: 'business', name: 'Manage Business', icon: 'ads-jobs' },
     { id: 'settings', name: 'Settings', icon: 'setting' },
-    { id: 'password', name: 'Password', icon: 'user' },
-    { id: 'privacy', name: 'Privacy & Activity', icon: 'user' },
+    { id: 'password', name: 'Password', icon: 'privacy' },
+    { id: 'privacy', name: 'Privacy & Activity', icon: 'privacy' },
 ]
 const activeTab = ref(route.query.tab?.toString() || 'profile')
 

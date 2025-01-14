@@ -3,11 +3,9 @@
     <div class="container mx-0 lg:mx-auto pt-3 pb-3">
       <div class="flex flex-row justify-between px-2">
         <router-link to="/" class="text-2xl logo ">Logo</router-link>
-        <div @click="toggleDrawer" class="md:hidden">
+        <div v-if="route.path === '/'" @click="toggleDrawer" class="md:hidden">
           <div class="flex gap-1 items-center cursor-pointer" :class="{
-            'text-active':
-              typeof selectedCategory == 'string' &&
-              selectedCategory == 'all',
+            'text-active': typeof selectedCategory == 'string' && selectedCategory == 'all',
           }" @click="selectCategory('all')">
             <Icon name="all_categories" class="w-6" />
             All Categories
@@ -83,8 +81,8 @@
                       </p>
                     </div>
                     <div class="flex w-full gap-1 border-color-1 py-[5px] cursor-pointer justify-center items-center">
-                      <span class="text-[14px] px-4 py-1 border-color-1 border rounded-md" @click.stop="handleLogout">
-                        <Icon name="logout" class="w-6" /> Logout
+                      <span class="flex flex-row gap-2 text-[14px] px-4 py-1 border-color-1 border rounded-md" @click.stop="handleLogout">
+                        <Icon name="careers" class="w-6" /> Logout
                       </span>
                     </div>
                   </div>
@@ -93,36 +91,38 @@
             </template>
           </div>
         </div>
-
-        <transition enter-class="opacity-0" enter-active-class="ease-out transition-medium" enter-to-class="opacity-100"
-          leave-class="opacity-100" leave-active-class="ease-out transition-medium" leave-to-class="opacity-0">
-          <div @keydown.esc="isOpen = false" v-show="isOpen"
-            class="z-[1000] fixed inset-0 transition-opacity top-[57px]">
-            <div @click="isOpen = false" class="absolute inset-0 bg-black opacity-50" tabindex="0"></div>
-          </div>
-        </transition>
-        <aside class="transform top-[57px] right-0 w-35 bg-white fixed h-auto overflow-auto ease-in-out transition-all
+        <template v-if="route.path === '/'">
+          <transition enter-class="opacity-0" enter-active-class="ease-out transition-medium"
+            enter-to-class="opacity-100" leave-class="opacity-100" leave-active-class="ease-out transition-medium"
+            leave-to-class="opacity-0">
+            <div @keydown.esc="isOpen = false" v-show="isOpen"
+              class="z-[1000] fixed inset-0 transition-opacity top-[57px]">
+              <div @click="isOpen = false" class="absolute inset-0 bg-black opacity-50" tabindex="0"></div>
+            </div>
+          </transition>
+          <aside class="transform top-[57px] right-0 w-35 bg-white fixed h-auto overflow-auto ease-in-out transition-all
         duration-300 z-[1001]" :class="isOpen ? 'translate-x-0' : 'translate-x-full'">
 
-          <span @click="isOpen = false" class="flex w-full items-center p-2">
-            <div class="flex flex-col w-full h-full justify-start gap-2 bg-color-2">
-              <div class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b">
-                <Icon name="automotive" class="w-6" />
-                Automotives
+            <span @click="isOpen = false" class="flex w-full items-center p-2">
+              <div class="flex flex-col w-full h-full justify-start gap-2 bg-color-2">
+                <div class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b">
+                  <Icon name="automotive" class="w-6" />
+                  Automotives
+                </div>
+                <div v-for="category in categories" :key="category.id"
+                  class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b" :class="{
+                    'text-active':
+                      typeof selectedCategory == 'object' &&
+                      selectedCategory.id == category.id,
+                  }" @click="selectCategory(category)">
+                  <Icon :name="`ads-${category.slug}`" class="w-6" />
+                  {{ category.name }}
+                </div>
               </div>
-              <div v-for="category in categories" :key="category.id"
-                class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b" :class="{
-                  'text-active':
-                    typeof selectedCategory == 'object' &&
-                    selectedCategory.id == category.id,
-                }" @click="selectCategory(category)">
-                <Icon :name="`ads-${category.slug}`" class="w-6" />
-                {{ category.name }}
-              </div>
-            </div>
-          </span>
+            </span>
 
-        </aside>
+          </aside>
+        </template>
       </div>
     </div>
   </div>
@@ -162,12 +162,12 @@ const userMenuItems = [
   {
     id: '2',
     title: 'My Listings',
-    icon: 'settings',
+    icon: 'calendar',
   },
   {
     id: '3',
     title: 'Manage Business',
-    icon: 'logout',
+    icon: 'ads-jobs',
   },
   {
     id: '4',
@@ -177,12 +177,12 @@ const userMenuItems = [
   {
     id: '3',
     title: 'Password',
-    icon: 'password',
+    icon: 'privacy',
   },
   {
     id: '3',
     title: 'Activity & Privacy',
-    icon: 'logout',
+    icon: 'privacy',
   }
 ];
 

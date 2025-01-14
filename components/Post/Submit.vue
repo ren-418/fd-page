@@ -10,7 +10,7 @@
                             <Icon name="plus" class="w-6 text-color-3" />
                         </p>
                     </div>
-                    <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="5"
+                    <Galleria :value="props.formData.imageData" :responsiveOptions="responsiveOptions" :numVisible="5"
                         containerStyle="max-width: 100%; border:none" :showItemNavigators="true">
                         <template #item="slotProps">
                             <img :src="slotProps.item.src_url" :alt="slotProps.item.disk" class="w-full block h-auto" />
@@ -80,7 +80,7 @@
             </div>
             <div class="flex w-full justify-center items-center">
                 <p>
-                    <input type="checkbox" />
+                    <input type="checkbox" v-model="termsAccepted"/>
                     I have read and accept the
                     <router-link to="#" class="text-[#008080] underline">
                         Terms of use
@@ -94,7 +94,7 @@
     </div>
     <transition name="modal-fade">
         <div v-show="showModal" class="image-modal">
-            <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="5"
+            <Galleria :value="props.formData.imageData" :responsiveOptions="responsiveOptions" :numVisible="5"
                 containerStyle="max-width: 100%; border:none" :showItemNavigators="true">
                 <template #item="slotProps">
                     <img :src="slotProps.item.src_url" :alt="slotProps.item.disk"
@@ -111,12 +111,6 @@
             </button>
         </div>
     </transition>
-    <!-- <transition name="modal-fade">
-        <ReportModal v-show="showReportModal" @close="showReportModal = false" :is-visible="showReportModal" />
-    </transition>
-    <transition name="modal-fade">
-        <ShareLink v-show="showLinkModal" @close="showLinkModal = false" :is-visible="showLinkModal" />
-    </transition> -->
 </template>
 
 <script lang="ts" setup>
@@ -141,29 +135,39 @@ interface SubCategory {
     name: string;
 }
 
-const props = defineProps<{
-    formData: {
-        category: Category | null;
-        subcategory: SubCategory | null | string;
-        title: string;
-        description: string;
-        businessName: string;
-        services: Array<any>;
-        openHours: string;
-        imageData: any;
-        contactEmail: string;
-        contactPhone: string;
-        webLink: string;
-        location: any;
-        user: any;
-    }
-}>();
+const emit = defineEmits(['updatePostData', 'termsAccepted']);
+
+const props = withDefaults(defineProps<{
+    formData?: {
+        category?: Category | null;
+        subcategory?: SubCategory | null | string;
+        title?: string;
+        description?: string;
+        businessName?: string;
+        services?: Array<any>;
+        openHours?: string;
+        imageData?: any[];
+        contactEmail?: string;
+        contactPhone?: string;
+        webLink?: string;
+        location?: any;
+        user?: any;
+    };
+    updateCategory?: (category: Category | null) => void;
+    updateSubCategory?: (subcategory: SubCategory | null) => void;
+}>(), {
+    formData: () => ({}),
+    updateCategory: () => { },
+    updateSubCategory: () => { }
+});
+
+const termsAccepted = ref(false);
 
 const toggleText = () => {
     isExpanded.value = !isExpanded.value;
 };
 
-const images = ref<any[]>(props.formData.imageData);
+// const images = ref<any[]>(props.formData.imageData);
 
 const responsiveOptions = ref([
     {
@@ -189,6 +193,10 @@ const responsiveOptions = ref([
 ]);
 
 const avatar_image = ref<string>('');
+
+watch(termsAccepted, (newValue) => {
+    emit('termsAccepted', newValue);
+});
 
 </script>
 

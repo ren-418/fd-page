@@ -1,10 +1,9 @@
 <template>
     <div class="flex w-full">
         <div class="flex flex-col w-full justify-center items-center gap-10">
-            <!-- Categories Section -->
             <div class="flex flex-col w-full justify-center items-center">
                 <p class="text-lg pb-8">Post in(Required)</p>
-                <div class="flex flex-col w-full px-[100px]">
+                <div class="flex flex-col w-full px-[20px] md:px-[100px]">
                     <div class="flex flex-wrap w-full gap-5">
                         <div v-for="category in categories" :key="category.id"
                             class="flex flex-col justify-center rounded-md items-center border-color-1 px-5 py-3 cursor-pointer border"
@@ -45,12 +44,6 @@ const emit = defineEmits<{
     (e: 'update:subcategory', value: string | null): void;
 }>();
 
-// Reactive state for subcategories
-const subCategories = ref<SubCategory[]>([]);
-
-// Fetching categories from API
-const { categories, categoryLoading } = (await useCategories()) as any;
-
 interface Category {
     id: number;
     name: string;
@@ -61,6 +54,11 @@ interface SubCategory {
     id: number;
     name: string;
 }
+
+const subCategories = ref<SubCategory[]>([]);
+
+const { categories, categoryLoading } = (await useCategories()) as any;
+
 
 const props = defineProps<{
     currentCategory: Category | null;

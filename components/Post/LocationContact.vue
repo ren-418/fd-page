@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col w-full gap-10">
+    <div class="flex flex-col gap-10 mx-[20px]">
         <div class="flex flex-col justify-between gap-10 w-full md:flex-row md:gap-0">
             <div v-if="user_info" class="flex flex-col w-full gap-3 md:w-[45%]">
                 <div class="flex flex-col">
@@ -11,14 +11,8 @@
                         <input type="text" :value="user?.location?.address"
                             class="py-3 px-4 block w-full border-gray-200 bg-white outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                             placeholder="Ex. 123 Main Street" />
-
-                        <!-- <div :class="'required-input-container'">
-                            <gmap-autocomplete :value="user?.location?.address" class="form-control w-100"
-                                :placeholder="'Enter street address (Optional)}'" style="max-width: 100%"
-                                @keypress.enter="$event.preventDefault()"></gmap-autocomplete>
-                        </div> -->
                     </div>
-                    <div class="flex flex-row justify-between gap-5">
+                    <div class="flex flex-col justify-between gap-5 sm:flex-row">
                         <div class="flex w-full flex-col gap-2 sm:w-[45%]">
                             <label class="text-[14px]">Zip Code <span class="text-[#dc3545]">&nbsp;*</span></label>
                             <input type="text" :value="user?.location?.zipcode"
@@ -32,7 +26,7 @@
                                 placeholder="Ex. San Diego" />
                         </div>
                     </div>
-                    <div class="flex flex-row justify-between gap-5">
+                    <div class="flex flex-col justify-between gap-5 sm:flex-row">
                         <div class="flex w-full flex-col gap-2 sm:w-[45%]">
                             <label class="text-[14px]">State<span class="text-[#dc3545]">&nbsp;*</span></label>
                             <input type="text" :value="user?.location?.state"
@@ -108,38 +102,27 @@ const props = defineProps<{
     contactEmail: string | null;
     contactPhone: string | null;
     webLink: string | null;
-    location?: Array<any> | null;
-    user?: Array<any> | null;
+    User?: Array<any> | null;
 }>();
 
 const emit = defineEmits<{
-    (event: 'ContactData', data: { contactEmail: string | null; contactPhone: string | null; webLink: string | null, location: Array<any> | [], user: Array<any> | [] }): void;
+    (event: 'ContactData', data: { contactEmail: string | null; contactPhone: string | null; webLink: string | null, user: Array<any> | [] }): void;
 }>();
 
 const contactEmail = ref<string | null>(props.contactEmail);
 const contactPhone = ref<string | null>(props.contactPhone);
 const webLink = ref<string | null>(props.webLink);
-const Location = ref<Array<any> | null>(user.value?.location ?? null);
-const User = ref<Array<any> | null>(user.value);
+const User = ref<Array<any>>(user.value ? [user.value] : []);
 
 watch(
-    [contactEmail, contactPhone, webLink, Location, User],
-    ([newContactEmail, newContactPhone, newWebLink, newLocation, newUser]) => {
-        if (
-            newContactEmail !== props.contactEmail ||
-            newContactPhone !== props.contactPhone ||
-            newWebLink !== props.webLink ||
-            newLocation !== props.location ||
-            newUser !== props.user
-        ) {
-            emit('ContactData', {
-                contactEmail: newContactEmail,
-                contactPhone: newContactPhone,
-                webLink: newWebLink,
-                location: newLocation ?? [],
-                user: newUser ?? []
-            });
-        }
+    [contactEmail, contactPhone, webLink, user],
+    ([newContactEmail, newContactPhone, newWebLink, newUser]) => {
+        emit('ContactData', {
+            contactEmail: newContactEmail,
+            contactPhone: newContactPhone,
+            webLink: newWebLink,
+            user: newUser,
+        });
     },
     { immediate: true }
 );
