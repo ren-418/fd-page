@@ -49,7 +49,7 @@
                         Next
                     </div>
                     <div v-else @click="termsAccepted ? submit() : showTermsWarning()"
-                        :class="['btn btn-active', termsAccepted ? '' : '']">
+                        :class="['btn btn-active', termsAccepted ? '' : '' ,!!loading && 'btn-loading']">
                         Submit
                     </div>
                 </div>
@@ -130,6 +130,9 @@ const form = ref<{
 });
 
 
+const loading = ref(false);
+
+
 function updateOtherDetails(data: { businessName: string | null; services: string[]; openHours: string | null }) {
     form.value.businessName = data.businessName || "";
     form.value.services = data.services || [];
@@ -142,11 +145,11 @@ function updateFormImages(newImages: Array<any>) {
 }
 
 function imageData(data: { imageData: any }) {
-    // Ensure that data.imageData is an array if multiple images are expected
+    
     if (Array.isArray(data.imageData)) {
         form.value.imageData.push(...data.imageData);
     } else if (typeof data.imageData === 'object' && data.imageData !== null) {
-        // If it's a single image object
+        
         form.value.imageData.push(data.imageData);
     }
     console.log("Updated form.value.imageData:", form.value.imageData);
@@ -244,7 +247,7 @@ const getCookie = (name: any) => {
 
 async function submit() {
     try {
-
+        loading.value = true;
         console.log(form.value.imageData, ': const data');
 
         const data = {
@@ -375,7 +378,7 @@ async function submit() {
             });
             return;
         }
-
+        
         const response = await axios.post(
             'https://ads-post.flickerpage.com/api/v01/post/store', // Your server URL
             data,
@@ -399,12 +402,15 @@ async function submit() {
                 icon: 'warning',
             });
         }
+        loading.value = false;
     } catch (error) {
         console.error("Error submitting form:", error);
         $swal.fire({
             text: 'Submission failed!',
             icon: 'error',
         });
+    } finally {
+        loading.value = false;
     }
 }
 

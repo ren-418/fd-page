@@ -56,13 +56,13 @@
         </div>
         <div class="flex gap-3 flex-col md:flex-row justify-between">
           <button
-            class="flex btn-default rounded-lg items-center gap-3 justify-center bg-active text-white w-full md:w-45"
+            class="flex btn-default rounded-lg items-center gap-3 justify-center bg-active text-white w-full md:w-45" :class="!!loading && 'btn-loading'"
             @click="handleLogin">
             <Icon name="sign-in" />
             Sign In
           </button>
           <NuxtLink to="register"
-            class="flex btn-default bg-none text-color-1 rounded-lg items-center gap-3 justify-center w-full md:w-45">
+            class="flex btn-default bg-non text-color-1 rounded-lg items-center gap-3 justify-center w-full md:w-45">
             <img src="../assets/images/icons/user-plus.svg" width="22" />
             Sign Up
           </NuxtLink>
@@ -85,7 +85,9 @@ const useToken = useCookie('auth_token');
 const setToken = (val: any) => {
   useToken.value = val;
 }
-
+if (useToken.value) {
+  navigateTo('/');
+}
 const config = useRuntimeConfig();
 
 const form = ref({
@@ -93,6 +95,8 @@ const form = ref({
   password: "",
 });
 
+
+const loading = ref(false);
 const { user, setUser } = useUserData();
 
 const handleGoogleLogin = () => {
@@ -142,6 +146,7 @@ const handleLogin = async () => {
 
   try {
     console.log("form.value ::", form.value)
+    loading.value = true;
     const res = await axios.post('login', form.value)
     console.log("res . status", res.data.status)
     if (res.data.status === "Success") {
@@ -152,19 +157,24 @@ const handleLogin = async () => {
         icon: 'success'
       })
       navigateTo('/')
-    } else {
-
-    }
+    } 
+    loading.value = false;
   } catch (err: any) {
 
     console.log("eroror ", err.message)
 
+  } finally {
+    loading.value = false;
   }
 };
+
 </script>
 
 <style lang="scss" scoped>
 .social-btn {
   background-color: #fafafc;
+}
+.bg-non {
+  background: none !important;
 }
 </style>

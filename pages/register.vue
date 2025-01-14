@@ -89,7 +89,7 @@
             </div>
           </div>
           <div class="flex items-center justify-center">
-            <button class="flex btn-default rounded-lg items-center justify-center gap-3 bg-active text-white w-60"
+            <button class="flex btn-default rounded-lg items-center justify-center gap-3 bg-active text-white w-60" :class="!!loading && 'btn-loading'"
               @click="handleSignUp">
               <Icon name="sign-in" />
               Register
@@ -131,6 +131,14 @@ const phone_number = computed(() => {
   return phoneNumberObj.value.number ? `${phoneNumberObj.value.code}${phoneNumberObj.value.number}` : '';
 });
 
+
+const useToken = useCookie('auth_token');
+
+if (useToken.value) {
+  navigateTo('/');
+}
+
+const loading = ref(false);
 
 const runtimeConfig = useRuntimeConfig();
 
@@ -189,6 +197,7 @@ const validateStatus = ref({
   },
 } as any);
 
+
 const handleSignUp = async () => {
 
   const formData = {
@@ -203,8 +212,9 @@ const handleSignUp = async () => {
     username: form.value.username,
     verification_field: isEmailUse ? "email" : "phone_number"
   }
-
+  
   try {
+    loading.value = true;
     const res = await axios.post('register', formData)
     if (res.data.message = 'verify') {
       console.log("res.data register ::;", res.data)
@@ -213,15 +223,19 @@ const handleSignUp = async () => {
         icon: 'success'
       })
       navigateTo('login')
+      
     } else {
       $swal.fire({
         text: 'Registeration failed',
         icon: 'warning'
       })
     }
+    loading.value = false;
 
   } catch (err) {
-
+    loading.value = false;
+  } finally {
+    loading.value = false;
   }
 
 }
