@@ -32,7 +32,7 @@
                 placeholder="Enter registered email address" required maxlength="256" />
             </div>
             <div v-if="!isEmailUse" class="phone-number-input has-info">
-              <PhoneNumber v-model="phoneNumberObj" :required="!isEmailUse"
+              <PhoneNumber v-model="phoneNumberObj" :required="!isEmailUse" @input="handlePhoneNumberInput"
                 :placeholder="'Enter Registered Phone Number'" />
             </div>
             <div class="flex justify-center">
@@ -70,30 +70,69 @@ import Icon from "~/components/Icon.vue";
 import PhoneNumber from "~/components/PhoneNumber.vue";
 const { $swal } = useNuxtApp();
 const isEmailUse = ref(true);
-const email = ref("");
 const phoneNumberObj = ref({
   country_id: 231,
   code: "+1",
   number: "",
 });
 
-const send = () => {
-  if (email.value === "" && !!isEmailUse.value) {
-    $swal.fire({
-      text: 'Please input email',
-      icon: 'warning'
-    })
-    return;
+const field = computed(() => isEmailUse.value ? 'email' : 'phone_number');
+const email = ref('')
+
+const handlePhoneNumberInput = (value: any) => {
+  console.log('Phone number updated:', value);
+  phoneNumberObj.value = value;
+};
+
+const send = async () => {
+
+  if (isEmailUse.value) {
+    console.log('Current email:', email.value);
+    if (!email.value || !email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      $swal.fire({
+        text: 'Please enter a valid email address',
+        icon: 'warning'
+      })
+      return;
+    }
   }
 
-  if (phoneNumberObj.value.number === "" && !isEmailUse.value) {
+  try {
+    const requestBody = {
+      field: field.value,
+      email: email.value,
+      phone_number: !isEmailUse.value ? `${phoneNumberObj.value.code}${phoneNumberObj.value.number}` : '',
+    }
+
+    console.log('Sending request:', requestBody);
+
+    const { data, error } = await useFetch('/api/v01/password/email', {
+      baseURL: 'https://auth.flickerpage.com',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: requestBody
+    });
+
+    if (error.value) {
+      throw error.value;
+    }
+
+    if (data.value) {
+      $swal.fire({
+        text: (data.value as any).status || 'Username has been sent successfully',
+        icon: 'success'
+      });
+    }
+  } catch (error: any) {
     $swal.fire({
-      text: 'Please input your phonr number',
-      icon: 'warning'
-    })
-    return;
+      text: error?.data?.email || 'Failed to send username. Please try again.',
+      icon: 'error'
+    });
   }
 };
+
 </script>
 <style lang="scss" scoped>
 .phone-number-input {

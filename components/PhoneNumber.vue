@@ -48,12 +48,13 @@ const props = defineProps<{
   inputClass?: string | Record<string, unknown>;
   btnClass?: string | Record<string, unknown>;
   required?: boolean;
-  value?: PhoneNumber;
+  modelValue?: PhoneNumber; // Changed from value to modelValue for v-model support
   placeholder?: string;
 }>();
 
 const emit = defineEmits<{
-  (e: "input", phoneNumber: PhoneNumber): void;
+  (e: "update:modelValue", value: PhoneNumber): void; // Changed for v-model support
+  (e: "input", value: PhoneNumber): void;
 }>();
 
 const countryId = ref(231);
@@ -74,22 +75,28 @@ const phoneNumberObj = computed(
   })
 );
 
+// Watch for changes and emit updates
+watch(number, (newValue) => {
+  emit("update:modelValue", phoneNumberObj.value);
+  emit("input", phoneNumberObj.value);
+});
+
+watch(countryId, (newValue) => {
+  emit("update:modelValue", phoneNumberObj.value);
+  emit("input", phoneNumberObj.value);
+});
+
+// Watch for external v-model changes
 watch(
-  () => props.value,
-  (val: any) => {
-    countryId.value = val.country_id;
-    number.value = val.number;
+  () => props.modelValue,
+  (newValue) => {
+    if (newValue) {
+      countryId.value = newValue.country_id;
+      number.value = newValue.number;
+    }
   },
   { deep: true }
 );
-
-watch(number, () => {
-  emit("input", phoneNumberObj.value);
-});
-
-watch(countryId, () => {
-  emit("input", phoneNumberObj.value);
-});
 
 const getFlag = (item: Country) => {
   const authApi = runtimeConfig.public.authApiUrl;
@@ -115,7 +122,7 @@ const closeDropDown = () => {
 interface CustomHTMLElement extends HTMLElement {
   clickOutsideEvent?: (event: Event) => void;
 }
-// Add click-outside directive
+
 const vClickOutside = {
   mounted(el: CustomHTMLElement, binding: any) {
     el.clickOutsideEvent = (event: Event) => {
@@ -131,7 +138,6 @@ const vClickOutside = {
     }
   },
 };
-
 </script>
 
 <style lang="scss" scoped>
