@@ -34,9 +34,9 @@
       <div class="flex flex-col gap-5 w-full overflow-hidden">
         <div class="w-full flex ucarousel-inteface">
           <UCarousel v-slot="{ item, index }" :items="items" :ui="{ item: 'snap-start' }" class="w-full px-5">
-            <router-link to="#" class="router-link-active router-link-exact-active flex flex-col items-center px-2">
+            <router-link to="#" class="router-link-active router-link-exact-active flex flex-col items-center px-2 min-w-[100px]">
               <img :src="item.image" :alt="item.title || 'Item image'" />
-              <p class="text-[13px]">{{ item.title }}</p>
+              <p class="text-[13px] text-center">{{ item.title }}</p>
             </router-link>
           </UCarousel>
         </div>

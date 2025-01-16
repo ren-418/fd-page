@@ -263,13 +263,9 @@ a {
 
 .p-galleria-nav-button {
     background-color: #fff !important;
-    /* Customize button color */
     color: #64748B !important;
-    /* Customize button text/icon color */
     border-radius: 50% !important;
-    /* Make buttons circular */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
-    /* Add shadow */
     width: 40px !important;
     height: 40px !important;
 }
@@ -295,35 +291,40 @@ a {
     display: none !important;
 }
 
-.p-galleria-content{
-    gap: 15px;
-}
+// .p-galleria-thumbnail-items{
+//     display: flex !important;
+//     flex-direction: row !important;
+//     justify-content: center !important; 
+//     gap: 20px !important;
+// }
+
+// .p-galleria-content{
+//     gap: 15px;
+// }
 
 .p-galleria{
     border-color: none !important;
 }
 
-.p-galleria-thumbnail-items{
-    gap: 5px !important;
-    flex-direction: row;
-    justify-content: space-between;
-}
+// .p-galleria-thumbnail-items{
+//     gap: 20px !important;
+// }
 
 .p-galleria-thumbnails-viewport{
-    max-width: 1024px;
+    padding-top: 20px !important;
 }
 
-.p-galleria-thumbnail-item{
-    flex: none !important;
-}
+// .p-galleria-thumbnail-item{
+//     flex: none !important;
+// }
 
-.ucarousel-inteface > div {
-    padding: 0px !important;
-}
+// .ucarousel-inteface > div {
+//     padding: 0px !important;
+// }
 
-.ucarousel-surface > div {
-    gap: 20px !important;
-}
+// .ucarousel-surface > div {
+//     gap: 20px !important;
+// }
 
 @keyframes spinAround {
     0% {

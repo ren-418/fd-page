@@ -2,7 +2,7 @@
     <div class="md:container mx-0 lg:mx-auto pt-5">
         <div class="flex flex-col gap-4 text-base w-full">
             <div class="flex w-full">
-                <NuxtLink to="/">
+                <router-link to="/">
                     <div class="flex flex-row gap-2 justify-center items-center text-color-1">
                         <svg data-v-2b080c29="" data-v-4c867148="" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg" class="text-lg h-5 text-color-1">
@@ -12,7 +12,7 @@
                         </svg>
                         <p class="text-color-2">Back</p>
                     </div>
-                </NuxtLink>
+                </router-link>
             </div>
             <div class="flex flex-col w-full bg-white h-auto rounded-lg gap-5 px-5 mb-[100px]">
                 <p v-if="detail_data" class="text-color-1 text-lg">{{ detail_data.title }}</p>
@@ -25,14 +25,15 @@
                             </p>
                         </div>
                         <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="5"
-                            containerStyle="max-width: 100%; border:none" :showItemNavigators="true">
+                            :circular="true" containerStyle="border:none" :showItemNavigators="true"
+                            :showItemNavigatorsOnHover="true">
                             <template #item="slotProps">
                                 <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt"
-                                    class="w-full block h-auto" />
+                                    style="width: 100%; display: block" />
                             </template>
-                            <template #thumbnail="slotProps" class="gap-3">
+                            <template #thumbnail="slotProps">
                                 <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt"
-                                    class="w-[160px] h-[100px] block rounded-md" />
+                                    style="display: block; height: 100%;" />
                             </template>
                         </Galleria>
                         <div class="flex flex-col w-full gap-2 p-5">
@@ -146,7 +147,7 @@
                 </template>
                 <template #thumbnail="slotProps" class="gap-3">
                     <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt"
-                        class="w-[180px] h-[100px] block rounded-md" />
+                        class="w-[80px] h-[50px] block rounded-md" />
                 </template>
             </Galleria>
             <button @click="showModal = false"
@@ -195,25 +196,13 @@ const toggleText = () => {
 const images = ref<any[]>([]); // Array for Galleria images
 const responsiveOptions = ref([
     {
-        breakpoint: "1200px",
-        numVisible: 3,
+        breakpoint: '1300px',
+        numVisible: 4
     },
     {
-        breakpoint: "1024px",
-        numVisible: 4,
-    },
-    {
-        breakpoint: "840px",
-        numVisible: 3,
-    },
-    {
-        breakpoint: "650px",
-        numVisible: 2,
-    },
-    {
-        breakpoint: "440px",
-        numVisible: 1,
-    },
+        breakpoint: '575px',
+        numVisible: 1
+    }
 ]);
 
 const avatar_image = ref<string>('');

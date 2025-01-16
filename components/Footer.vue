@@ -4,7 +4,7 @@
       <div>
         <!-- Only show this div when route is 'learn' -->
         <div v-if="showOverlay && route.name === 'learn'"
-          class="fixed inset-0 top-[57px] w-screen h-[calc(100vh-57px)] z-[1] overlay" @click="toggleOverlay">
+          class="fixed inset-0 top-[57px] w-screen h-[calc(100vh-120px)] z-[1] overlay" @click="toggleOverlay">
           <Category v-model="currentCategory" @category-changed="handleCategoryChange"
             class="category-block overflow-y-scroll" />
         </div>
@@ -14,7 +14,7 @@
           <p class="text-[24px]">
             {{ currentCategory.title }}
           </p>
-          <div class="flex text-[14px] whitespace-pre-line text-[#64748b]">
+          <div class="flex text-[14px] whitespace-pre-line text-[#64748b] pb-[100px]">
             {{ categoryContent[currentCategory.id] || 'Content not available.' }}
           </div>
         </div>
@@ -64,10 +64,10 @@
           </router-link>
         </div>
         <div class="nav-item">
-          <router-link class="nav-link more flex flex-col justify-center items-center"
-            :class="{ 'text-active': route.name === 'login' }" to="/login">
+          <router-link to="/accounting" class="nav-link flex flex-col justify-center items-center"
+            :class="{ 'text-active': route.name === 'accounting' }">
             <Icon name="user-plus" class="w-6" />
-            <span class="nav-title">Login</span>
+            <span class="nav-title">Account</span>
           </router-link>
         </div>
       </div>
@@ -82,8 +82,8 @@ import Icon from "./Icon.vue";
 
 const router = useRouter();
 const route = useRoute();
-
 const showOverlay = ref(false);
+
 
 const toggleOverlay = () => {
   showOverlay.value = !showOverlay.value;
@@ -280,7 +280,6 @@ const categoryContent: CategoryContentType = {
 watch(
   () => route.name,
   (newRoute, oldRoute) => {
-    // Reset when leaving learn page
     if (oldRoute === 'learn' && newRoute !== 'learn') {
       currentCategory.value = {
         id: '1',

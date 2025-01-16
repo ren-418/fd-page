@@ -3,7 +3,7 @@
     <div class="container mx-0 lg:mx-auto pt-3 pb-3">
       <div class="flex flex-row justify-between px-2">
         <router-link to="/" class="text-2xl logo ">Logo</router-link>
-        <div v-if="route.path === '/'" @click="toggleDrawer" class="md:hidden">
+        <div v-if="route.path === '/'" @click="toggleDrawer" class="md:hidden flex items-center justify-center gap-1">
           <div class="flex gap-1 items-center cursor-pointer" :class="{
             'text-active': typeof selectedCategory == 'string' && selectedCategory == 'all',
           }" @click="selectCategory('all')">
