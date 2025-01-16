@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-10 w-full">
-        <div class="flex flex-col gap-10 bg-white rounded-lg p-4 w-full">
+        <div class="flex flex-col gap-10 bg-transparent rounded-lg p-4 w-full md:bg-white">
             <p class="text-base font-bold border-b-2 border-black pb-2 w-fit">Basic Details</p>
             <div class="flex flex-col gap-3 w-full">
                 <div class="flex flex-col justify-between gap-5 sm:flex-row">

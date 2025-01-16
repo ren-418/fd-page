@@ -4,14 +4,14 @@
             <div class="flex flex-col w-full justify-center items-center">
                 <p class="text-lg pb-8">Post in(Required)</p>
                 <div class="flex flex-col w-full px-[20px] md:px-[100px]">
-                    <div class="flex flex-wrap w-full gap-5">
+                    <div class="flex flex-row overflow-x-auto w-full gap-5">
                         <div v-for="category in categories" :key="category.id"
-                            class="flex flex-col justify-center rounded-md items-center border-color-1 px-5 py-3 cursor-pointer border"
+                            class="flex flex-col justify-center rounded-md items-center border-color-1 px-5 py-3 cursor-pointer border w-auto"
                             :class="{
-                                'btn-active': props.currentCategory?.id === category.id,
+                                'bg-[#008080] text-white': props.currentCategory?.id === category.id,
                             }" @click="toggleCategorySelection(category)">
                             <Icon :name="`ads-${category.slug}`" class="w-6" />
-                            {{ category.name }}
+                            <p class="min-w-[60px] text-center">{{ category.name }}</p>
                         </div>
                     </div>
                 </div>

@@ -38,14 +38,14 @@
         </div>
         <div class="nav-item">
           <span class="nav-link d-flex flex-column justify-content-between post-nav-link">
-            <a href="javascript:;" class="btn-post">
+            <router-link to="/post" class="btn-post">
               <slot>
                 <span class="icon-post">
                   <Icon name="plus" class="text-white w-6" />
                 </span>
                 <Icon name="plus-square" class="post-icon" />
               </slot>
-            </a>
+            </router-link>
             <span class="nav-title mt-1">Add Post</span>
           </span>
         </div>
@@ -56,7 +56,6 @@
             <span class="nav-title">Learn</span>
           </button>
 
-          <!-- If we're not on learn page, show router-link -->
           <router-link v-else to="/learn" class="nav-link flex flex-col justify-center items-center"
             :class="{ 'text-active': route.name === 'learn' }">
             <Icon name="learn" class="w-6" />
@@ -64,11 +63,20 @@
           </router-link>
         </div>
         <div class="nav-item">
-          <router-link to="/accounting" class="nav-link flex flex-col justify-center items-center"
-            :class="{ 'text-active': route.name === 'accounting' }">
-            <Icon name="user-plus" class="w-6" />
-            <span class="nav-title">Account</span>
-          </router-link>
+          <template v-if="user_info">
+            <router-link to="/accounting" class="nav-link flex flex-col justify-center items-center"
+              :class="{ 'text-active': route.name === 'accounting' }">
+              <Icon name="user-plus" class="w-6" />
+              <span class="nav-title">Account</span>
+            </router-link>
+          </template>
+          <template v-else>
+            <router-link to="/login" class="nav-link flex flex-col justify-center items-center"
+              :class="{ 'text-active': route.name === 'login' }">
+              <Icon name="user-plus" class="w-6" />
+              <span class="nav-title">Login</span>
+            </router-link>
+          </template>
         </div>
       </div>
     </div>
@@ -79,11 +87,12 @@
 import { useRouter, useRoute } from "vue-router";
 import Category from "./Category.vue";
 import Icon from "./Icon.vue";
+const { user } = useUserData();
+const user_info = computed(() => user.value)
 
 const router = useRouter();
 const route = useRoute();
 const showOverlay = ref(false);
-
 
 const toggleOverlay = () => {
   showOverlay.value = !showOverlay.value;

@@ -23,7 +23,7 @@
                     <MyListing />
                 </div>
                 <div v-if="activeTab === 'business'">
-                    <div class="flex flex-col gap-4 text-base bg-white rounded-md pt-5 mx-auto">
+                    <div class="flex flex-col gap-4 text-base bg-transparent rounded-md pt-5 mx-auto md:bg-white">
                         <p class="text-lg font-semibold w-full px-[30px] sm:px-[100px]">Your Business Portfolio</p>
                         <div
                             class="flex flex-col justify-center items-center sm:grid sm:grid-cols-2 sm:mx-auto lg:grid-cols-3 gap-10">
