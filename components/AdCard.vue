@@ -8,14 +8,16 @@
       <div v-if="cost !== null" class="cost">${{ card_data.cost }}</div>
     </div>
     <div class="flex flex-col justify-between h-screen p-2 md:p-3">
-      <h3 class="card-title">{{ card_data.title }}</h3>
-      <div class="card-details">
-        <p class="card-location">
-          <Icon name="location" class="w-5" /> {{ card_data.city }}
-        </p>
-        <p class="card-date">
-          <Icon name="calendar" class="w-5" /> {{ formattedDate }}
-        </p>
+      <h3 class="card-title pb-0 md:mb-2">{{ card_data.title }}</h3>
+      <div class="card-details flex-col md:flex md:flex-row md:justify-between">
+        <div class="card-location">
+          <Icon name="location" class="w-3" />
+          <p class="text-[10px]">{{ card_data.city }}</p>
+        </div>
+        <div class="card-date">
+          <Icon name="calendar" class="w-3" />
+          <p class="text-[10px]">{{ formattedDate }}</p>
+        </div>
       </div>
     </div>
   </NuxtLink>
@@ -42,7 +44,7 @@ const card_data = defineProps<{
 }>();
 
 const post_title = computed(() => {
-  
+
   if (!card_data.category) return null;
   if (card_data.category.name === "Jobs")
     return card_data.job_title ? card_data.job_title : "Local Jobs";
@@ -185,7 +187,6 @@ const formattedDate = new Date(card_data.created_at).toLocaleDateString(
 }
 
 .card-title {
-  margin: 0 0 8px;
   font-size: 14px;
   display: -webkit-box;
   -webkit-box-orient: vertical;

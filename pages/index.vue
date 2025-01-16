@@ -51,7 +51,7 @@
           </UCarousel>
         </div>
 
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap pb-[80px]">
           <template v-for="(ad, index) in ads" :key="`ad-${index}`">
             <div class="w-[50%] lg:w-[25%] md:lg:w-[50%]">
               <div class="p-2">
