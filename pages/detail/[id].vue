@@ -14,7 +14,7 @@
                     </div>
                 </router-link>
             </div>
-            <div class="flex flex-col w-full bg-white h-auto rounded-lg gap-5 px-5 mb-[100px]">
+            <div class="flex flex-col w-full bg-transparent h-auto rounded-lg gap-5 px-5 mb-[100px] md:bg-white">
                 <p v-if="detail_data" class="text-color-1 text-lg">{{ detail_data.title }}</p>
                 <div class="flex flex-col w-full gap-10 lg:flex-row">
                     <div class="flex flex-col w-full gap-2 lg:w-[calc(100%-340px)] relative">

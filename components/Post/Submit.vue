@@ -79,8 +79,8 @@
                 </div>
             </div>
             <div class="flex w-full justify-center items-center">
-                <p>
-                    <input type="checkbox" v-model="termsAccepted"/>
+                <p class="">
+                    <input type="checkbox" v-model="termsAccepted" />
                     I have read and accept the
                     <router-link to="#" class="text-[#008080] underline">
                         Terms of use

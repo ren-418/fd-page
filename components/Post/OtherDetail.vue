@@ -20,12 +20,21 @@
                             <input v-model="newService" type="text"
                                 class="py-3 px-4 w-[80%] block outline-none border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                                 placeholder="Enter service" @keyup.enter="addService" />
-                            <div class="flex btn btn-active items-center justify-center text-center cursor-pointer"
+                            <div class="flex btn btn-active items-center justify-center text-center cursor-pointer min-w-[80px]"
                                 @click="addService">
                                 + Add
                             </div>
                         </div>
                     </div>
+
+                    <ul class="flex md:hidden flex-wrap w-full gap-3">
+                        <li v-for="(service, index) in services" :key="index"
+                            class="flex flex-row justify-between items-center py-2 px-2 bg-gray-100 rounded-md border border-color-1 gap-2">
+                            <span>{{ service }}</span>
+                            <Icon name="plus" class="w-5 h-5 transform rotate-45 text-center cursor-pointer"
+                                @click="removeService(service)" />
+                        </li>
+                    </ul>
                 </div>
                 <div class="flex w-full flex-col gap-2">
                     <label class="text-[14px]">
@@ -36,7 +45,7 @@
                         placeholder="Enter open hours"></textarea>
                 </div>
             </div>
-            <ul class="flex flex-wrap w-full gap-3">
+            <ul class="hidden md:flex flex-wrap w-full gap-3">
                 <li v-for="(service, index) in services" :key="index"
                     class="flex flex-row justify-between items-center py-2 px-2 bg-gray-100 rounded-md border border-color-1 gap-2">
                     <span>{{ service }}</span>
