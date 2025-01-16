@@ -56,8 +56,8 @@
         </div>
         <div class="flex gap-3 flex-col md:flex-row justify-between">
           <button
-            class="flex btn-default rounded-lg items-center gap-3 justify-center bg-active text-white w-full md:w-45" :class="!!loading && 'btn-loading'"
-            @click="handleLogin">
+            class="flex btn-default rounded-lg items-center gap-3 justify-center bg-active text-white w-full md:w-45"
+            :class="!!loading && 'btn-loading'" @click="handleLogin">
             <Icon name="sign-in" />
             Sign In
           </button>
@@ -80,7 +80,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 import 'sweetalert2/dist/sweetalert2.css'
 const { $swal } = useNuxtApp()
 
-const useToken = useCookie('auth_token');
+const useToken = useCookie('auth_token', { maxAge: 6000 });
 
 const setToken = (val: any) => {
   useToken.value = val;
@@ -112,9 +112,9 @@ const handleGoogleLogin = () => {
 
   if (!popup) {
     $swal.fire({
-        text: 'Please enable popups for this site to continue.',
-        icon: 'warning'
-      })
+      text: 'Please enable popups for this site to continue.',
+      icon: 'warning'
+    })
     return;
   }
 
@@ -157,7 +157,7 @@ const handleLogin = async () => {
         icon: 'success'
       })
       navigateTo('/')
-    } 
+    }
     loading.value = false;
   } catch (err: any) {
 
@@ -174,6 +174,7 @@ const handleLogin = async () => {
 .social-btn {
   background-color: #fafafc;
 }
+
 .bg-non {
   background: none !important;
 }
