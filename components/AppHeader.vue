@@ -3,7 +3,7 @@
     <div class="container mx-0 lg:mx-auto pt-3 pb-3">
       <div class="flex flex-row justify-between px-2">
         <router-link to="/" class="text-2xl logo ">Logo</router-link>
-        <div v-if="route.path === '/'" @click="toggleDrawer" class="md:hidden flex items-center justify-center gap-1">
+        <div v-if="route.path === '/' && !isPageLoading" @click="toggleDrawer" class="md:hidden">
           <div class="flex gap-1 items-center cursor-pointer" :class="{
             'text-active': typeof selectedCategory == 'string' && selectedCategory == 'all',
           }" @click="selectCategory('all')">
@@ -81,7 +81,8 @@
                       </p>
                     </div>
                     <div class="flex w-full gap-1 border-color-1 py-[5px] cursor-pointer justify-center items-center">
-                      <span class="flex flex-row gap-2 text-[14px] px-4 py-1 border-color-1 border rounded-md" @click.stop="handleLogout">
+                      <span class="flex flex-row gap-2 text-[14px] px-4 py-1 border-color-1 border rounded-md"
+                        @click.stop="handleLogout">
                         <Icon name="careers" class="w-6" /> Logout
                       </span>
                     </div>
@@ -132,15 +133,27 @@
 import { useRoute } from "vue-router";
 import { ref, watch, onMounted, onUnmounted, computed } from "vue";
 import { useUserData } from '~/composables/user';
-
 import Icon from "./Icon.vue";
+import { useLoading } from '@/composables/useLoading';
+
+const { isLoading } = useLoading();
 
 const route = useRoute();
 const router = useRouter();
 const { $swal } = useNuxtApp()
 
+const isPageLoading = ref(true);
+
 const { user } = useUserData();
 const user_info = computed(() => user.value)
+
+watch(isLoading, (newVal) => {
+  if (newVal) {
+    isPageLoading.value = true;
+  } else {
+    isPageLoading.value = false;
+  }
+})
 
 const handleLogout = () => {
   document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
@@ -250,7 +263,6 @@ onUnmounted(() => {
     showLearnMenu.value = false;
   });
 });
-
 const navigateToLearn = async (category: any) => {
   await router.push({
     path: '/learn',
