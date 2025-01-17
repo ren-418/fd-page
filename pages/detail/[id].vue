@@ -18,7 +18,7 @@
                 <p v-if="detail_data" class="text-color-1 text-lg">{{ detail_data.title }}</p>
                 <div class="flex flex-col w-full gap-10 lg:flex-row">
                     <div class="flex flex-col w-full gap-2 lg:w-[calc(100%-340px)] relative">
-                        <div class="flex w-[40px] h-[40px] bg-white absolute top-[20px] right-[20px] rounded-md justify-center items-center text-center cursor-pointer border border-color-1"
+                        <div class="flex w-[40px] h-[40px] bg-white absolute top-[20px] right-[100px] rounded-md justify-center items-center text-center cursor-pointer border border-color-1"
                             style="z-index: 1;" @click="showModal = true">
                             <p>
                                 <Icon name="plus" class="w-6 text-color-3" />

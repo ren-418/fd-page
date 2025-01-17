@@ -4,20 +4,22 @@
             <p v-if="props.formData" class="text-color-1 text-lg">{{ props.formData.title }}</p>
             <div class="flex flex-col w-full gap-10 lg:flex-row">
                 <div class="flex flex-col w-full gap-2 lg:w-[calc(100%-340px)] relative">
-                    <div class="flex w-[40px] h-[40px] bg-white absolute top-[20px] right-[20px] rounded-md justify-center items-center text-center cursor-pointer border border-color-1"
+                    <div class="flex w-[40px] h-[40px] bg-white absolute top-[20px] right-[100px] rounded-md justify-center items-center text-center cursor-pointer border border-color-1"
                         style="z-index: 1;" @click="showModal = true">
                         <p>
                             <Icon name="plus" class="w-6 text-color-3" />
                         </p>
                     </div>
                     <Galleria :value="props.formData.imageData" :responsiveOptions="responsiveOptions" :numVisible="5"
-                        containerStyle="max-width: 100%; border:none" :showItemNavigators="true">
+                        :circular="true" containerStyle="border:none; max-width: 640px; gap-4"
+                        :showItemNavigators="true" :showItemNavigatorsOnHover="true">
                         <template #item="slotProps">
-                            <img :src="slotProps.item.src_url" :alt="slotProps.item.disk" class="w-full block h-auto" />
+                            <img :src="slotProps.item.src_url" :alt="slotProps.item.alt"
+                                style="width: 100%; height: auto; display: block;" />
                         </template>
-                        <template #thumbnail="slotProps" class="gap-3">
-                            <img :src="slotProps.item.thumbnail_url" :alt="slotProps.item.disk"
-                                class="w-[160px] h-[100px] block rounded-md" />
+                        <template #thumbnail="slotProps">
+                            <img :src="slotProps.item.thumbnail_url" :alt="slotProps.item.alt"
+                                style="display: block; height: 100%; min-height: 120px;" />
                         </template>
                     </Galleria>
                     <div class="flex flex-col w-full gap-2 p-5">
@@ -28,14 +30,14 @@
 
                         <div class="flex">
                             <button @click="toggleText" class="text-color-2">
-                                {{ isExpanded ? "(Read Less)" : "(Read More...)" }}
+                                {{ isExpanded ? "(Show Less)" : "(Show More)" }}
                             </button>
                         </div>
 
                     </div>
                 </div>
                 <div class="flex flex-col w-full gap-3 lg:w-[340px]">
-                    <div class="flex flex-row w-full justify-start items-center gap-3 md:gap-11">
+                    <div class="flex flex-row w-full justify-start items-center gap-3">
                         <div class='w-[45px] h-[45px]'>
                             <img v-if="props.formData" :src="props.formData.user?.photo_url" alt="avatar image"
                                 class="rounded-md h-full w-full">
@@ -95,14 +97,15 @@
     <transition name="modal-fade">
         <div v-show="showModal" class="image-modal">
             <Galleria :value="props.formData.imageData" :responsiveOptions="responsiveOptions" :numVisible="5"
-                containerStyle="max-width: 100%; border:none" :showItemNavigators="true">
+                :circular="true" containerStyle="border:none; max-width: 640px;" :showItemNavigators="true"
+                :showItemNavigatorsOnHover="true">
                 <template #item="slotProps">
-                    <img :src="slotProps.item.src_url" :alt="slotProps.item.disk"
-                        class="w-auto block h-[300px] sm:h-[450px] md:h-[600px]" />
+                    <img :src="slotProps.item.src_url" :alt="slotProps.item.alt"
+                        style="width: 100%; height: auto; display: block;" />
                 </template>
-                <template #thumbnail="slotProps" class="gap-3">
-                    <img :src="slotProps.item.thumbnail_url" :alt="slotProps.item.disk"
-                        class="w-[180px] h-[100px] block rounded-md" />
+                <template #thumbnail="slotProps">
+                    <img :src="slotProps.item.thumbnail_url" :alt="slotProps.item.alt"
+                        style="display: block; height: 100%; min-height: 120px;" />
                 </template>
             </Galleria>
             <button @click="showModal = false"
@@ -171,26 +174,15 @@ const toggleText = () => {
 
 const responsiveOptions = ref([
     {
-        breakpoint: "1200px",
-        numVisible: 3,
+        breakpoint: '1300px',
+        numVisible: 4
     },
     {
-        breakpoint: "1024px",
-        numVisible: 4,
-    },
-    {
-        breakpoint: "840px",
-        numVisible: 3,
-    },
-    {
-        breakpoint: "650px",
-        numVisible: 2,
-    },
-    {
-        breakpoint: "440px",
-        numVisible: 1,
-    },
+        breakpoint: '575px',
+        numVisible: 1
+    }
 ]);
+
 
 const avatar_image = ref<string>('');
 

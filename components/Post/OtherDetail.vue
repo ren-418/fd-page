@@ -1,7 +1,7 @@
 <template>
     <div class="flex w-full bg-transparent p-5 md:bg-white px-[30px] lg:px-[140px]">
         <div v-if="category?.name === 'Services'"
-            class="flex flex-col w-full h-auto items-start px-[10px] md:px-[30px] lg:px-[100px] gap-5">
+            class="flex flex-col w-full h-auto items-start gap-5">
             <div class="flex flex-col w-full h-auto gap-5 sm:flex-row">
                 <div class="flex flex-col w-full h-full gap-2">
                     <div class="flex flex-col w-full gap-2 ">
@@ -501,9 +501,9 @@
                             </label>
                             <div class="flex flex-row gap-2 justify-between">
                                 <input v-model="newPlace" type="text"
-                                    class="py-2 px-4 w-[80%] block outline-none border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
+                                    class="py-2 px-4 w-[78%] block outline-none border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                                     placeholder="Ex. Airport - 5 miles" @keyup.enter="addPlace" />
-                                <div class="flex btn btn-active items-center justify-center text-center cursor-pointer min-w-[80px]"
+                                <div class="flex btn btn-active items-center justify-center text-center cursor-pointer min-w-[100px]"
                                     @click="addPlace">
                                     + Add
                                 </div>
@@ -523,9 +523,9 @@
                             </label>
                             <div class="flex flex-row gap-2 justify-between">
                                 <input v-model="newAmenity" type="text"
-                                    class="py-2 px-4 w-[80%] block outline-none border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
+                                    class="py-2 px-4 w-[78%] block outline-none border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                                     placeholder="Ex. Airport - 5 miles" @keyup.enter="addAmenity" />
-                                <div class="flex btn btn-active items-center justify-center text-center cursor-pointer min-w-[80px]"
+                                <div class="flex btn btn-active items-center justify-center text-center cursor-pointer min-w-[100px]"
                                     @click="addAmenity">
                                     + Add
                                 </div>
@@ -596,9 +596,9 @@
                             </label>
                             <div class="flex flex-row gap-2 justify-between">
                                 <input v-model="newPlace" type="text"
-                                    class="py-2 px-4 w-[80%] block outline-none border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
+                                    class="py-2 px-4 w-[78%] block outline-none border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                                     placeholder="Ex. Airport - 5 miles" @keyup.enter="addPlace" />
-                                <div class="flex btn btn-active items-center justify-center text-center cursor-pointer min-w-[80px]"
+                                <div class="flex btn btn-active items-center justify-center text-center cursor-pointer min-w-[100px]"
                                     @click="addPlace">
                                     + Add
                                 </div>
@@ -618,9 +618,9 @@
                             </label>
                             <div class="flex flex-row gap-2 justify-between">
                                 <input v-model="newAmenity" type="text"
-                                    class="py-2 px-4 w-[80%] block outline-none border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
+                                    class="py-2 px-4 w-[78%] block outline-none border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                                     placeholder="Ex. Airport - 5 miles" @keyup.enter="addAmenity" />
-                                <div class="flex btn btn-active items-center justify-center text-center cursor-pointer min-w-[80px]"
+                                <div class="flex btn btn-active items-center justify-center text-center cursor-pointer min-w-[100px]"
                                     @click="addAmenity">
                                     + Add
                                 </div>
@@ -720,7 +720,7 @@
             </div>
         </div>
         <div v-if="category?.name === 'Legal/Lawyers'"
-            class="flex flex-col w-full h-auto items-start px-[10px] md:px-[30px] lg:px-[100px] gap-5">
+            class="flex flex-col w-full h-auto items-start gap-5">
             <div class="flex flex-col w-full gap-4">
                 <div class="flex flex-col w-full gap-4 md:flex-row">
                     <div class="flex flex-col w-full gap-2 ">
@@ -841,7 +841,7 @@
             </ul>
         </div>
         <div v-if="category?.name === 'Skilled Trades'"
-            class="flex flex-col w-full h-auto items-start px-[10px] md:px-[30px] lg:px-[100px] gap-5">
+            class="flex flex-col w-full h-auto items-start px-[10px] gap-5">
             <div class="flex flex-col w-full gap-4">
                 <div class="flex flex-col w-full gap-4 md:flex-row">
                     <div class="flex flex-col w-full gap-2 ">
@@ -906,7 +906,7 @@
             </div>
         </div>
         <div v-if="category?.name === 'Rent/Lease'"
-            class="flex flex-col w-full h-auto items-start px-[10px] md:px-[30px] lg:px-[100px] gap-5">
+            class="flex flex-col w-full h-auto items-start gap-5">
             <div class="flex flex-col w-full gap-4 md:flex-row">
                 <div class="flex flex-col w-full gap-2 ">
                     <label class="text-[14px]">
@@ -952,7 +952,7 @@
             </div>
         </div>
         <div v-if="category?.name === 'Training/Lessons'"
-            class="flex flex-col w-full h-auto items-start px-[10px] md:px-[30px] lg:px-[100px] gap-5">
+            class="flex flex-col w-full h-auto items-start gap-5">
             <div class="flex flex-col w-full gap-4 md:flex-row">
                 <div class="flex flex-col w-full gap-2 ">
                     <label class="text-[14px]">

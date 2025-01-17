@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col gap-10 mx-[20px]">
-        <div class="flex flex-col justify-between gap-10 w-full md:flex-row md:gap-0">
-            <div v-if="user_info" class="flex flex-col w-full gap-3 md:w-[45%]">
+        <div class="flex flex-col justify-center gap-4 w-full md:flex-row">
+            <div v-if="user_info" class="flex flex-col w-full gap-3 md:w-[49%]">
                 <div class="flex flex-col">
                     <p class="text-lg">Choose Post Location</p>
                 </div>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-full gap-3 md:w-[45%]">
+            <div class="flex flex-col w-full gap-3 md:w-[49%]">
                 <div class="flex flex-col">
                     <p class="text-lg">Post Contact Details</p>
                 </div>

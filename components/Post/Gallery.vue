@@ -1,15 +1,8 @@
 <template>
-  <div class="upload-container border-2 border-dashed border-[#008080] rounded-lg p-4 mx-[20px] bg-purple-50">
-    <!-- Make this div clickable -->
-    <div class="empty-state flex flex-col items-center justify-center text-center py-4 cursor-pointer"
-      @click="triggerFileInput">
-      <p class="text-[#008080] text-2xl">⬆</p>
-      <p class="text-gray-500 font-medium">Click here to upload image</p>
-      <p class="text-sm text-gray-400">Max {{ remainingImages }} images allowed</p>
-    </div>
-
+  <div
+    class="upload-container flex flex-wrap border-2 border-dashed border-[#008080] rounded-lg p-4 mx-[20px] bg-purple-50 items-center justify-center gap-4">
     <div v-if="props.imageData && props.imageData.length > 0"
-      class="uploaded-images w-full flex justify-center flex-wrap gap-4 ">
+      class="uploaded-images flex justify-center flex-wrap gap-4 ">
       <div v-for="(image, index) in props.imageData" :key="index"
         class="relative w-24 h-24 bg-gray-200 rounded-md overflow-hidden">
         <img :src="image.src_url" class="w-full h-full object-cover" />
@@ -19,7 +12,12 @@
         </div>
       </div>
     </div>
-
+    <div class="empty-state flex flex-col items-center justify-center text-center py-4 cursor-pointer"
+      @click="triggerFileInput">
+      <p class="text-[#008080] text-2xl">⬆</p>
+      <p class="text-gray-500 font-medium">Click here to upload image</p>
+      <p class="text-sm text-gray-400">Allowed {{ remainingImages }} more images</p>
+    </div>
     <label for="fileInput" class="upload-label mt-4 flex flex-col items-center cursor-pointer">
       <input id="fileInput" type="file" multiple accept="image/*" class="hidden" @change="handleFileChange"
         ref="fileInputRef" />
@@ -195,9 +193,8 @@ const removeImage = async (index: number) => {
 }
 
 .empty-state {
-  border: 2px dashed #008080;
-  border-radius: 12px;
   margin-bottom: 10px;
+  width: fit-content;
 }
 
 .uploaded-images img {
