@@ -332,3 +332,15 @@ a {
         top: calc(50% - (1em / 2));
     }
 }
+
+.ucarousel-inteface > div > div {
+    padding: 0px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    justify-content: space-between !important;
+}
+
+.ucarousel-surface > div {
+    gap: 8px !important;
+}

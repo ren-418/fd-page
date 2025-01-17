@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-10 w-full">
-        <div class="flex flex-col gap-10 bg-transparent rounded-lg p-4 w-full md:bg-white">
+        <div class="flex flex-col gap-6 bg-transparent rounded-lg p-4 w-full md:bg-white">
             <p class="text-base font-bold border-b-2 border-black pb-2 w-fit">Basic Details</p>
             <div class="flex flex-col gap-3 w-full">
                 <div class="flex flex-col justify-between gap-5 sm:flex-row">
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-row w-full gap-10 justify-center items-center">
+        <div class="flex flex-row w-full gap-4 justify-center items-center">
             <div class="flex btn bg-[gray] text-white py-[7px] px-4 rounded-md cursor-pointer">Cancel
             </div>
             <div class="flex btn btn-active" style="padding: 7px 15px;">Update</div>

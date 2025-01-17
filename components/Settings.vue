@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col w-full gap-10">
+    <div class="flex bg-transparent flex-col p-0 w-full gap-10 md:bg-white md:p-5">
         <div class="flex flex-col justify-between gap-10 w-full md:flex-row md:gap-0">
-            <div class="flex flex-col w-full gap-3 md:w-[45%]">
+            <div class="flex flex-col w-full gap-3 md:w-[48%]">
                 <div class="flex flex-col">
                     <p class="text-lg">Set Post default Location</p>
                     <p class="text-sm text-color-2 text-color-3 heading-2">(This location populates automatically unless
@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-full gap-3 md:w-[45%]">
+            <div class="flex flex-col w-full gap-3 md:w-[48%]">
                 <div class="flex flex-col">
                     <p class="text-lg">Set Post default Contact</p>
                     <p class="text-sm text-color-2 text-color-3">(This will be your ad post default contact details

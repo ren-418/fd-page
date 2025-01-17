@@ -49,7 +49,7 @@
                         Next
                     </div>
                     <div v-else @click="termsAccepted ? submit() : showTermsWarning()"
-                        :class="['btn btn-active', termsAccepted ? '' : '' ,!!loading && 'btn-loading']">
+                        :class="['btn btn-active', termsAccepted ? '' : '', !!loading && 'btn-loading']">
                         Submit
                     </div>
                 </div>
@@ -100,7 +100,6 @@ const steps = ref<Step[]>([
     { title: 'Submit', content: markRaw(Submit) }
 ]);
 
-// Form state management
 const form = ref<{
     category: Category | null;
     subcategory: SubCategory | null | string;
@@ -129,9 +128,7 @@ const form = ref<{
     user: []
 });
 
-
 const loading = ref(false);
-
 
 function updateOtherDetails(data: { businessName: string | null; services: string[]; openHours: string | null }) {
     form.value.businessName = data.businessName || "";
@@ -145,11 +142,11 @@ function updateFormImages(newImages: Array<any>) {
 }
 
 function imageData(data: { imageData: any }) {
-    
+
     if (Array.isArray(data.imageData)) {
         form.value.imageData.push(...data.imageData);
     } else if (typeof data.imageData === 'object' && data.imageData !== null) {
-        
+
         form.value.imageData.push(data.imageData);
     }
     console.log("Updated form.value.imageData:", form.value.imageData);
@@ -226,7 +223,7 @@ function nextStep() {
         console.error('Navigation error:', error);
     }
 
-    console.log(form.value, " :: imageData ");
+    console.log(form.value.category?.name, " :: category name ");
 
 }
 
@@ -378,7 +375,7 @@ async function submit() {
             });
             return;
         }
-        
+
         const response = await axios.post(
             'https://ads-post.flickerpage.com/api/v01/post/store', // Your server URL
             data,

@@ -6,8 +6,7 @@
           class="hidden md:flex flex-col justify-start gap-2 bg-color-2 px-3 pr-10 py-3 border-color-1 border h-max w-auto">
           <div class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b" :class="{
             'text-active':
-              typeof selectedCategory == 'string' &&
-              selectedCategory == 'all',
+              selectedCategory === 'all',
           }" @click="selectCategory('all')">
             <Icon name="all_categories" class="w-6" />
             All Categories
@@ -20,8 +19,8 @@
           <div v-for="category in categories" :key="category.id"
             class="flex gap-1 items-center border-color-1 pb-2 cursor-pointer border-b" :class="{
               'text-active':
-                typeof selectedCategory == 'object' &&
-                selectedCategory.id == category.id,
+                typeof selectedCategory === 'object' &&
+                selectedCategory.id === category?.id,
             }" @click="selectCategory(category)">
             <Icon :name="`ads-${category.slug}`" class="w-6" />
             {{ category.name }}
@@ -31,23 +30,25 @@
           <img :src="VerticalAdData.image" alt="" />
         </router-link>
       </div>
-      <div class="flex flex-col gap-5 w-full overflow-hidden">
+      <div class="flex flex-col gap-2 w-full overflow-hidden">
         <div class="w-full flex ucarousel-inteface">
-          <UCarousel v-slot="{ item, index }" :items="items" :ui="{ item: 'snap-start' }" class="w-full px-5">
-            <router-link to="#" class="router-link-active router-link-exact-active flex flex-col items-center px-2 min-w-[100px]">
+          <UCarousel v-slot="{ item, index }" :items="items" :ui="{ item: 'snap-start' }" class="w-full px-2">
+            <router-link to="#"
+              class="router-link-active router-link-exact-active flex flex-col items-center px-2 min-w-[120px]">
               <img :src="item.image" :alt="item.title || 'Item image'" />
-              <p class="text-[13px] text-center">{{ item.title }}</p>
+              <p class="text-[12px] text-center">{{ item.title }}</p>
             </router-link>
           </UCarousel>
         </div>
-       
-        <div class="flex w-full" v-if="selectedCategory === 'automotive'">
+
+        <div class="flex w-full" v-if="selectedCategory !== 'all'">
           <UCarousel v-slot="{ item }" :items="ads_item" :ui="{ item: 'snap-start' }"
-            class="w-full px-5 gap-3 ucarousel-surface">
-            <p class="flex w-auto text-[13px] border-color-1 min-h-[38px] text-center justify-center items-center border rounded-2xl px-4 cursor-pointer"
+            class="w-full px-5 gap-2 ucarousel-surface">
+            <div
+              class="flex whitespace-nowrap text-[13px] border-color-1 min-h-[38px] text-center justify-center items-center border rounded-xl px-4 cursor-pointer"
               :class="{ 'btn-active': selectedItem === item.title }" @click="selectItem(item.title)">
               {{ item.title }}
-            </p>
+            </div>
           </UCarousel>
         </div>
 
@@ -104,7 +105,6 @@ const screenWidth = ref<number | null>(null);
 
 interface AdItem {
   title: string;
-  // add other properties if they exist
 }
 
 const ads_item = [
@@ -137,9 +137,8 @@ const ads_item = [
   },
 ];
 
-const selectedItem = ref(ads_item[0]?.title || '') // Set first item as default
+const selectedItem = ref(ads_item[0]?.title || '')
 
-// Add this method
 const selectItem = (title: string): void => {
   selectedItem.value = title
 }
@@ -262,10 +261,10 @@ const HorizonAdData = [
 const { categories, categoryLoading } = (await useCategories()) as any;
 const { ads, adsLoading } = await useSelectedAds();
 
-const selectedCategory = ref<any>('')
+const selectedCategory = ref<{ id: string; name: string } | string>('all');
 
 const selectCategory = (category: string): void => {
-  selectedCategory.value = category
+  selectedCategory.value = category === 'all' ? 'all' : category;
 }
 
 const { category, setCategory } = useSelectCategory();
@@ -283,7 +282,7 @@ const getBannersForPosition = (index: number): Array<any> => {
   );
 };
 
-const {user} = useUserData();
+const { user } = useUserData();
 
 onMounted(() => {
   console.log("user Data :::", user.value)

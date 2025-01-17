@@ -25,29 +25,27 @@
                             </p>
                         </div>
                         <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="5"
-                            :circular="true" containerStyle="border:none" :showItemNavigators="true"
+                            :circular="true" containerStyle="border:none; max-width: 640px;" :showItemNavigators="true"
                             :showItemNavigatorsOnHover="true">
                             <template #item="slotProps">
                                 <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt"
-                                    style="width: 100%; display: block" />
+                                    style="width: 100%; height: auto; display: block;" />
                             </template>
                             <template #thumbnail="slotProps">
                                 <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt"
-                                    style="display: block; height: 100%;" />
+                                    style="display: block; height: 100%; min-height: 120px;" />
                             </template>
                         </Galleria>
                         <div class="flex flex-col w-full gap-2 p-5">
-                            <!-- Truncated or Full Text -->
                             <p v-if="detail_data" :class="{ 'truncate-text': !isExpanded }"
                                 class="text-color-1 text-sm description">
                                 {{ detail_data.description }}
                             </p>
 
-                            <!-- Toggle Button -->
                             <div class="flex">
-                                <button @click="toggleText" class="text-color-2">
-                                    {{ isExpanded ? "(Read Less)" : "(Read More...)" }}
-                                </button>
+                                <div @click="toggleText" class="text-color-2 cursor-pointer">
+                                    {{ isExpanded ? "(show less)" : "(Show More)" }}
+                                </div>
                             </div>
 
                         </div>

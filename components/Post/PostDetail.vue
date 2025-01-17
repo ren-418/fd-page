@@ -1,5 +1,5 @@
 <template>
-    <div class="flex w-full">
+    <div class="flex w-full bg-transparent py-5 md:bg-white">
         <div class="flex flex-col w-full justify-center items-center gap-10">
             <div class="flex flex-col w-full gap-2 px-[20px] md:px-[100px]">
                 <label class="text-[14px]">
