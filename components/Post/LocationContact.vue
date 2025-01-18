@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-10 mx-[20px]">
+    <div class="flex flex-col gap-10 md:mx-[120px]">
         <div class="flex flex-col justify-center gap-4 w-full md:flex-row">
             <div v-if="user_info" class="flex flex-col w-full gap-3 md:w-[49%]">
                 <div class="flex flex-col">

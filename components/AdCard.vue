@@ -12,11 +12,11 @@
       <div class="card-details flex-col md:flex md:flex-row md:justify-between">
         <div class="card-location">
           <Icon name="location" class="w-3" />
-          <p class="text-[10px]">{{ card_data.city }}</p>
+          <p class="text-[10px] sm:text-[14px]">{{ card_data.city }}</p>
         </div>
         <div class="card-date">
           <Icon name="calendar" class="w-3" />
-          <p class="text-[10px]">{{ formattedDate }}</p>
+          <p class="text-[10px] sm:text-[14px]">{{ formattedDate }}</p>
         </div>
       </div>
     </div>

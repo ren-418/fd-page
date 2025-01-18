@@ -13,13 +13,13 @@
                             placeholder="Enter business or your name" />
                     </div>
 
-                    <div class="flex flex-col w-full gap-2">
+                    <div class="flex flex-col w-full gap-2 pt-3">
                         <label class="text-[14px]">
                             List of Services <span class="text-[#dc3545]">&nbsp;*</span>
                         </label>
                         <div class="flex flex-row gap-2 justify-between">
                             <input v-model="newService" type="text"
-                                class="py-2 px-4 w-[80%] block outline-none border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
+                                class="py-2 px-4 w-[78%] block outline-none border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border border-color-1"
                                 placeholder="Enter service" @keyup.enter="addService" />
                             <div class="flex btn btn-active items-center justify-center text-center cursor-pointer min-w-[80px]"
                                 @click="addService">

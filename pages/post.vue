@@ -1,6 +1,6 @@
 <template>
     <div class="md:container mx-0 lg:mx-auto pt-5 pb-[100px]">
-        <div class="flex flex-col gap-4 w-full">
+        <div class="flex flex-col gap-4 w-full bg-transparent md:bg-white p-5 rounded-md">
             <!-- Step Indicator -->
             <div class="hidden items-center w-full justify-center sm:flex">
                 <div v-for="(step, index) in steps" :key="index" class="relative flex items-center">
