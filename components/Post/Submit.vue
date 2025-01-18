@@ -19,7 +19,7 @@
                         </template>
                         <template #thumbnail="slotProps">
                             <img :src="slotProps.item.thumbnail_url" :alt="slotProps.item.alt"
-                                style="display: block; height: 100%; min-height: 120px;" />
+                                style="display: block; height: 120px;" class="px-4" />
                         </template>
                     </Galleria>
                     <div class="flex flex-col w-full gap-2 p-5">

@@ -33,7 +33,7 @@
                             </template>
                             <template #thumbnail="slotProps">
                                 <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt"
-                                    style="display: block; height: 100%; min-height: 120px;" />
+                                    style="display: block; width: 100%; height: 120px;" class="px-4" />
                             </template>
                         </Galleria>
                         <div class="flex flex-col w-full gap-2 p-5">

@@ -39,7 +39,7 @@ const maxImages = 30;
 const images = ref<{ url: string; file: File }[]>([]);
 const form = ref({ progress: null as { percentage: number } | null });
 const uploadingImage = ref(false);
-const fileInputRef = ref<HTMLInputElement | null>(null); // Ref for the file input
+const fileInputRef = ref<HTMLInputElement | null>(null);
 
 const props = defineProps<{
   imageData: Array<any> | null;
