@@ -31,42 +31,46 @@
           </div>
         </div>
         <div class="flex flex-col gap-3">
-          <div class="flex flex-col gap-2">
-            <div class="flex justify-between">
-              <h3>Username</h3>
-              <NuxtLink to="forgot-username" class="text-color-2">Forgot username?</NuxtLink>
+          <form @submit.prevent="handleLogin" class="flex flex-col gap-3">
+            <div class="flex flex-col gap-2">
+              <div class="flex justify-between">
+                <h3>Username</h3>
+                <NuxtLink to="forgot-username" class="text-color-2">Forgot username?</NuxtLink>
+              </div>
+              <div class="icon-prefix-input text-base">
+                <Icon name="user" />
+                <input v-model="form.username" class="form-control font-normal border w-full p-2" type="text"
+                  name="username" autocomplete="username" placeholder="Enter username" maxlength="128" required />
+              </div>
             </div>
-            <div class="icon-prefix-input text-base">
-              <Icon name="user" />
-              <input v-model="form.username" class="form-control font-normal border w-full p-2" type="text"
-                name="username" autocomplete="username" placeholder="Enter username" maxlength="128" required />
+            <div class="flex flex-col gap-2">
+              <div class="flex justify-between">
+                <h3>Password</h3>
+                <NuxtLink to="forgot-password" class="text-color-2">Forgot password?</NuxtLink>
+              </div>
+              <div class="icon-prefix-input text-base">
+                <Icon name="lock" />
+                <input v-model="form.password" class="form-control font-normal border w-full p-2" type="password"
+                  name="password" autocomplete="current-password" placeholder="Enter password" maxlength="128"
+                  required />
+              </div>
             </div>
-          </div>
-          <div class="flex flex-col gap-2">
-            <div class="flex justify-between">
-              <h3>Password</h3>
-              <NuxtLink to="forgot-password" class="text-color-2">Forgot password?</NuxtLink>
+            <div class="flex gap-3 flex-col md:flex-row justify-between">
+              <button
+                class="flex btn-default rounded-lg items-center gap-3 justify-center bg-active text-white w-full md:w-45"
+                :class="!!loading && 'btn-loading'" type="submit">
+                <Icon name="sign-in" />
+                Sign In
+              </button>
+              <NuxtLink to="register"
+                class="flex btn-default bg-non text-color-1 rounded-lg items-center gap-3 justify-center w-full md:w-45">
+                <img src="../assets/images/icons/user-plus.svg" width="22" />
+                Sign Up
+              </NuxtLink>
             </div>
-            <div class="icon-prefix-input text-base">
-              <Icon name="lock" />
-              <input v-model="form.password" class="form-control font-normal border w-full p-2" type="password"
-                name="password" autocomplete="username" placeholder="Enter password" maxlength="128" required />
-            </div>
-          </div>
+          </form>
         </div>
-        <div class="flex gap-3 flex-col md:flex-row justify-between">
-          <button
-            class="flex btn-default rounded-lg items-center gap-3 justify-center bg-active text-white w-full md:w-45"
-            :class="!!loading && 'btn-loading'" @click="handleLogin">
-            <Icon name="sign-in" />
-            Sign In
-          </button>
-          <NuxtLink to="register"
-            class="flex btn-default bg-non text-color-1 rounded-lg items-center gap-3 justify-center w-full md:w-45">
-            <img src="../assets/images/icons/user-plus.svg" width="22" />
-            Sign Up
-          </NuxtLink>
-        </div>
+
       </div>
     </div>
   </div>
