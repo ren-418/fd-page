@@ -4,7 +4,7 @@
             <div class="flex flex-col w-full justify-center items-center p-0 bg-transparent md:bg-white md:p-5">
                 <p class="text-lg pb-8">Post in(Required)</p>
                 <div class="flex flex-col w-full px-[20px]">
-                    <div class="flex flex-row overflow-x-auto w-full gap-3 sm:flex-wrap sm:overflow-x-hidden">
+                    <div class="flex flex-row overflow-x-auto w-full gap-3 justify-center sm:flex-wrap sm:overflow-x-hidden">
                         <div v-for="category in categories" :key="category.id"
                             class="flex flex-col justify-center rounded-md items-center border-color-1 px-5 py-3 cursor-pointer border w-auto"
                             :class="{
